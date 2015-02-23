@@ -18,7 +18,7 @@ class Home extends CI_Controller {
          $data['modal']= $this->session->flashdata('modal')==1? $this->session->flashdata('modal'):'0';
          $data['btn_rede']=  $this->createButtonLogin();
          
-        // print_r($data); die();
+        // var_dump($data); die();
         if ($this->session->userdata('logged_in')){
             //redirect('minhaestante');
         }
@@ -182,7 +182,7 @@ class Home extends CI_Controller {
              $data[$rede]['link']=$url = $provider->authorize($opt);
         }
         foreach ($data as $key => $value) {
-            echo "<a href=".$value['link'].">".$key."</a><br>";
+        //    echo "<a href=".$value['link'].">".$key."</a><br>";
             //echo "$key<br>".$value['link'];
         }
        return $data;

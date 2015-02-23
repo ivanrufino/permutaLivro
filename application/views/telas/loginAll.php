@@ -72,40 +72,46 @@
 </style>
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-<div class="container">
+<div class="">
 
 
     <div class="omb_login">
         <h3 class="">Entre ou  <a href="#">Cadastre-se</a></h3>
-        <div class="row omb_socialButtons">
-            <div class="col-xs-4 col-sm-2">
-                <a href="<?= $login_url ?>" class="btn btn-lg btn-block btn-facebook">
-                    <i class="fa fa-facebook-official  visible-xs"></i>
+        <div class="row omb_socialButtons ">
+            <div class="col-xs-4 col-sm-3 ">
+                <a href="<?= $btn_rede['Facebook']['link'] ?>" class="btn btn-lg btn-block btn-facebook">
+                    <i class="fa fa-facebook  "></i>
                     <span class="hidden-xs">Facebook</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-sm-2">
-                <a href="<?= $login_url ?>" class="btn btn-lg btn-block btn-google-plus">
-                    <i class="fa fa-google-plus visible-xs"></i>
+            <div class="col-xs-4 col-sm-3">
+                <a href="<?= $btn_rede['Google']['link'] ?>" class="btn btn-lg btn-block btn-google-plus">
+                    <i class="fa fa-google-plus "></i>
                     <span class="hidden-xs">Google+</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-sm-2">
-                <a href="<?= $login_url ?>" class="btn btn-lg btn-block btn-instagram">
-                    <i class="fa fa-instagram visible-xs"></i>
+            <div class="col-xs-4 col-sm-3">
+                <a href="<?= $btn_rede['Instagram']['link'] ?>" class="btn btn-lg btn-block btn-instagram">
+                    <i class="fa fa-instagram "></i>
                     <span class="hidden-xs">Instagram</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-sm-2">
-                <a href="<?= $login_url ?>" class="btn btn-lg btn-block btn-linkedin">
-                    <i class="fa fa-linkedin visible-xs"></i>
+            <div class="col-xs-4 col-sm-3">
+                <a href="<?= $btn_rede['Linkedin']['link'] ?>" class="btn btn-lg btn-block btn-linkedin">
+                    <i class="fa fa-linkedin "></i>
                     <span class="hidden-xs">Linkedin</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-sm-2">
-                <a href="<?= $login_url ?>" class="btn btn-lg btn-block btn-microsoft">
-                    <i class="fa fa-windows visible-xs"></i>
-                    <span class="hidden-xs">Windows Live</span>
+            <div class="col-xs-4 col-sm-3">
+                <a href="<?= $btn_rede['Windowslive']['link'] ?>" class="btn btn-lg btn-block btn-microsoft">
+                    <i class="fa fa-windows "></i>
+                    <span class="hidden-xs">Windows</span>
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-3">
+                <a href="<?= $btn_rede['Github']['link'] ?>" class="btn btn-lg btn-block btn-github">
+                    <i class="fa fa-github "></i>
+                    <span class="hidden-xs">GitHub</span>
                 </a>
             </div>
             <!--    	    <div class="col-xs-4 col-sm-2">
@@ -129,14 +135,14 @@
         </div>
 
         <div class="row  omb_loginOr">
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-6 col-md-12">
                 <hr class="omb_hrOr">
                 <span class="omb_spanOr">or</span>
             </div>
         </div>
 
         <div class="row ">
-            <div class="col-xs-12 col-sm-6">	
+            <div class="col-xs-12 col-sm-6 col-md-12">	
                 <form class="omb_loginForm" action="login/efetuarLogin" autocomplete="off" method="POST">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
