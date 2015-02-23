@@ -18,7 +18,7 @@ class Home extends CI_Controller {
          $data['modal']= $this->session->flashdata('modal')==1? $this->session->flashdata('modal'):'0';
          $data['btn_rede']=  $this->createButtonLogin();
          
-         print_r($data); die();
+        // print_r($data); die();
         if ($this->session->userdata('logged_in')){
             //redirect('minhaestante');
         }
