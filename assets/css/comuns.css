@@ -1,0 +1,42 @@
+
+.receita{
+    min-height: 500px;
+    height: auto;
+    padding: 20px 0 0 10px;
+    -webkit-box-shadow: 5px 5px 18px 0px rgba(50, 50, 50, 0.77);
+    -moz-box-shadow:    5px 5px 18px 0px rgba(50, 50, 50, 0.77);
+    box-shadow:         5px 5px 18px 0px rgba(50, 50, 50, 0.77);
+    padding-bottom: 50px;
+}
+
+.rec_head h1{
+    font-size: 25px;
+}
+.rec_head h2{
+    font-size: 18px;
+}
+.rec_head h3{
+    font-size: 16px;
+}
+.botao{padding-top: 10px}
+.medicamento{
+    font-family: arial;
+    font-weight: normal;
+}
+.medicamentos{
+    border-bottom:   1px solid #ccc;
+    padding-top: 25px;
+}
+.menuReceita{
+    position: fixed;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #ccc;
+    /*width: 100%;*/
+}
+.rec_footer{
+    border-top: 1px solid #ccc;
+    position: absolute;
+    bottom: 0px;
+    
+}

@@ -1,0 +1,24 @@
+@media (max-width: 767px) {}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+     .divDescricao{ width:95% !important;}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+    .divDescricao{ width: 80% !important;}
+   
+}
+
+
+@media (min-width: 1200px) {
+
+    .labelDescricao{ width: 16.3% !important;}
+    .divDescricao{ width: 81.333333% !important;}
+    .labelCnpjEmail{width: 40.333333% !important;}
+    .labelCep{width: 51% !important;}
+    .divCep{width: 49% !important;}
+    .divCidadePai,.divEnderecoPai{width: 44.8% !important;}
+    .labelCidade,labelEndereco{width: 23.8% !important; } 
+}
