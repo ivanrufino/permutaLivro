@@ -11,52 +11,48 @@ class Login extends CI_Controller {
                 //$this->load->helper();
         $this->load->model('usuario_model', 'usuarios'); 
         $this->load->library('twitteroauth');
-		// Loading twitter configuration.
-		$this->config->load('twitter');
-        if ($this->session->userdata('access_token') && $this->session->userdata('access_token_secret')) {
-            // If user already logged in
-            $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'), $this->session->userdata('access_token_secret'));
-        } elseif ($this->session->userdata('request_token') && $this->session->userdata('request_token_secret')) {
-            // If user in process of authentication
-            $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('request_token'), $this->session->userdata('request_token_secret'));
-        } else {
-            // Unknown user
-            $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
-		}
+		
         }
         public function provider($provider) {
+            $rede=$provider;
             $provider = $this->oauth2->provider($provider, $this->getProviderArray($provider));
 
-        if (!$this->input->get('code')) {
-           
-            // By sending no options it'll come back here
-            $url = $provider->authorize();
-            echo "<a href='$url'>Acessar</a>";
-        } else {
-            // Howzit?
+            if (!$this->input->get('code')) {
+                redirect();
+            } else {
             try {
-                $code = $this->input->get('code'); //"AQA56WaiBhIG7fe7btHL9eCCw3-3Y74fldbgN0PtXRMqMCgYDSdjaerXpCgrrXPOQrojKTeM0yG7jM-gJez2tcbO-y4KalCnI6VfwObw-x5sH090twvoKLX7-nS_I2rMtSOIdlYxmLe6nPSJID3CsZvY3oRjN9t-ajlpcVFaVL5odDVFHMy08_3uHnGaJM7j0RR2D1P5zrXifUeceNWQmKBvxJ2_vrKDdJksD0ijQWJdGGWh8GTSz__h3OcNba4mGOJrgkoNGViVk7qq3QZMbU6iLbliMnrnvIEZufAOfPxUjw-LVt-MvBiDtQiH4ejIPjGhkOuu1tF3kVepiSQU_FKn&state=f7f6277dc5d99aa13b688e1c60e50d2f#_=_";
+                $code = $this->input->get('code');
                 $token = $provider->access($code);
-
                 $user = $provider->get_user_info($token);
-
                 // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
                 // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
                 echo "<pre>Tokens: ";
-                var_dump($token);
-
-                echo "\n\nUser Info: ";
-                var_dump($user);
-                echo "<img src='" . $user['image'] . "'>";
+                //var_dump($token);
+               // echo "\n\nUser Info: ";
+               //var_dump($user);
+               
+                $dados['nome']   = $user['name']; 
+                $dados['email']   = $user['email']; //  $this->input->post('email');
+                $dados['senha']  = sha1(strtolower($rede)); //  $this->input->post('senha');
+                $dados['id_rede']   = $user['uid']; 
+                $dados['link_rede']   = array_shift( $user['urls']);
+                $dados['foto_rede']   = $user['image'];
+               // print_r($dados);
+                
+//            
+              // echo strtolower($rede);die();
+               $this->validarDados($dados,  strtolower($rede));
+                
+                
             } catch (OAuth2_Exception $e) {
-                $this->passo('4');
+                
                 show_error('That didnt work: ' . $e);
             }
         }
         }
         public function getProviderArray($rede,$all=false) {
         $dados['Facebook'] = array('id' => '755823537846565', 'secret' => 'bb2ba923ee25e0ce2740803721a14e5f');
-        $dados['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => '3ouxfDwjh_MZtUA1L9mwV6TZ');
+        $dados['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => 'FP3aCzgfsNOp_YgJfP0bcLv4');
         $dados['Instagram']=array('id' => 'b96dc8b4b4eb4964bb522ca88246a1d7','secret' => '4b522ebaad9d47d28d1cdca83185d890');
         $dados['Windowslive'] = array('id' => '0000000048145D2E', 'secret' => 'tNg6gGXoeTNIkGc3JeUWhFhRppuCKVoB');
         $dados['Linkedin'] = array('id' => '78nipe5g2bgn5u', 'secret' => 'NN6BqkpINlUHNnav');
@@ -164,9 +160,9 @@ class Login extends CI_Controller {
         //futuras implementações
     }
     
-    public function verificaLoginFace($dados) {
-       if (!$dados['LOGIN_FACEBOOK']){
-           $msg="<strong>Já existe um registro utilizando este email.</strong><br>Caso seja o seu realize o login com sua senha e vincule a conta do facebook no link configurações de conta";
+    public function verificaLoginRede($dados,$rede) {
+       if ( $dados['NOME_REDE']!= $rede){
+           $msg="<strong>Já existe um registro utilizando este email.</strong><br>Caso seja o seu realize o login com sua senha ou com a rede social utilizada inicialmente.";
            $this->session->set_flashdata('mensagem_erro', $msg);
            redirect('login');
        }
@@ -319,31 +315,23 @@ class Login extends CI_Controller {
                 'email'  => $validar['EMAIL'],
                 'logged_in' => TRUE
                );
-            if (!is_null($rede)){
-                switch ($rede) {
-                    case 'facebook':
-                        $this->verificaLoginFace($validar);
-                        break;
-                    case 'google':
-                        $this->verificaLoginGoogle();
-                        break;
-                    case 'linkedin':
-                        $this->verificaLoginLinkedin();
-                        break;
-
-                    default:
-                        break;
-                }
+            if (!is_null($rede)){                
+                     $this->verificaLoginRede($validar,$rede);
+                    
             }
             $this->session->set_userdata($login);
+            redirect("minhaestante");
        
-
-        redirect("minhaestante");
-       
+        
         }else{
           
             if (!is_null($rede)){
-                switch ($rede) {
+                //print_r($dados);   
+                $dadosNovoUsuario= array_change_key_case($dados,CASE_UPPER) ;
+                  $dadosNovoUsuario['STATUS']='1';
+                  print_r($dadosNovoUsuario);
+                $this->cadastroRede($dadosNovoUsuario,$rede);  
+                /*switch ($rede) {
                     case 'facebook':
                         $dados['LOGIN_FACEBOOK']='1';
                         $dados['STATUS']='1';
@@ -358,17 +346,18 @@ class Login extends CI_Controller {
 
                     default:
                         break;
-                }
+                }*/
             }else{
                 echo "Usuário não cadastrado";
             } 
         }
     }
 
-    public function cadastroFace($dados) {
+    public function cadastroRede($dados,$rede) {
+       
         $idUsuario = $this->usuarios->novoUsuario($dados);
         if($idUsuario){
-            $this->validarDados($dados,'facebook');
+            $this->validarDados($dados,$rede);
                  
         }
     }

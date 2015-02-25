@@ -159,9 +159,10 @@ class Home extends CI_Controller {
             }
         }
     }
+    
     public function getProviderArray($rede,$all=false) {
         $dados['Facebook'] = array('id' => '755823537846565', 'secret' => 'bb2ba923ee25e0ce2740803721a14e5f');
-        $dados['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => '3ouxfDwjh_MZtUA1L9mwV6TZ');
+        $dados['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => 'FP3aCzgfsNOp_YgJfP0bcLv4');
         $dados['Instagram']=array('id' => 'b96dc8b4b4eb4964bb522ca88246a1d7','secret' => '4b522ebaad9d47d28d1cdca83185d890');
         $dados['Windowslive'] = array('id' => '0000000048145D2E', 'secret' => 'tNg6gGXoeTNIkGc3JeUWhFhRppuCKVoB');
         $dados['Linkedin'] = array('id' => '78nipe5g2bgn5u', 'secret' => 'NN6BqkpINlUHNnav');
@@ -176,13 +177,15 @@ class Home extends CI_Controller {
         $data=array();
         foreach ($redes as $rede => $options) {
             //echo $rede;
-            $opt['redirect_uri']= base_url()."login/provider/".$rede;
-           
+            $opt['redirect_uri']= base_url()."login/provider/".$rede.".html";
+//            if ($rede=="Facebook"){
+//                $opt['redirect_uri'].=".html";
+//            }
             $provider = $this->oauth2->provider($rede, $this->getProviderArray($rede));
              $data[$rede]['link']=$url = $provider->authorize($opt);
         }
         foreach ($data as $key => $value) {
-        //    echo "<a href=".$value['link'].">".$key."</a><br>";
+            echo "<a href=".$value['link'].">".$key."</a><br>";
             //echo "$key<br>".$value['link'];
         }
        return $data;

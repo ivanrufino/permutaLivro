@@ -155,16 +155,16 @@ abstract class OAuth2_Provider
 				$params['refresh_token'] = $code;
 			break;
 		}
-
+                
 		$response = null;	
 		$url = $this->url_access_token();
-               
+              
 		switch ($this->method)
 		{
 			case 'GET':
 
 				// Need to switch to Request library, but need to test it on one that works
-				$url .= '?'.http_build_query($params);
+				$url .= '?'.http_build_query($params); 
 				$response = file_get_contents($url);
 
 				parse_str($response, $return);

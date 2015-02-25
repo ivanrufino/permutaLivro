@@ -11,7 +11,7 @@
 
 class OAuth2_Provider_Windowslive extends OAuth2_Provider
 {	
-	protected $scope = array('wl.basic', 'wl.emails','wl.photos');
+	protected $scope = array('wl.basic', 'wl.emails','wl.photos','wl.postal_addresses');
 	
 	/**
 	 * @var  string  the method to use when requesting tokens
@@ -45,14 +45,14 @@ class OAuth2_Provider_Windowslive extends OAuth2_Provider
 		
 		// perform network request
 		$user = json_decode(file_get_contents($url));
-               // print_r($user);die();
+                //print_r($user);//die();
 		// create a response from the request and return it
 		return array(
 			'uid' 		=> $user->id,
 			'name' 		=> $user->name,
 			'nickname' 	=> url_title($user->name, '_', true),
 //			'location' 	=> $user[''], # scope wl.postal_addresses is required
-										  # but won't be implemented by default
+			'email'         =>$user->emails->preferred,							  # but won't be implemented by default
 			'locale' 	=> $user->locale,
 			'urls' 		=> array('Windows Live' => $user->link),
                         'image'         =>"https://apis.live.net/v5.0/".$user->id."/picture",

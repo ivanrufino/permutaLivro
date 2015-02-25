@@ -50,21 +50,30 @@ class OAuth2_Provider_Linkedin extends OAuth2_Provider {
     $url_email = 'https://api.linkedin.com/v1/people/~/email-address?format=json&' . http_build_query(array(
                 'oauth2_access_token' => $token->access_token,
     ));
+   
     $user_email = json_decode(file_get_contents($url_email), true);
-
+     
     $args = array();
     parse_str(parse_url($user['siteStandardProfileRequest']['url'], PHP_URL_QUERY), $args);
     $user_id = $args['id'];
+    $url_imagem = 'https://api.linkedin.com/v1/people/id=2DJJqvcfYX:(id,num-connections,picture-url)?format=json&' . http_build_query(array(
+     //$url_imagem = 'https://api.linkedin.com/v1/people/~:(id,num-connections,picture-url)?format=json&' . http_build_query(array(
+                'oauth2_access_token' => $token->access_token,
+    ));
+     $imagem =    json_decode(file_get_contents($url_imagem),true);
+   
     return array(
-        'id' => $user_id,
+        'uid' => $user_id,
         'first_name' => $user['firstName'],
         'last_name' => $user['lastName'],
         'name' => $user['firstName'] . ' ' . $user['lastName'],
         'description' => $user['headline'],
         'email' => $user_email,
+        'image' => $imagem['pictureUrl'] ,
         'urls' => array(
             'LinkedIn' => $user['siteStandardProfileRequest']['url']
         ),
     );
   }
 }
+/*OBS: no caso do LINKEDIN verficar sem se a imagem de exibição mudou*/

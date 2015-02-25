@@ -15,7 +15,7 @@ class Usuario_Model extends CI_Model {
         }
        // $this->db->where('STATUS', '1');  
         $sql=$this->db->get(); 
-      //  echo $this->db->last_query();die();
+       //echo $this->db->last_query();die();
         if($sql->num_rows > 0){
             return $sql->row_array();
         }else{ 
@@ -98,6 +98,7 @@ class Usuario_Model extends CI_Model {
         }else{
             return null;
         }
+      
     }
     public function ativarUsuario($dados,$id_hash) {
         $this->db->set($dados);

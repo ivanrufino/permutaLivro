@@ -35,12 +35,14 @@ class OAuth2_Provider_Instagram extends OAuth2_Provider
 	{
 		
             $user = $token->user;
-            
+//            print_r($user);
+//            die();
 		return array(
 			'uid' => $user->id,
 			'nickname' => $user->username,
 			'name' => $user->full_name,
 			'image' => $user->profile_picture,
+                        'email' =>$user->id."@instagram.com.br",
 			'urls' => array(
 			  'website' => $user->website,
 			),
