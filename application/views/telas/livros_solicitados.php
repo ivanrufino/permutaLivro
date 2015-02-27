@@ -83,11 +83,11 @@
         {view_lateral}
         <div class="col-md-9" style="background: transparent">
            
-            <div class="col-md-12 livrosBuscados blocos">
-                <fieldset>
+            <div class="col-md-12 livrosBuscados blocos alert alert-info">
+                <fieldset class="">
                     <legend>Encontre mais livros</legend>
                     Use a tela de busca para encontrar mais livros <br>
-                    <a href="{base_url}meus_livros/buscar">ir para "Buscar Livro"</a>
+                    <a href="{base_url}meus_livros/buscar" class="btn btn-info btn-md">ir para "Buscar Livros"</a>
                     
                     <?php 
                         
@@ -122,7 +122,7 @@
                                                <!--<a class="btn btn-success" href="{base_url}pedido/enviarCR/<?= $value['CODIGO']?>">Inserir Código de Rastreio</a>-->  
                                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#inserirCodigo" data-whatever="<?= $value['CODIGO']?>">Inserir Código de Rastreio</button>
                                             <?php }else{ ?>
-                                               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rastrearPedido" data-whatever="<?= $value['CODIGO']?>">Rastrear Pedido</button>
+                                               <button type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#rastrearPedido" data-whatever="<?= $value['CODIGO']?>">Rastrear Pedido</button>
                                             <?php } }?>
                                         </td>
                                     </tr>       
@@ -138,7 +138,7 @@
                             
                         </span>-->
                       <?php  }else{
-                        echo "<div class='col-md-4 mnblocos '   >Nenhuma solicitação de Livros.";
+                        echo "<div class='col-md-12 alert alert-warning '><strong>Atenção</br></strong>Nenhuma solicitação de Livros.</div>";
                      }
                     ?>  
                     </div>

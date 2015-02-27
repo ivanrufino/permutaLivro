@@ -74,7 +74,7 @@
 
 <div class="">
 
-
+    <?= $this->session->flashdata('mensagem_erro'); ?>
     <div class="omb_login">
         <h3 class="">Entre ou  <a href="#">Cadastre-se</a></h3>
         <div class="row omb_socialButtons ">

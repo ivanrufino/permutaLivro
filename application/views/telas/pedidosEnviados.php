@@ -45,11 +45,11 @@
         {view_lateral}
         <div class="col-md-9" style="background: transparent">
            
-            <div class="col-md-12 livrosBuscados blocos">
+            <div class="col-md-12 livrosBuscados blocos alert alert-info">
                 <fieldset>
                     <legend>Encontre mais livros</legend>
                     Use a tela de busca para encontrar mais livros <br>
-                    <a href="{base_url}meus_livros/buscar">ir para "Buscar Livro"</a>
+                    <a href="{base_url}meus_livros/buscar" class="btn btn-info btn-md">ir para "Buscar Livros"</a>
                     
                     <?php 
                         
@@ -75,7 +75,7 @@
                     </div>
                         <!--echo $value['id'];-->
                      <?php } }else{
-                        echo "Não há livros em sua lista de pedidos";
+                        echo "<div class='col-md-12 alert alert-warning '><strong>Atenção</br></strong>Não há livros em sua lista de pedidos.</div>";
                      }
                     ?>
                     

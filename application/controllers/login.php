@@ -65,9 +65,12 @@ class Login extends CI_Controller {
     }
     public function index()  {
          $this->session->set_flashdata('modal', true);
+         
+        $this->session->set_flashdata('mensagem_erro', $this->session->flashdata('mensagem_erro'));
+        //$data['mensagem_erro']= $this->session->flashdata('mensagem_erro');
         redirect('home');
       //  $data['categoria']=$this->usuarios->buscarCategoria();
-        $data['mensagem_erro']= $this->session->flashdata('mensagem_erro');
+       
         $data['mensageFaixa']="Entre com seus dados para entrar no sistema, <br>Caso não seja cadastrado, cadastre-se e aproveite nossos serviços.";
        // $data['lnklogin']=  base_url()."admin";
        // $data['labelLogin']="Acesso Administrador";
@@ -165,7 +168,7 @@ class Login extends CI_Controller {
 //        echo $rede."<br>";
 //        print_r($dados['NOME_REDE']); die();
        if ( $dados['NOME_REDE']!= $rede){
-           $msg="<strong>Já existe um registro utilizando este email.</strong><br>Caso seja o seu realize o login com sua senha ou com a rede social utilizada inicialmente.";
+           $msg="<div class='alert alert-danger'><strong>Já existe um registro utilizando este email.</strong><br>Caso seja o seu realize o login com sua senha ou com a rede social utilizada inicialmente.</div>";
            $this->session->set_flashdata('mensagem_erro', $msg);
            redirect('login');
        }

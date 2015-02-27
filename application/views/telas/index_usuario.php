@@ -139,7 +139,7 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
          }
         echo "<td style='text-align:center;vertical-align: middle;'>";
             foreach ($botoes as $btn) {
-            echo "<a href='".base_url($btn['link']) . '/' . $value['CODIGO']."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
+            echo "<a href='".base_url($btn['link']) . '/' . $value['CODIGO']."' class='detalhe btn bt-xs".$btn['class']."'>".$btn['titulo']." </a>";
             }
         echo "</td>";
         echo"</tr>";
@@ -160,11 +160,11 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
         $slug = url_title($value['TITULO'], '_', TRUE) .$codPedido. "_" . $codlivro . ".html"; 
         echo "<td style='width:100px;text-align:center'><img src='{local}imagens/capa/".$value['FOTO']." ' class=' img-responsive' style='width:60px'> </td>";
         echo "<td style='vertical-align: middle;'>".$value['TITULO']."<br>". $value['AUTOR'];
-        if (isset($value['QUANTIDADE'])){echo "<br><strong class=' alert-info'>".$value['QUANTIDADE']." usuário leram ou estao lendo este livro</strong>";}
+        if (isset($value['QUANTIDADE'])){echo "<br><strong class=' alert-info'>".$value['QUANTIDADE']." usuários leram ou estão lendo este livro</strong>";}
         echo "</td>";
         echo "<td style='text-align:center;vertical-align: middle;'>";
             foreach ($botoes as $btn) {
-            echo "<a href='".base_url($btn['link']) . '/' . $slug ."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
+            echo "<a href='".base_url($btn['link']) . '/' . $slug ."' class='detalhe btn btn-xs ".$btn['class']."'>".$btn['titulo']." </a>";
             }
         echo "</td>";
         echo"</tr>";
