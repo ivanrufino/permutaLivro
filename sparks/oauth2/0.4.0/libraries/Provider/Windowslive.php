@@ -54,7 +54,7 @@ class OAuth2_Provider_Windowslive extends OAuth2_Provider
 //			'location' 	=> $user[''], # scope wl.postal_addresses is required
 			'email'         =>$user->emails->preferred,							  # but won't be implemented by default
 			'locale' 	=> $user->locale,
-			'urls' 		=> array('Windows Live' => $user->link),
+			'urls' 		=> array('Windows Live' => $user->link."cid=".$user->id),
                         'image'         =>"https://apis.live.net/v5.0/".$user->id."/picture",
 		);
 	}

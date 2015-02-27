@@ -61,7 +61,7 @@
     .omb_login .omb_loginForm  .help-block {
         color: red;
     }
-
+    .omb_socialButtons>div{ margin-bottom: 5px}
 
     @media (min-width: 768px) {
         .omb_login .omb_forgotPwd {
@@ -79,37 +79,37 @@
         <h3 class="">Entre ou  <a href="#">Cadastre-se</a></h3>
         <div class="row omb_socialButtons ">
             <div class="col-xs-4 col-sm-3 ">
-                <a href="<?= $btn_rede['Facebook']['link'] ?>" class="btn btn-lg btn-block btn-facebook">
+                <a href="<?= $btn_rede['Facebook']['link'] ?>" class="btn btn-md btn-block btn-facebook">
                     <i class="fa fa-facebook  "></i>
                     <span class="hidden-xs">Facebook</span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a href="<?= $btn_rede['Google']['link'] ?>" class="btn btn-lg btn-block btn-google-plus">
+                <a href="<?= $btn_rede['Google']['link'] ?>" class="btn btn-md btn-block btn-google-plus">
                     <i class="fa fa-google-plus "></i>
                     <span class="hidden-xs">Google+</span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a href="<?= $btn_rede['Instagram']['link'] ?>" class="btn btn-lg btn-block btn-instagram">
+                <a href="<?= $btn_rede['Instagram']['link'] ?>" class="btn btn-md btn-block btn-instagram">
                     <i class="fa fa-instagram "></i>
                     <span class="hidden-xs">Instagram</span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a href="<?= $btn_rede['Linkedin']['link'] ?>" class="btn btn-lg btn-block btn-linkedin">
+                <a href="<?= $btn_rede['Linkedin']['link'] ?>" class="btn btn-md btn-block btn-linkedin">
                     <i class="fa fa-linkedin "></i>
                     <span class="hidden-xs">Linkedin</span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a href="<?= $btn_rede['Windowslive']['link'] ?>" class="btn btn-lg btn-block btn-microsoft">
+                <a href="<?= $btn_rede['Windowslive']['link'] ?>" class="btn btn-md btn-block btn-microsoft">
                     <i class="fa fa-windows "></i>
                     <span class="hidden-xs">Windows</span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a href="<?= $btn_rede['Github']['link'] ?>" class="btn btn-lg btn-block btn-github">
+                <a href="<?= $btn_rede['Github']['link'] ?>" class="btn btn-md btn-block btn-github">
                     <i class="fa fa-github "></i>
                     <span class="hidden-xs">GitHub</span>
                 </a>
@@ -135,14 +135,14 @@
         </div>
 
         <div class="row  omb_loginOr">
-            <div class="col-xs-12 col-sm-6 col-md-12">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <hr class="omb_hrOr">
                 <span class="omb_spanOr">or</span>
             </div>
         </div>
 
         <div class="row ">
-            <div class="col-xs-12 col-sm-6 col-md-12">	
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">	
                 <form class="omb_loginForm" action="login/efetuarLogin" autocomplete="off" method="POST">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -155,8 +155,8 @@
                         <input  type="password" class="form-control" name="senha" placeholder="Password">
                     </div>
 <!--<span class="help-block">Password error</span>-->
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    <br>
+                    <button class="btn btn-md btn-primary " type="submit">Entrar</button>
                 </form>
             </div>
         </div>

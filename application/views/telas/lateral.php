@@ -39,9 +39,9 @@
         <div class="col-sm-3 col-md-3" style="background: transparent;border: 1px dashed #0099ff">
           <div class="panel-group" id="accordion">
               <div id="box-img" style="text-align:center">
-                  <?php if ($usuario['LOGIN_FACEBOOK']){ ?>
-                  <a href="<?=$usuario['LINK_FACEBOOK']?>">
-                      <img class="img-thumbnail" data-src="holder.js/140x140" alt="" src="https://graph.facebook.com/<?=$usuario['ID_FACEBOOK']?>/picture?type=large" style="width: 140px; height: 140px;"><br>
+                  <?php if ($usuario['ID_REDE']){ ?>
+                  <a href="<?=$usuario['LINK_REDE']?>">
+                      <img class="img-thumbnail" data-src="holder.js/140x140" alt="" src="<?=$usuario['FOTO_REDE']?>" style="width: 140px; height: 140px;"><br>
                     <label><?=$usuario['NOME']?></label>
                     </a>
                   <?php }else{ ?>

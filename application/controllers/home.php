@@ -184,10 +184,10 @@ class Home extends CI_Controller {
             $provider = $this->oauth2->provider($rede, $this->getProviderArray($rede));
              $data[$rede]['link']=$url = $provider->authorize($opt);
         }
-        foreach ($data as $key => $value) {
-            echo "<a href=".$value['link'].">".$key."</a><br>";
-            //echo "$key<br>".$value['link'];
-        }
+//        foreach ($data as $key => $value) {
+//            echo "<a href=".$value['link'].">".$key."</a><br>";
+//           
+//        }
        return $data;
         
     }

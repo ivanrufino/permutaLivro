@@ -26,7 +26,7 @@ class Login extends CI_Controller {
                 $user = $provider->get_user_info($token);
                 // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
                 // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
-                echo "<pre>Tokens: ";
+               // echo "<pre>Tokens: ";
                 //var_dump($token);
                // echo "\n\nUser Info: ";
                //var_dump($user);
@@ -37,6 +37,7 @@ class Login extends CI_Controller {
                 $dados['id_rede']   = $user['uid']; 
                 $dados['link_rede']   = array_shift( $user['urls']);
                 $dados['foto_rede']   = $user['image'];
+                $dados['nome_rede']   = strtolower($rede);
                // print_r($dados);
                 
 //            
@@ -161,6 +162,8 @@ class Login extends CI_Controller {
     }
     
     public function verificaLoginRede($dados,$rede) {
+//        echo $rede."<br>";
+//        print_r($dados['NOME_REDE']); die();
        if ( $dados['NOME_REDE']!= $rede){
            $msg="<strong>Já existe um registro utilizando este email.</strong><br>Caso seja o seu realize o login com sua senha ou com a rede social utilizada inicialmente.";
            $this->session->set_flashdata('mensagem_erro', $msg);
@@ -306,8 +309,9 @@ class Login extends CI_Controller {
 
     public function validarDados($dados,$rede=NULL) {
         $validar=$this->usuarios->logar($dados,$rede);
-        //print_r($validar);die();
-        if ($validar != false){
+       // print_r($dados);die();
+       // print_r($validar);die();
+       if ($validar != false){
             $this->verificaStatus($validar['STATUS']);
             $login = array(
                 'cod_usuario'=> $validar['CODIGO'],
@@ -320,16 +324,15 @@ class Login extends CI_Controller {
                     
             }
             $this->session->set_userdata($login);
+            
             redirect("minhaestante");
        
         
-        }else{
-          
+        }else{          
             if (!is_null($rede)){
-                //print_r($dados);   
                 $dadosNovoUsuario= array_change_key_case($dados,CASE_UPPER) ;
                   $dadosNovoUsuario['STATUS']='1';
-                  print_r($dadosNovoUsuario);
+                  //print_r($dadosNovoUsuario);die();
                 $this->cadastroRede($dadosNovoUsuario,$rede);  
                 /*switch ($rede) {
                     case 'facebook':
@@ -353,10 +356,10 @@ class Login extends CI_Controller {
         }
     }
 
-    public function cadastroRede($dados,$rede) {
-       
+    public function cadastroRede($dados,$rede) {       
         $idUsuario = $this->usuarios->novoUsuario($dados);
         if($idUsuario){
+          $dados=  array_change_key_case($dados,CASE_LOWER);
             $this->validarDados($dados,$rede);
                  
         }
