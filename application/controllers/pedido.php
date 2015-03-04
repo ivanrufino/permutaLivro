@@ -418,20 +418,19 @@ class Pedido extends CI_Controller {
         }
         
     }
-   public function alterarQualificacao($qualificacao, $cod_usuario) {/*inserido*/
-     
-       $dados= $this->usuarios->getUsuario($cod_usuario);
-       $quali= json_decode($dados['TITULO_QUALIFICACAO'],true);       
-       $quali[$qualificacao]++;
-       $dadosUsuario['TITULO']=  json_encode($quali);
-        $dadosUsuario['QUANTIDADE']=  $dados['TOTAL']+1;
-        //$this->usuarios->alterarUsuario($cod_usuario,$dadosUsuario);
-             $this->db->where('COD_USUARIO', $cod_usuario);
-            $this->db->update('qualificacao', $dadosUsuario); 
-              //  echo $this->db->last_query();
-       // "Passar metodo para a model";
-      
+    public function alterarQualificacao($qualificacao, $cod_usuario) {/* inserido */
+        $dados = $this->usuarios->getUsuario($cod_usuario);
+        $quali = unserialize($dados['TITULO_QUALIFICACAO']);
+        $quali[$qualificacao] ++;
+
+        $dadosUsuario['TITULO'] = serialize($quali);
+        $dadosUsuario['QUANTIDADE'] = $dados['TOTAL'] + 1;
+        $this->db->where('COD_USUARIO', $cod_usuario);
+        $this->db->update('qualificacao', $dadosUsuario);
+        //  echo $this->db->last_query();
+        // "Passar metodo para a model";
     }
+
     public function teste() {
         $parametros['usuario_para']="Ivan Solicitante";
         $parametros['livro']="Dom casmurro";

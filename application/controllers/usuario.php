@@ -43,7 +43,8 @@ class Usuario extends CI_Controller {
        
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);
         $data += $this->dadoslateral->verificaRecados($this->usuario);
-        
+        $data['usuario']['porcentagem']= $this->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+        //print_r($data['usuario']);die();
         
        /* print_r($data['queroLivros']);
         echo "<hr>";
@@ -565,6 +566,43 @@ class Usuario extends CI_Controller {
         echo "</pre>";
     }
 
+    public function calculaPontuacao($pontuacao) {
+        $Votantes=0;$porcentagem=0;$pontuacaoVoto=0;
+       
+        $quali = unserialize($pontuacao);
+        foreach ($quali as $key => $q) {
+            $pontuacaoVoto += $key * $q;
+            if ($q > 0) {
+                $Votantes += $q;
+            }
+        }
+        if ($Votantes != 0) {
+            $porcentagem = ((100 * $pontuacaoVoto) / ($Votantes * 5));
+        }
+            //$porcentagem=6;
+            //$porcentagem = $porcentagem/20;
+            //echo $pontuacaoVoto. " de " .$Votantes*5 ."<br>";
+
+
+        return $porcentagem;
+    }
+    public function somarPontuacao($estrela) {
+        echo $this->usuario;
+        $dados = $this->usuarios->getUsuario($this->usuario);       // print_r($data);die();
+         $quali= unserialize($dados['TITULO_QUALIFICACAO']);       
+            $quali[$estrela]++;
+            echo "<pre>";
+            print_r($quali);
+           echo "</pre><br>";
+           $dadosUsuario['TITULO']=  serialize($quali);
+        $dadosUsuario['QUANTIDADE']=  $dados['TOTAL']+1;
+         $this->db->where('COD_USUARIO', $this->usuario);
+            $this->db->update('qualificacao',$dadosUsuario);
+            echo $this->db->last_query()."<br>";
+          echo serialize($quali)."<br>";
+        echo $estrela;
+        
+    }
     /*
      * public function login() {
         $mensagemTemp=$this->session->flashdata('mensagem');

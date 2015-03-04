@@ -52,7 +52,7 @@
                    <?php } ?>
               </div>
                 <!--<img src="{local}imagens/foto/<?= $usuario['FOTO'] ?>" class="img-responsive img-rounded img-circle" style="width: 60%; margin: 0 auto;margin-top: -80px;background-color: #fff;">-->
-                <?php $ret= calculaPontuacao($usuario['TITULO_QUALIFICACAO']) ?>
+                <?php $ret= $usuario['porcentagem'] ?>
                 <input id="input-quali"  type="number" step="1" data-min="0" data-max="5" data-size="xs" data-show-clear="false"  data-readonly="true" data-default-caption="<?php echo round($ret,1) ?> %" value=<?php echo round($ret/20) ?>>
                 Saldo: <?= $usuario['SALDO'] ?><br>
                 <a href="login/efetuarLogout">Sair</a>
@@ -173,32 +173,3 @@
           </div>
             <!--<div id="cb_div" align="center"><iframe id="cb_iframe" width="180" height="200" frameborder="0" allowtransparency="allowtransparency" scrolling="no" src="http://www.calendario.com.br/calendario_peq/calendario_peq.php"></iframe>  <br /><div id="cb_urllink"></div></div>-->
         </div>
-       
-<?php
-
-function calculaPontuacao($json) {
-    $Votantes=0;$porcentagem=0;$pontuacaoVoto=0;
-//$json='{"1":0,"2":0,"3":0,"4":0,"5":0} ';
-   
- $quali =  json_decode($json,true);
- 
-foreach($quali as $key=>$q){
-	$pontuacaoVoto += $key*$q;
-	if ($q>0){
-		$Votantes += $q;
-	}
-	
-}
-if($Votantes!=0){
-    $porcentagem = ((100*$pontuacaoVoto)/($Votantes*5));
-    
-}
-//$porcentagem=6;
-//$porcentagem = $porcentagem/20;
-//echo $pontuacaoVoto. " de " .$Votantes*5 ."<br>";
-
-
-return $porcentagem;
-}
-
-?>   
