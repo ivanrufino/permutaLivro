@@ -586,23 +586,32 @@ class Usuario extends CI_Controller {
 
         return $porcentagem;
     }
-    public function somarPontuacao($estrela) {
-        echo $this->usuario;
-        $dados = $this->usuarios->getUsuario($this->usuario);       // print_r($data);die();
-         $quali= unserialize($dados['TITULO_QUALIFICACAO']);       
-            $quali[$estrela]++;
-            echo "<pre>";
-            print_r($quali);
-           echo "</pre><br>";
-           $dadosUsuario['TITULO']=  serialize($quali);
-        $dadosUsuario['QUANTIDADE']=  $dados['TOTAL']+1;
-         $this->db->where('COD_USUARIO', $this->usuario);
-            $this->db->update('qualificacao',$dadosUsuario);
-            echo $this->db->last_query()."<br>";
-          echo serialize($quali)."<br>";
-        echo $estrela;
-        
+    public function historico($id = NULL) {
+        $dados = $this->usuarios->getUsuario($this->usuario);
+        print_r($dados);
+        $historico = unserialize($dados['historico']);
+
+        if (!is_null($id)) {
+            //$busca=array('data'=>'2015-02-01','id'=>$id);
+            if (array_key_exists($id, $historico)) {
+                //  echo Date('Y-m-d');
+                unset($historico[$id]);
+                // echo "encontrado";
+            }
+            $historico += array($id => Date('Y-m-d'));
+        }
+        arsort($historico);
+        echo count($historico);
+        if (count($historico) > 10) {
+            array_pop($historico);
+        }
+
+        echo "<pre>";
+        print_r($historico);
+        echo "</pre>";
+        echo serialize($historico);
     }
+
     /*
      * public function login() {
         $mensagemTemp=$this->session->flashdata('mensagem');

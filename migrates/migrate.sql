@@ -1047,3 +1047,31 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` EVENT `deleteRemovidos` ON SCHEDULE EVERY 1 DAY STARTS '2015-02-03 23:59:59' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `pedido` WHERE STATUS=3$$
 
 DELIMITER ;
+
+
+--
+-- Estrutura da tabela `ultimasPesquisaUsuario`
+--
+
+CREATE TABLE IF NOT EXISTS `ultimasPesquisaUsuario` (
+  `COD_USUARIO` int(11) NOT NULL,
+  `PESQUISA` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `COD_USUARIO` (`COD_USUARIO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Restrições para as tabelas dumpadas
+--
+
+--
+-- Restrições para a tabela `ultimasPesquisaUsuario`
+--
+ALTER TABLE `ultimasPesquisaUsuario`
+  ADD CONSTRAINT `ultimasPesquisaUsuario_ibfk_1` FOREIGN KEY (`COD_USUARIO`) REFERENCES `usuario` (`CODIGO`) ON DELETE CASCADE;
+
+select `usu`.`CODIGO` AS `CODIGO`,`usu`.`NOME` AS `NOME`,`usu`.`EMAIL` AS `EMAIL`,`usu`.`ID_REDE` AS `ID_REDE`,`usu`.`LINK_REDE` AS `LINK_REDE`,`usu`.`SENHA` AS `SENHA`,`usu`.`NOME_REDE` AS `NOME_REDE`,`usu`.`DATA_CADASTRO` AS `DATA_CADASTRO`,`usu`.`COD_ENDERECO` AS `COD_ENDERECO`,`usu`.`FOTO_REDE` AS `FOTO_REDE`,`usu`.`STATUS` AS `STATUS`,`usu`.`FOTO` AS `FOTO`,`sal`.`VALOR` AS `SALDO`,`quali`.`TITULO` AS `TITULO_QUALIFICACAO`,`quali`.`QUANTIDADE` AS `TOTAL`,`end`.`CEP` AS `CEP`,`end`.`ENDERECO` AS `ENDERECO`,`end`.`NUMERO` AS `NUMERO`,`end`.`BAIRRO` AS `BAIRRO`,`end`.`ESTADO` AS `ESTADO`,`end`.`CIDADE` AS `CIDADE`,UPU.HISTORICO AS HISTORICO from 
+((((`usuario` `usu` join `saldo` `sal` on((`sal`.`COD_USUARIO` = `usu`.`CODIGO`))) 
+join `qualificacao` `quali` on((`quali`.`COD_USUARIO` = `usu`.`CODIGO`))) 
+left join `ultimasPesquisaUsuario` `UPU` on((`UPU`.`COD_USUARIO` = `usu`.`CODIGO`))) 
+left join `endereco` `end` on((`end`.`COD_USUARIO` = `usu`.`CODIGO`))) 
+order by `usu`.`CODIGO` desc

@@ -193,30 +193,14 @@ class Livro extends CI_Controller {
     public function detalhes($url) {
         $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+         $data['usuario']['porcentagem']= $this->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $codigo = end(explode("_", $url));
        // echo $codigo;
         $data['livros'] = $this->livro->getLivrobyCodigo($codigo);
         
         //var_dump($tenho);die();
         $meusLivros = $this->ev->getLivros($this->usuario);
-        $data['numQuantNaoLi'] = '0';
-        $data['numQuantLi'] = '0';
-        $data['numQuantLendo'] = '0';
-
-        foreach ($meusLivros as $value) {
-            switch ($value['STATUS']) {
-                case '0':
-                    $data['numQuantNaoLi'] ++;
-                    break;
-                case '1':
-                    $data['numQuantLi'] ++;
-                    break;
-                case '2':
-                    $data['numQuantLendo'] ++;
-                    break;
-            }
-        }
-        $data['numQuantTenho'] = $data['numQuantNaoLi'] + $data['numQuantLi'] + $data['numQuantLendo'];
+        $data += $this->dadoslateral->quantidadesLivros($this->usuario);
         $data['mensageFaixa'] = "";
         
         $tela = array(
@@ -377,6 +361,26 @@ class Livro extends CI_Controller {
        redirect("livro/index");
        // echo $tipo."-".urldecode( $pesquisa);
         //array('campo_autor'=>'ivan')
+    }
+      public function calculaPontuacao($pontuacao) {
+        $Votantes=0;$porcentagem=0;$pontuacaoVoto=0;
+       
+        $quali = unserialize($pontuacao);
+        foreach ($quali as $key => $q) {
+            $pontuacaoVoto += $key * $q;
+            if ($q > 0) {
+                $Votantes += $q;
+            }
+        }
+        if ($Votantes != 0) {
+            $porcentagem = ((100 * $pontuacaoVoto) / ($Votantes * 5));
+        }
+            //$porcentagem=6;
+            //$porcentagem = $porcentagem/20;
+            //echo $pontuacaoVoto. " de " .$Votantes*5 ."<br>";
+
+
+        return $porcentagem;
     }
 
 }
