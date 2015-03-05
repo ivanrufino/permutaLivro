@@ -191,6 +191,9 @@ class Home extends CI_Controller {
        return $data;
         
     }
+    public function menu() {
+        $this->load->view('menu');
+    }
 
 }
 
