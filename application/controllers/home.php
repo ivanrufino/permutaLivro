@@ -192,7 +192,14 @@ class Home extends CI_Controller {
         
     }
     public function menu() {
-        $this->load->view('menu');
+        $query = $this->db->get('segue');
+        $dados = $query->result_array();
+        
+      //  print_r($dados);
+        die();
+        $dados['local']=$this->router->fetch_class();
+       // die($dados['local']);
+        $this->load->view('menu',$dados);
     }
 
 }

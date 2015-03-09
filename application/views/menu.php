@@ -18,7 +18,12 @@ and open the template in the editor.
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function(){
-                
+                $(".lock").mouseenter(function(){
+                    $(this).children('i').removeClass('glyphicon-lock').addClass('glyphicons-unlock')
+                })
+                        .mouseleave(function(){
+                    $(this).children('i').removeClass('glyphicons-unlock').addClass('glyphicon-lock')
+                });
             var offset = $('.navbar-nav').offset().top;
             var $meuMenu = $('#barraMenu'); // guardar o elemento na memoria para melhorar performance
             $(document).on('scroll', function () {
@@ -42,7 +47,7 @@ and open the template in the editor.
         </style>
     </head>
     <body style="">
-        <div class="banner container-alternate alert alert-info" id="slider" style="height:200px">
+        <div class="banner container-alternate alert alert-info hide" id="slider" style="height:200px">
             <a href="#"><img src="https://portaladventistadebaixoguandu.files.wordpress.com/2014/12/livro.png?w=350&h=200&crop=1" alt="Imagem 1" title="Texto da imagem 1"/></a>
             <a href="#"><img src="https://portaladventistadebaixoguandu.files.wordpress.com/2014/12/livro.png?w=350&h=200&crop=1" alt="Imagem 2" title="Texto da imagem 2"/></a>
             <a href="#"><img src="https://portaladventistadebaixoguandu.files.wordpress.com/2014/12/livro.png?w=350&h=200&crop=1" alt="Imagem 3" title="Texto da imagem 3"/></a>
@@ -57,10 +62,15 @@ and open the template in the editor.
                     <li><a href="como_funciona">Link 3</a></li>
                     <!--                <li class="navbar-right"><a href="Como Funciona">Entrar</a></li>-->
                 </ul>
-                <button type="button" class="btn btn-default navbar-btn navbar-right">Entrar</button>
+                <?php if ($local =='home'){ ?>
+                <button type="button" class="btn btn-success navbar-btn navbar-right lock"><i class="glyphicon glyphicon-lock"></i> &nbsp;Entrar</button>
+                <?php }else{ ?>
+                <button type="button" class="btn btn-danger navbar-btn navbar-right"><i class="glyphicon glyphicon-off"></i> &nbsp;Sair</button>
+                <?php }?>
             </div>
         </nav>
 
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        
     </body>
 </html>
