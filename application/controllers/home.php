@@ -192,10 +192,23 @@ class Home extends CI_Controller {
         
     }
     public function menu() {
-        $query = $this->db->get('segue');
+        $id=4;
+       $query= $this->db->query("call quem_eu_sigo($id)");
+      //  $query = $this->db->get('segue');
         $dados = $query->result_array();
+        $sigo=array();
+        foreach ($dados as $value) {
+            if ($value['COD_USUARIO_DE']!=$id){
+                $sigo[]=$value['COD_USUARIO_DE'];
+            }else{
+                $sigo[]=$value['COD_USUARIO_PARA'];
+            }
+            
+        }
+        echo "<pre>";
         
-      //  print_r($dados);
+        print_r($sigo);
+        echo "</pre>";
         die();
         $dados['local']=$this->router->fetch_class();
        // die($dados['local']);
