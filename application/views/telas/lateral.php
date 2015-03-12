@@ -189,7 +189,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
             <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
-            <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="endereco" aria-controls="home" role="tab" data-toggle="tab">Endereco</a></li>
+            <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="cadastroEndereco" aria-controls="home" role="tab" data-toggle="tab">Endereco</a></li>
           </ul>
       </div>
         <div class="tab-content">

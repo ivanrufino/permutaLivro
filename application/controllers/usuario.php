@@ -587,7 +587,9 @@ class Usuario extends CI_Controller {
         return $porcentagem;
     }
     public function carregaViewTab($view) {
-        echo "você esta vendo a view $view";
+        
+        echo $this->load->view("telas/$view",NULL,false);
+        //echo "você esta vendo a view $view";
     }
     public function historico($id = NULL) {
         $dados = $this->usuarios->getUsuario($this->usuario);
