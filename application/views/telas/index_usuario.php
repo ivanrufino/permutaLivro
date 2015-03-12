@@ -65,7 +65,15 @@
                 montarGrid($queroLivros, 'livrosBuscados', $legenda,$btn_link); } ?>
             
               <?php if ($usuarioLinkados) { 
-                $legenda="Este usuário foram selecionado por terem o mesmos livros que você e mais";
+                switch ($usuarioLinkados) {
+                    case 1:
+                       $legenda="Usuario que você queria conhecer";
+                         break;
+                    default:
+                         $legenda="Usuarios que você queria conhecer";
+                        break;
+                }
+                //$legenda="Este(s) usuário(s) fora(m) selecionado por terem o mesmos livros que você e mais";
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Ver Livros"),
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Seguir Usuário"),
@@ -111,7 +119,7 @@
  function montarGridUsuario($usuario,$classe,$legenda,$botoes){
      //print_r($usuario);
     echo "<div class='table-responsive'>";
-    echo "<h1>$legenda</h1>";
+    echo "<h1 class='titulo_legenda'>$legenda</h1>";
 echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
 
     foreach ($usuario as $key => $value) {
@@ -150,7 +158,7 @@ echo "</table></div>";
 function montarGrid($livros,$classe,$legenda,$botoes){ 
      
     echo "<div class='table-responsive'>";
-    echo "<h1>$legenda</h1>";
+    echo "<h1 class='titulo_legenda'>$legenda</h1>";
 echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
 
     foreach ($livros as $key => $value) {

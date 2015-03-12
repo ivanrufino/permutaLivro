@@ -17,6 +17,11 @@
     	alert("You rated: " + value + " = " + $(caption).text());
 	});
     });*/
+        $(".lnkTab").click(function(){
+            var local = $(this).attr('href');
+            var url='<?= base_url()?>usuario/carregaViewTab/'+$(this).data('view');
+            $(local).load(url);
+        }).trigger('click');
     });
 </script>
 <style>
@@ -61,8 +66,8 @@
               <div class="panel-heading">
                 <h4 class="panel-title"> 
                    
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                    </span>Dados Pessoais</a>
+                  <a data-toggle="modal" data-target="#config" href="#"><span class="glyphicon glyphicon-cog">
+                    </span>Configuração</a>
                 </h4>
               </div>
               <div id="collapseOne" class="panel-collapse collapse ">
@@ -91,7 +96,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-book">
                     </span>Livros</a>
                 </h4>
               </div>
@@ -100,8 +105,8 @@
                      
                   <li class="list-group-item"><span class="glyphicon glyphicon-book text-primary"></span><a href="{base_url}meus_livros">Tenho</a><span class="badge">{numQuantTenho}</span>
                     <ul class="list-group">
-                        <li class="list-group-item"><span class="glyphicon glyphicon-bookmark text-primary"></span><a href="{base_url}meus_livros/nao_lidos">Não Li</a><span class="badge">{numQuantNaoLi}</span></li>
-                      <li class="list-group-item"><span class="glyphicon glyphicon-bookmark text-primary"></span><a href="{base_url}meus_livros/estou_lendo">Estou lendo</a><span class="badge">{numQuantLendo}</span></li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-eye-close text-primary"></span><a href="{base_url}meus_livros/nao_lidos">Não Li</a><span class="badge">{numQuantNaoLi}</span></li>
+                      <li class="list-group-item"><span class="glyphicon glyphicon-eye-open text-primary"></span><a href="{base_url}meus_livros/estou_lendo">Estou lendo</a><span class="badge">{numQuantLendo}</span></li>
 
                       <li class="list-group-item"><span class="glyphicon glyphicon-ok text-success"></span><a href="{base_url}meus_livros/lidos">Já Li</a><span class="badge">{numQuantLi}</span></li>
 
@@ -110,7 +115,7 @@
                   </li>
 
                   <!--<li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meus_livros/desejo_ter">Desejo ter</a></li>-->
-                  <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meus_livros/buscar">Buscar Mais</a></li>
+                  <li class="list-group-item"><span class="glyphicon glyphicon-search text-success"></span><a href="{base_url}meus_livros/buscar">Buscar Mais</a></li>
                   <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}livro/novo">Inserir novo</a></li>
 
                   <li class="list-group-item"><span class="glyphicon glyphicon-user text-sucess"></span><a href="{base_url}lista/autores">Autores</a></li>
@@ -173,3 +178,29 @@
           </div>
             <!--<div id="cb_div" align="center"><iframe id="cb_iframe" width="180" height="200" frameborder="0" allowtransparency="allowtransparency" scrolling="no" src="http://www.calendario.com.br/calendario_peq/calendario_peq.php"></iframe>  <br /><div id="cb_urllink"></div></div>-->
         </div>
+<div class="modal fade" id="config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Area de configuração do usuário</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
+            <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
+            <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="endereco" aria-controls="home" role="tab" data-toggle="tab">Endereco</a></li>
+          </ul>
+      </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="amigos">Mostrar lista de usuario que ele segue e usuário que seguem ele</div>
+            <div role="tabpanel" class="tab-pane " id="qualificacao">mostrar a qualificação e a porcentagem de cada estrela</div>
+            <div role="tabpanel" class="tab-pane " id="endereco">cadastrar ou alterar o endereço </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Save Modificações</button>
+      </div>
+    </div>
+  </div>
+</div>

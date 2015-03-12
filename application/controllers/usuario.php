@@ -13,7 +13,7 @@ class Usuario extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //$this->css = array('cadastroempresa','bootstrap', 'menu', 'small-business', 'painel_user', 'tabs','hover','../lighter/css/lighter');
-        $this->css=array('bootstrap','bootstrap-social','menu','small-business','painel_user','tabs','hover','../lighter/css/lighter','star-rating');   
+        $this->css=array('comuns','bootstrap','bootstrap-social','menu','small-business','painel_user','tabs','hover','../lighter/css/lighter','star-rating');   
         $this->js = array('jquery-1.10.2', 'bootstrap', 'funcoesComuns', 'jquery.maskedinput.min','jquery.dataTables.min','jquery.form.min','bootstrap-filestyle.min','star-rating');
         
         $this->load->model('estanteVirtual_model', 'ev');
@@ -585,6 +585,9 @@ class Usuario extends CI_Controller {
 
 
         return $porcentagem;
+    }
+    public function carregaViewTab($view) {
+        echo "você esta vendo a view $view";
     }
     public function historico($id = NULL) {
         $dados = $this->usuarios->getUsuario($this->usuario);
