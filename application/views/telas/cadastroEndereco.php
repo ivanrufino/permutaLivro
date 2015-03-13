@@ -17,6 +17,7 @@
         });
     })
 </script>
+<div class="">
 <h1 class="titulo_legenda" style="margin: 0 5px">Cadastre o seu endereço e ganhe 10 pontos</h1>
 
 <form id="cadEndereco" method="post" action="<?= base_url() ?>usuario/cadastroEndereco">
@@ -24,7 +25,7 @@
 
     <div class="col-md-3"> 
         <label for="">Cep</label>
-        <input type="text" class="form-control"  name="CEP">
+        <input type="text" class="form-control"  name="CEP" value="<?= isset($endereco['CEP'])?$endereco['CEP']:""; ?>">
     </div>
 
 
@@ -56,11 +57,18 @@
         <input type="text" class="form-control"  name="BAIRRO">
     </div>
 
-    
-    <div class="col-md-6">
+     <div class="col-md-6">
+         &nbsp;
+        </div>
+ 
         <button type="button" class="btn btn-primary salvar" id="salvarEndereco">Salvar Modificações</button>
-    </div>
+        <p class="clearfix">
+            <br>
+     <div class="msgEndereco alert clearfix">asd</div>
+     
     
-    <div class="msgEndereco alert col-md-6 ">asd</div>
+
+    
 </form>
 
+</div>

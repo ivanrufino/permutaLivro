@@ -100,6 +100,27 @@ class Usuario_Model extends CI_Model {
         }
       
     }
+    public function salvarEndereco($dados){
+        if ($this->db->insert('endereco', $dados)){
+            return $this->db->insert_id();            
+        }else{
+           return null;
+        }
+      
+    }
+    public function getEndereco($cod_usuario) {//recupera as informações pelo nome e senha para recuperação de senha
+        $this->db->select('*');
+        $this->db->from('endereco AS END');      
+         $this->db->where('COD_USUARIO',$cod_usuario);  
+          
+        $dados=$this->db->get();
+      //  echo $this->db->last_query();
+        if($dados->num_rows>0){
+            return $dados->row_array();
+        }else{
+            return NULL;
+        }
+    }
     public function ativarUsuario($dados,$id_hash) {
         $this->db->set($dados);
         $this->db->where('sha1(CODIGO)',  $id_hash);

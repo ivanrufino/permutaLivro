@@ -587,12 +587,41 @@ class Usuario extends CI_Controller {
         return $porcentagem;
     }
     public function carregaViewTab($view) {
-        
-        echo $this->load->view("telas/$view",NULL,false);
+        switch ($view) {
+            case 'cadastroEndereco':
+                $dados['endereco']=  $this->usuarios->getEndereco($this->usuario);
+                break;
+
+            default:
+                $dados=NULL;
+                break;
+        }
+      
+        echo $this->load->view("telas/$view",$dados,false);
         //echo "você esta vendo a view $view";
     }
     public function cadastroEndereco() {
-        echo "cheguei aqui";
+        
+        $this->form_validation->set_rules('ENDERECO', 'Endereço', 'required');
+        $this->form_validation->set_rules('NUMERO', 'Número', 'required|numeric');        
+        $this->form_validation->set_rules('CEP', 'Cep', 'required|exact_length[8]|numeric');
+        $this->form_validation->set_rules('CIDADE', 'Cidade', 'required');
+        $this->form_validation->set_rules('ESTADO', 'Estado', 'required|exact_length[2]');
+        $this->form_validation->set_rules('BAIRRO', 'Bairro', 'required');
+        if ($this->form_validation->run() == FALSE){
+                echo validation_errors();
+            }else{
+                $dados = $this->input->post();
+                $dados['COD_USUARIO'] = $this->usuario;
+              //  print_r($dados);die();
+                $id=$this->usuarios->salvarEndereco($dados);
+                if (!is_null($id)){
+                    echo "Endereço salvo com sucesso";
+                }else{
+                    echo "Não foi possivel registrar seu endereço, por favor tente mais tarde.";
+                }
+                //$this->load->view('formsuccess');
+            }
     }
     public function historico($id = NULL) {
         $dados = $this->usuarios->getUsuario($this->usuario);
