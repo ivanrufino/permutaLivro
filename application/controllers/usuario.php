@@ -591,6 +591,9 @@ class Usuario extends CI_Controller {
         echo $this->load->view("telas/$view",NULL,false);
         //echo "você esta vendo a view $view";
     }
+    public function cadastroEndereco() {
+        echo "cheguei aqui";
+    }
     public function historico($id = NULL) {
         $dados = $this->usuarios->getUsuario($this->usuario);
         print_r($dados);

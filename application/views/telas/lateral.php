@@ -179,7 +179,7 @@
             <!--<div id="cb_div" align="center"><iframe id="cb_iframe" width="180" height="200" frameborder="0" allowtransparency="allowtransparency" scrolling="no" src="http://www.calendario.com.br/calendario_peq/calendario_peq.php"></iframe>  <br /><div id="cb_urllink"></div></div>-->
         </div>
 <div class="modal fade" id="config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog " >
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -199,7 +199,7 @@
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Save Modificações</button>
+<!--        <button type="button" class="btn btn-primary">Save Modificações</button>-->
       </div>
     </div>
   </div>
