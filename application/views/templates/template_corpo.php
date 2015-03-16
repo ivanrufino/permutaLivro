@@ -10,7 +10,7 @@
   <link href="{local}css/bootstrap.min.css" rel="stylesheet">
         <link href="{local}font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Meddon' rel='stylesheet' type='text/css'>
-    <title>Sistema de Receitu&aacute;rio Online</title>
+    <title>Sistema de troca de livros Online</title>
 
     <!-- Bootstrap core CSS -->
     {css_list}
@@ -85,7 +85,7 @@
  <footer class="navbar-fixed-bottom hide">
       <div class="container clearfix ">
         <p class="pull-left">
-          Sistema de Controle de Receita Médicas SISCOREM <?= date('Y')?> 
+          Sistema de troca de livros <?= date('Y')?> 
         </p>
         <p class="pull-right" style="color:transparent">
           Desenvolvido por  <a href="http://about.me/ivanrufino" target="_blank" style="color:transparent">Ivan Rufino Martins</a>

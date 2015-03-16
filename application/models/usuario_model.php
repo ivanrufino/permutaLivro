@@ -27,6 +27,7 @@ class Usuario_Model extends CI_Model {
         $this->db->where('CODIGO', $codigo );  
         $sql=$this->db->get('v_usuario'); 
         
+        
         if($sql->num_rows > 0){
             return $sql->row_array();
         }else{ 
@@ -101,12 +102,25 @@ class Usuario_Model extends CI_Model {
       
     }
     public function salvarEndereco($dados){
+        
         if ($this->db->insert('endereco', $dados)){
             return $this->db->insert_id();            
         }else{
            return null;
         }
       
+    }
+    public function alterarEndereco($codigo,$dados) {
+         $this->db->set($dados);
+        $this->db->where('CODIGO',  $codigo);
+        //$this->db->where('table2.poll_id',$row);
+       if( $this->db->update('endereco')){
+            // echo $this->db->last_query();
+            
+           return TRUE;
+        } else {
+            return null;
+        }
     }
     public function getEndereco($cod_usuario) {//recupera as informações pelo nome e senha para recuperação de senha
         $this->db->select('*');
@@ -121,6 +135,54 @@ class Usuario_Model extends CI_Model {
             return NULL;
         }
     }
+    public function getQualificacao($cod_usuario) {
+        $this->db->select('*');
+        $this->db->from('qualificacao AS QUA');      
+         $this->db->where('COD_USUARIO',$cod_usuario);  
+          
+        $dados=$this->db->get();
+       // echo $this->db->last_query();
+        if($dados->num_rows>0){
+            return $dados->row_array();
+        }else{
+            return NULL;
+        }
+    }
+    public function getAmigos($cod_usuario) {
+        //SELECT * FROM segue WHERE COD_USUARIO_DE = id_usuario or  (COD_USUARIO_PARA = id_usuario and INVERSE = 1);
+        
+        $this->db->select('*');
+        $this->db->from('segue');
+        $this->db->where('COD_USUARIO_DE',$cod_usuario,FALSE);
+        $this->db->or_where('(COD_USUARIO_PARA',$cod_usuario);
+        $this->db->where("INVERSE = '1')",NULL,FALSE);
+        $dados=$this->db->get();
+            //echo $this->db->last_query();
+//        $query1= $this->db->query("call quem_eu_sigo($cod_usuario)");
+//        
+//        $dados = $query1->result_array();
+        $sigo=array();
+        
+        foreach ($dados->result_array() as $value) {
+            if ($value['COD_USUARIO_DE']!=$cod_usuario){
+                $sigo[]=$value['COD_USUARIO_DE'];
+            }else{
+                $sigo[]=$value['COD_USUARIO_PARA'];
+            }
+            
+        }
+        
+        $dados->free_result();
+       $amigos=array();
+       
+        for ($index = 0; $index < count($sigo); $index++) {
+            $amigos[]= $this->getUsuario($sigo[$index]);
+        }
+//      
+       return $amigos ;
+       
+    }
+   
     public function ativarUsuario($dados,$id_hash) {
         $this->db->set($dados);
         $this->db->where('sha1(CODIGO)',  $id_hash);

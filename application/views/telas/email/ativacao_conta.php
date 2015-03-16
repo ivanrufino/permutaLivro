@@ -4,7 +4,7 @@
  <head style="box-sizing: border-box;">
   <meta charset="UTF-8" style="box-sizing: border-box;" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" style="box-sizing: border-box;" />
-  <meta content="Sistema de Receituario Online projeto de tcc" name="description" style="box-sizing: border-box;" />
+  <meta content="Sistema de troca de livros Online projeto de tcc" name="description" style="box-sizing: border-box;" />
   <meta content="Ivan Rufino Martins" name="author" style="box-sizing: border-box;" />
   <title style="box-sizing: border-box;">Club do Livro Sistema de Troca de Livro : Ativa&ccedil;&atilde;o de Conta </title>
 

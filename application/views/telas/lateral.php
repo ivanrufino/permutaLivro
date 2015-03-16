@@ -21,7 +21,7 @@
             var local = $(this).attr('href');
             var url='<?= base_url()?>usuario/carregaViewTab/'+$(this).data('view');
             $(local).load(url);
-        }).trigger('click');
+        }).first().trigger('click');
     });
 </script>
 <style>
@@ -59,8 +59,8 @@
                 <!--<img src="{local}imagens/foto/<?= $usuario['FOTO'] ?>" class="img-responsive img-rounded img-circle" style="width: 60%; margin: 0 auto;margin-top: -80px;background-color: #fff;">-->
                 <?php $ret= $usuario['porcentagem'] ?>
                 <input id="input-quali"  type="number" step="1" data-min="0" data-max="5" data-size="xs" data-show-clear="false"  data-readonly="true" data-default-caption="<?php echo round($ret,1) ?> %" value=<?php echo round($ret/20) ?>>
-                Saldo: <?= $usuario['SALDO'] ?><br>
-                <a href="login/efetuarLogout">Sair</a>
+                <h3><span class="label label-info">Saldo: <?= $usuario['SALDO'] ?></span></h3><br>
+                <!--<a href="login/efetuarLogout">Sair</a>-->
                 <!--$quali=  json_decode($data['usuario']['TITULO_QUALIFICACAO'],true);-->
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -189,7 +189,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation" class="active" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
             <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
-            <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="cadastroEndereco" aria-controls="home" role="tab" data-toggle="tab">Endereco</a></li>
+            <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="cadastroEndereco" aria-controls="home" role="tab" data-toggle="tab">Endereço</a></li>
           </ul>
       </div>
         <div class="tab-content">
