@@ -19,10 +19,10 @@ and open the template in the editor.
         <script>
             $(document).ready(function(){
                 $(".lock").mouseenter(function(){
-                    $(this).children('i').removeClass('glyphicon-lock').addClass('glyphicons-unlock')
+                    $(this).children('i').removeClass('fa-lock').addClass('fa-unlock')
                 })
                         .mouseleave(function(){
-                    $(this).children('i').removeClass('glyphicons-unlock').addClass('glyphicon-lock')
+                    $(this).children('i').removeClass('fa-unlock').addClass('fa-lock')
                 });
             var offset = $('.navbar-nav').offset().top;
             var $meuMenu = $('#barraMenu'); // guardar o elemento na memoria para melhorar performance
@@ -54,8 +54,21 @@ and open the template in the editor.
             <a href="#"><img src="https://portaladventistadebaixoguandu.files.wordpress.com/2014/12/livro.png?w=350&h=200&crop=1" alt="Imagem 4" title="Texto da imagem 4"></a>
             <a href="#"><img src="https://portaladventistadebaixoguandu.files.wordpress.com/2014/12/livro.png?w=350&h=200&crop=1" alt="Imagem 5" title="Texto da imagem 5"/></a>
         </div>
-        <nav class="navbar navbar-blue " id="barraMenu">  
-            <div class="container">
+        <!-- Fim -->
+        <nav class="navbar navbar-blue" id="barraMenu" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo-nav" href="{base_url}#section1" style="font-family: 'arial', cursive;">Club do Livro</a>
+
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-collapsible">
+           <div class="container">
                 <ul class="nav navbar-nav">
                     <li ><a href="sobre">Link 1</a></li>
                     <li><a href="como_funciona">Link 2</a></li>
@@ -63,12 +76,31 @@ and open the template in the editor.
                     <!--                <li class="navbar-right"><a href="Como Funciona">Entrar</a></li>-->
                 </ul>
                 <?php if ($local =='home'){ ?>
-                <button type="button" class="btn btn-success navbar-btn navbar-right lock"><i class="glyphicon glyphicon-lock"></i> &nbsp;Entrar</button>
+                <button type="button" class="btn btn-success navbar-btn navbar-right lock"><i class="fa fa-lock"></i> &nbsp;Entrar</button>
                 <?php }else{ ?>
                 <button type="button" class="btn btn-danger navbar-btn navbar-right"><i class="glyphicon glyphicon-off"></i> &nbsp;Sair</button>
                 <?php }?>
             </div>
-        </nav>
+            
+        </div>
+    </div>
+</nav>
+        <!-- Fim -->
+<!--        <nav class="navbar navbar-blue " id="barraMenu">  
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li ><a href="sobre">Link 1</a></li>
+                    <li><a href="como_funciona">Link 2</a></li>
+                    <li><a href="como_funciona">Link 3</a></li>
+                                    <li class="navbar-right"><a href="Como Funciona">Entrar</a></li>
+                </ul>
+                <?php if ($local =='home'){ ?>
+                <button type="button" class="btn btn-success navbar-btn navbar-right lock"><i class="fa fa-lock"></i> &nbsp;Entrar</button>
+                <?php }else{ ?>
+                <button type="button" class="btn btn-danger navbar-btn navbar-right"><i class="glyphicon glyphicon-off"></i> &nbsp;Sair</button>
+                <?php }?>
+            </div>
+        </nav>-->
 
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         

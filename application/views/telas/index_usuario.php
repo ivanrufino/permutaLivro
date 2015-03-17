@@ -45,7 +45,7 @@
 <div class="container-alternate">
     <div class="container">
         {view_lateral}
-        <div class="col-md-9" style="background: transparent">
+        <div class="col-sm-9 col-md-9" style="background: transparent">
             
             <?php if(!is_null($meusrecados)){?>
             <div class="col-md-12 recados blocos">
@@ -67,10 +67,10 @@
               <?php if ($usuarioLinkados) { 
                 switch ($usuarioLinkados) {
                     case 1:
-                       $legenda="Usuario que você queria conhecer";
+                       $legenda="Usuario que você gostaria de conhecer";
                          break;
                     default:
-                         $legenda="Usuarios que você queria conhecer";
+                         $legenda="Usuarios que você gostaria de conhecer";
                         break;
                 }
                 //$legenda="Este(s) usuário(s) fora(m) selecionado por terem o mesmos livros que você e mais";

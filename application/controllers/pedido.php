@@ -96,7 +96,8 @@ class Pedido extends CI_Controller {
         
      
         $this->verificador->verificarLogado();
-        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);    
+        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario); 
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $meusLivros = $this->ev->getLivros($this->usuario);
          $data['livro'] = $this->livro->getLivrobyCodigo($cod_livro);
                $data += $this->dadoslateral->quantidadesLivros($this->usuario);      
@@ -118,6 +119,7 @@ class Pedido extends CI_Controller {
        $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
         $meusLivros = $this->ev->getLivros($this->usuario);
+         $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $data['pedidos_in'] = 'in';
        $data += $this->dadoslateral->quantidadesLivros($this->usuario);      
         if (is_null($status)){
@@ -182,6 +184,7 @@ class Pedido extends CI_Controller {
     public function recebidos($status=NULL) {
        $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $meusLivros = $this->ev->getLivros($this->usuario);
         $data['pedidos_in'] = 'in';
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);     
@@ -201,6 +204,7 @@ class Pedido extends CI_Controller {
     public function detalhes($url) {
         $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $codigo = end(explode("_", $url));
        // echo $codigo;
         $data['pedido']=  $this->pedido->getPedidoDetalhe($codigo);

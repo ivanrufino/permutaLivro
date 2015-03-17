@@ -24,12 +24,13 @@ for ($index = count($qualis); $index >0; $index--) {
 }
 ?>
 <h3><span class="label label-primary">Total de votos <strong><?= $votantes?></strong></span></h3>
+<?php if($votantes>0){ ?>
 <div class="alert alert-info">
 Entenda por que voce obteve <strong><?php echo round($quantTotal*100/($votantes*5), 1)?>%</strong> mostrado na barra lateral.<br>
 Você obteve <?=$votantes?> votos, podendo alcançar uma pontuação máxima de <strong><?= $votantes*5 ?> estrelas</strong><br>
 porém sua pontuação foi de <strong><?= $quantTotal?></strong>, significa que <?= $quantTotal?> é <strong><?php echo round($quantTotal*100/($votantes*5), 1)?>%</strong> de<?= $votantes*5 ?> 
 </div>
-
+<?php }?>
 
 
 

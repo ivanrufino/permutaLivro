@@ -33,6 +33,8 @@ class Livro extends CI_Controller {
     public function index() {
         $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+        $data['livro_in'] = 'in';
         $meusLivros = $this->ev->getLivros($this->usuario);
         $data['numQuantNaoLi'] = '0';
         $data['numQuantLi'] = '0';
@@ -128,6 +130,8 @@ class Livro extends CI_Controller {
         $this->verificador->verificarLogado();
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
         $meusLivros = $this->ev->getLivros($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+        $data['livro_in'] = 'in';
         $data['numQuantNaoLi'] = '0';
         $data['numQuantLi'] = '0';
         $data['numQuantLendo'] = '0';

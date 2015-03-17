@@ -29,9 +29,9 @@ class EstanteVirtual extends CI_Controller {
         $this->verificador->verificarLogado();
         
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);
-        //die($opt);
-        //mudar a query
+        $data['livro_in'] = 'in';
         
         if ($opt == 'nao_lidos') {
             $data['titulo_legenda'] = 'Livro(s) que estou lendo.';

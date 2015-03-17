@@ -30,7 +30,7 @@ class Usuario extends CI_Controller {
         
         $this->verificador->verificarLogado();  
         
-        $data=$this->getFace();
+       
         $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);       // print_r($data);die();
         $data['queroLivros']=  $this->ev->livrosDisponiveis($this->usuario); 
         $data['maisLidos']=FALSE;
@@ -43,7 +43,7 @@ class Usuario extends CI_Controller {
        
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);
         $data += $this->dadoslateral->verificaRecados($this->usuario);
-        $data['usuario']['porcentagem']= $this->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         //print_r($data['usuario']);die();
         
        /* print_r($data['queroLivros']);
@@ -566,26 +566,7 @@ class Usuario extends CI_Controller {
         echo "</pre>";
     }
 
-    public function calculaPontuacao($pontuacao) {
-        $Votantes=0;$porcentagem=0;$pontuacaoVoto=0;
-       
-        $quali = unserialize($pontuacao);
-        foreach ($quali as $key => $q) {
-            $pontuacaoVoto += $key * $q;
-            if ($q > 0) {
-                $Votantes += $q;
-            }
-        }
-        if ($Votantes != 0) {
-            $porcentagem = ((100 * $pontuacaoVoto) / ($Votantes * 5));
-        }
-            //$porcentagem=6;
-            //$porcentagem = $porcentagem/20;
-            //echo $pontuacaoVoto. " de " .$Votantes*5 ."<br>";
-
-
-        return $porcentagem;
-    }
+    
     public function carregaViewTab($view) {
         
         switch ($view) {

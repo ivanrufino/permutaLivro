@@ -18,6 +18,7 @@ if (!defined('BASEPATH'))
   |
  */
 //echo $_SERVER['SERVER_NAME']; die();
+
 switch ($_SERVER['SERVER_NAME']) {
     case 'localhost':
         $base = 'http://localhost/login/';

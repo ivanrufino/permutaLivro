@@ -11,15 +11,20 @@ author: bootply.com
 
 html,body {
 	height:100%;
-    background:center no-repeat fixed url('../imagens/estante.jpg');
+    //background:center no-repeat fixed url('../imagens/estante.jpg');
     background-size: cover;
     color:#000;
 }
-
-.icon-bar {
-	background-color:#fff;
+html {
+    background:center no-repeat fixed url('../imagens/estante.jpg');
+   
 }
-
+.icon-bar {
+	background-color:#000;
+}
+.icon-bar:hover {
+	background-color:#240CF2;
+}
 .navbar-trans {
 	/*background-color:#279ddd;*/
         //background-color:#BEBEBE;

@@ -1,1 +1,3 @@
-<?php echo "teste" ?>
+<?php 
+echo date('Ymd')."\n";
+echo "teste\n" ?>

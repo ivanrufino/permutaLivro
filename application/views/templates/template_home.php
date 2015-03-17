@@ -7,7 +7,7 @@
         <meta name="description" content="Sistema de Troca de livro Online">
         <link rel="shortcut icon" href="{local}imagens/favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="{local}css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="{local}css/bootstrap.min.css" rel="stylesheet">-->
         <link href="{local}css/bootstrap-social.css" rel="stylesheet">
         <link href="{local}font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Meddon' rel='stylesheet' type='text/css'>
@@ -21,10 +21,21 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <!--<script src="{local}js/bootstrap.min.js"></script>-->
         <!--<script src="{local}js/scripts.js"></script>-->
+        {css_list}
         {js_list}
         
         <script>
             $(document).ready(function() {
+                var offset = $('.navbar').offset().top;
+            var $meuMenu = $('#barraMenu'); // guardar o elemento na memoria para melhorar performance
+            $(document).on('scroll', function () {
+                if (offset <= $(window).scrollTop()) {                    
+                    $meuMenu.addClass('navbar-fixed-top');
+                } else {
+                    $meuMenu.removeClass('navbar-fixed-top');
+                }
+            });
+       
                 $(".ttEsqueciSenha").tooltip({
                     template:'<div class="meu_tooltip tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner "></div></div>',
                     title : '<h5>Esqueci minha senha.</h5><p>Clique aqui para recupera-la</p>', 
@@ -39,8 +50,8 @@
     <style>
         .meu_tooltip{width: 200px;}
     </style>
-    <body style="margin-top: 65px">
-
+    <body>
+        <div class="banner" style="height:00px">mostrar um banner aqui</div>
         {view_cabecalho}  
         <?php echo $this->session->flashdata('mensagem') ?>
         <section class="container-fluid" id="section1">

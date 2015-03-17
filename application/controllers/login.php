@@ -303,7 +303,7 @@ class Login extends CI_Controller {
         $this->load->view('telas/email/recupera_senha/email',$dados);
     }
     public function efetuarLogout(){
-        $this->facebook->destroySession();
+       // $this->facebook->destroySession();
         // Make sure you destory website session as well.
          $this->session->sess_destroy();
         redirect();

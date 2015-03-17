@@ -6,9 +6,12 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 
         // To use site_url and redirect on this controller.
-        $this->load->helper('url'); 
+       // $this->load->helper('url'); 
 	}
-
+        public function teste() {
+            echo "teste\n";
+            die();
+        }
 	public function login(){
 
 		//$this->load->library('facebook'); // Automatically picks appId and secret from config

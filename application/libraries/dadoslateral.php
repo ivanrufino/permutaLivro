@@ -50,6 +50,26 @@ class dadosLateral {
        }
        return $data;
     }
+    public function calculaPontuacao($pontuacao) {
+        $Votantes=0;$porcentagem=0;$pontuacaoVoto=0;
+       
+        $quali = unserialize($pontuacao);
+        foreach ($quali as $key => $q) {
+            $pontuacaoVoto += $key * $q;
+            if ($q > 0) {
+                $Votantes += $q;
+            }
+        }
+        if ($Votantes != 0) {
+            $porcentagem = ((100 * $pontuacaoVoto) / ($Votantes * 5));
+        }
+            //$porcentagem=6;
+            //$porcentagem = $porcentagem/20;
+            //echo $pontuacaoVoto. " de " .$Votantes*5 ."<br>";
+
+
+        return $porcentagem;
+    }
 //    public function verificaQualificacao() {
 //        $qualificacoes=5;
 //        $data['total_qualificacao']= count($qualificacoes);
