@@ -51,10 +51,14 @@
         <div class="col-md-9" style="background: transparent">
             <?php 
             $legenda="Usuário que possuem o livro:";
-            $btn_link=array(
-                    array('link'=>'pedido/gravarUsuarioPedido/','class'=>'btn-success','titulo'=>"Solicitar Livro"),
-                );
-            montarGrid($infoLivros, $codPedido, $legenda, $btn_link) /*?>
+            if(!is_null($codPedido)){
+                $btn_link=array(array('link'=>'pedido/gravarUsuarioPedido/','class'=>'btn-success','titulo'=>"Solicitar Livro"));
+                $codigo=$codPedido;
+            }else{
+                $btn_link=array(array('link'=>'pedido/novoPedido/','class'=>'btn-success','titulo'=>"Solicitar Livro"));
+                $codigo=$livro['CODIGO'];
+            }
+            montarGrid($infoLivros, $codigo, $legenda, $btn_link) /*?>
             <div class="col-md-12 editora blocos">
                 <fieldset>
                     <legend>Usuário que possuem o livro: <strong><?= $livro['TITULO']?></strong></legend>
@@ -90,11 +94,16 @@
         Direitos reservados
     </footer>
 </div>
+
 <?php 
-function montarGrid($usuario,$codPedido,$legenda,$botoes){ 
+function montarGrid($usuario,$codigo,$legenda,$botoes){ //$codigo pode ser codigo do livro ou codigo do pedido
     //print_r($usuario);
-    echo "<div class='table-responsive'>";
-    echo "<h1>$legenda</h1>";
+   // echo "<div class='table-responsive'>";
+    echo "<div class='titulo_legenda'><span style='float:left'> $legenda</span><span style='float:right'>"
+            . "<input type='radio' name='modo_entrega' value='1' id='correio' checked><label for='correio'>Correio</label> &nbsp"
+            . "<input type='radio' name='modo_entrega' value='2' id='combinar'><label for='combinar'>A combinar</label>"
+            . "</span> <br style='clear:both'></div>";
+    
 echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
 
     foreach ($usuario as $key => $value) {
@@ -102,15 +111,15 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
         
         //$slug = url_title($value['TITULO'], '_', TRUE) .$codPedido. "_" . $value['CODIGO'] . ".html"; 
         echo "<td style='width:100px;text-align:center'>";
-        if ($value['LOGIN_FACEBOOK']){
-            echo "<img src='https://graph.facebook.com/".$value['ID_FACEBOOK']."/picture?type=large' class=' img-responsive'>";
+        if ($value['ID_REDE']){
+            echo "<img src='{$value['FOTO_REDE']}' class=' img-responsive' style='width:60px'>";
         }else{
-            echo "<img src='{local}imagens/foto/".$value['FOTO']." ' class=' img-responsive'>";
+            echo "<img src='{local}imagens/foto/".$value['FOTO']." ' class=' img-responsive' style='width:60px'>";
         }
         echo "</td>";
         echo "<td>";
-         if ($value['LOGIN_FACEBOOK']!=""){
-              echo "<a href='".$value['LINK_FACEBOOK']."'> ".$value['NOME']."</a>";
+         if ($value['ID_REDE']!=""){
+              echo "<a href='".$value['LINK_REDE']."'> ".$value['NOME']."</a>";
          }else{
               echo $value['NOME'];
          }
@@ -122,12 +131,14 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
          }
         echo "<td style='text-align:center'>";
             foreach ($botoes as $btn) {
-            echo "<a href='".base_url($btn['link']) . '/' . $codPedido .'/'.$value['COD_USUARIO']."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
+            echo "<a href='".base_url($btn['link']) . '/' . $codigo .'/'.$value['COD_USUARIO']."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
             }
+        
         echo "</td>";
         echo"</tr>";
         
     }
-echo "</table></div>";
+echo "</table>";
+ //   . "</div>";
  }
-?>
+ 

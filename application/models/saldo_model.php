@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
 
 class Saldo_Model extends CI_Model{
     public function getSaldo($cod_usuario){
-        $this->db->select('USU.ENDERECO,SAL.VALOR');
+        $this->db->select('SAL.VALOR');
         $this->db->from('saldo AS SAL');
         $this->db->join('usuario AS USU', 'USU.CODIGO = SAL.COD_USUARIO');
         $this->db->where('USU.CODIGO',$cod_usuario);  

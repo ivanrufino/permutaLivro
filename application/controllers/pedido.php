@@ -5,7 +5,7 @@ class Pedido extends CI_Controller {
     public $js=null;
     public function __construct() {
         parent::__construct();
-                $this->css=array('cadastroempresa','bootstrap','menu','small-business','painel_user','tabs','hover','../lighter/css/lighter','star-rating.min');    
+                $this->css=array('comuns' ,'cadastroempresa','bootstrap','menu','small-business','painel_user','tabs','hover','../lighter/css/lighter','star-rating.min');    
         $this->js = array('jquery-1.10.2', 'bootstrap', 'funcoesComuns', 'jquery.maskedinput.min', 'jquery.dataTables.min', 'jquery.form.min', 'bootstrap-filestyle.min','star-rating.min');
         //$this->load->helper();
         $this->load->model('estanteVirtual_model', 'ev');
@@ -18,10 +18,13 @@ class Pedido extends CI_Controller {
         $this->usuario = $this->session->userdata('cod_usuario');
               
         }
-        public function gravarUsuarioPedido($codPedido, $codUsuario) {
+        public function gravarUsuarioPedido($codPedido =null, $codUsuario) {
+            
         //  $dados['CODIGO'] = $codPedido;;
         $dados['COD_USUARIO_DE'] = $codUsuario;
-        $detalhe = $this->pedido->updatePedido($codPedido, $dados);
+       $detalhe = $this->pedido->updatePedido($codPedido, $dados);
+        
+        
         //mandar mensagem para o usuario destino
         $dados = array('tipo' => 'solicitacaoLivro', 'usuario' => $codUsuario, 'titulo' => 'Solicitação de Livro');
         
@@ -278,6 +281,7 @@ class Pedido extends CI_Controller {
     }
     public function verificaSaldo() {
         $saldo = $this->saldo->getSaldo($this->usuario);
+       
         if(!$saldo){
             $this->session->set_flashdata('msgPedido', "<div class='alert alert-danger'>".$this->mensagens->getMessage('atencao').$this->mensagens->getMessage('saldoZerado').$this->mensagens->getMessage('enderecoImcompleto')."</div>");
             redirect('meusPedidos');
