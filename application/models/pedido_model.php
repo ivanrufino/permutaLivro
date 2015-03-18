@@ -108,6 +108,29 @@ class Pedido_Model extends CI_Model {
             return null;
         }
     }
+    public function getMensagem($codPedido,$codigo=NULL) {     
+        
+        $ret="result_array";
+        $this->db->select('*');
+        $this->db->from('chat AS MEN'); 
+        $this->db->where('MEN.COD_PEDIDO', $codPedido );  
+       if(!is_null($codigo)){
+            $this->db->where('MEN.CODIGO >', $codigo );  
+            $ret="result_array";
+       }
+      // $this->db->order('MEN.CODIGO','ASC');
+     
+        $query=$this->db->get();
+//          echo $this->db->last_query().'<br>';
+//       die();
+       // $query->free_result();
+        //colocar um if para verificar se foi entregue 
+        if($query->num_rows > 0){
+            return $query->$ret();
+        }else{ 
+            return FALSE;
+        }
+    }
     
     
 }

@@ -29,6 +29,10 @@
 </style>
 <script>
     $(document).ready(function(){
+        $(".iniciar_chat").click(function(){
+            $("#chat_aqui").load("<?=  base_url()?>pedido/chat/<?=$pedido['CODIGO']?>");
+            return false;
+        })
         $("#avaliacao").rating({
     	starCaptions: {1: "Péssimo", 2: "Ruim", 3: "Regular", 4: "Bom", 5: "Ótimo"},
     	clearCaption:"Não avaliado"
@@ -175,7 +179,8 @@
                     </td> 
                 </tr>
             </table>
-            
+            <button class="btn btn-default iniciar_chat" value="">Iniciar conversa</button>
+            <div id="chat_aqui"></div>
         </div>
     </div>
     <br>

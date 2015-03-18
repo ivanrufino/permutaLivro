@@ -32,6 +32,12 @@
 </style>
 <script>
     $(document).ready(function () {
+        $(".detalhe").click(function(){
+            var href = $(this).attr('href');
+            href += '/'+$("input[name=modo_entrega]:checked").val();
+            $(this).attr('href',href);
+            
+        })
         $(".livrosBuscados .mnblocos").on('click', function () {
             alert($(this).attr('codigo'))
         })

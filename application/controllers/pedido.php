@@ -35,7 +35,8 @@ class Pedido extends CI_Controller {
         redirect('meusPedidos');
     }
 
-    public function novoPedido($cod_livro,$cod_usuario_de=null) {
+    public function novoPedido($cod_livro,$cod_usuario_de=null,$modo_entrega = '1') {
+       
             $this->verificaSaldo();
             $msg="";
             if (!is_null($cod_usuario_de)){
@@ -49,6 +50,8 @@ class Pedido extends CI_Controller {
                     
                 }elseif($codPedido=='existe'){
                     $msg="<div class='alert alert-warning'>".$this->mensagens->getMessage('pedidoExistente')."</div>";
+                     $this->session->set_flashdata('msgPedido', $msg);
+                    redirect("meusPedidos");
                 }else{
                     $this->alterarSaldo("-1",  $this->usuario);
                     $dados=array('tipo'=>'solicitacaoLivro','usuario'=>$cod_usuario_de,'titulo'=>'Solicitação de Livro');
@@ -58,7 +61,7 @@ class Pedido extends CI_Controller {
                 }
                 
                  $this->session->set_flashdata('msgPedido', $msg);
-                redirect('meusPedidos');
+                redirect("pedido/detalhes/pedido_$codPedido");
                 
             }else{
                 $livrosEstante=  $this->ev->getLivrosTodos($cod_livro,  $this->usuario);
@@ -461,6 +464,81 @@ class Pedido extends CI_Controller {
         $cod=$this->mensagem->novaMensagem($dados);
 
     }
+    public function chat($codPedido) {
+        $dados['codPedido']=$codPedido;
+        $this->load->view('telas/chat',$dados,false);
+        //echo $codPedido;
+    }
+    public function ajaxAtualizaChat($codPedido) {
+        
+        $ac= $this->input->post('ac');
+        
+        
+        if ($ac== ""){
+            $mensagens = $this->pedido->getMensagem($codPedido);
+            $ret="";$codigo="";
+            if (!$mensagens){
+                echo "";
+                return;
+            }
+            foreach ($mensagens as $mensagem) {
+                $class="para";
+                if ($mensagem['COD_USUARIO']==$this->usuario){
+                    $class="de";
+                }
+                $ret.="<span class='$class'> {$mensagem['MENSAGEM']} </span><br>";
+                $codigo=$mensagem['CODIGO'];
+                
+            }
+           // echo "codigo $codigo";
+            $chat=array('last_codigo_mensagem'=>$codigo);
+            $this->session->set_userdata($chat);
+           // print_r($chat) ;
+            echo $ret;
+        }else{
+            
+            $codigo= $this->session->userdata('last_codigo_mensagem');
+          // $codigo=1;
+           $mensagens = $this->pedido->getMensagem($codPedido,$codigo);
+            $ret="";
+            if (!$mensagens){
+                echo "";
+                return;
+            }
+            foreach ($mensagens as $mensagem) {
+                $class="para";
+                if ($mensagem['COD_USUARIO']==$this->usuario){
+                    $class="de";
+                }
+                $ret.="<span class='$class'> {$mensagem['MENSAGEM']} </span><br>";
+                $codigo=$mensagem['CODIGO'];
+                
+            }
+           if($mensagem){
+                $chat=array('last_codigo_mensagem'=>$codigo);
+                $this->session->set_userdata($chat);
+                echo $ret;
+           }else{echo "";}
+        }
+        //echo "outro $codPedido";
+    }
+    public function ajaxEnviaMensagem($codPedido) {
+        $mensagem  = $this->stripHTMLtags($this->input->post('msg'));
+        $data = array(
+            'COD_PEDIDO' => $codPedido,
+            'COD_USUARIO' =>  $this->usuario,
+            'MENSAGEM' => "$mensagem",
+            
+        );
+
+        $this->db->insert('chat', $data);
+    }
+    private function stripHTMLtags($str)
+{
+    $t = preg_replace('/<[^<|>]+?>/', '', htmlspecialchars_decode($str));
+    $t = htmlentities($t, ENT_QUOTES, "UTF-8");
+    return $t;
+}
     public function somar_dias_uteis($str_data, $int_qtd_dias_somar = 7) {
 
     // Caso seja informado uma data do tipo DATETIME - aaaa-mm-dd 00:00:00
