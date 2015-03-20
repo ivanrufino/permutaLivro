@@ -12,6 +12,7 @@ class Home extends CI_Controller {
         
                 //$this->load->helper();
                 $this->load->model('home_model','home');
+                $this->load->model('estanteVirtual_model', 'ev');
                 //$this->load->dbforge();
               
         }
@@ -193,7 +194,28 @@ class Home extends CI_Controller {
         
     }
     
-
+    public function teste() {
+        $gen=array('10','18');
+        $generos = $this->ev->getGenerosByUsuario('1048');
+        $amiguinhos =  $this->ev->getUsuarioPerfilGeneroIgual('1048',$generos,'10');
+       $cod_unique=array();
+       $array_unique=array();
+        foreach ($amiguinhos as $chave => $amiguinho) {
+                       
+            if (!in_array($amiguinho['CODIGO'], $cod_unique) ){
+                 $cod_unique[]=$amiguinho['CODIGO'];
+                  $array_unique[]=$amiguinho;
+            }else{
+                $key = array_search($amiguinho['CODIGO'], $cod_unique); // $key = 2;
+                $array_unique[$key]['QUANTIDADE']+=$amiguinho['QUANTIDADE'];
+            }
+        }
+        arsort($array_unique);
+        print_r($generos);
+        echo "<pre>";
+        print_r($array_unique);
+        echo "</pre>";
+    }
 }
 
 /* End of file home.php */

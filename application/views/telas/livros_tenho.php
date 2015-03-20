@@ -36,9 +36,19 @@
             $(".option",this).slideDown();
         },function(){
              $(".option",this).slideUp();
-        })
+        });
+        $('#edit_livro_modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var titulo = button.data('titulolivro');
+            var codLivro = button.data('codlivro'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Alterar configuração do livro: ' + titulo);
+            modal.find('.modal-body #codLivro').val(codLivro);
+        });
         
-    })
+    });
       
 </script>
 <div class="container-alternate">
@@ -110,7 +120,7 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
         switch ($value['STATUS']) {
             case '0':
                 echo "<span class='alert alert-danger'>Livro ainda não lido.</span>";                
-                $linkEdita="<a href='".base_url('pedido/selecionarUsuarioPedido/') . '/' . $slug ."' class='detalhe btn btn-success'>Eu já li </a>";
+//                $linkEdita="<a href='".base_url('pedido/selecionarUsuarioPedido/') . '/' . $slug ."' class='detalhe btn btn-success'>Eu já li </a>";
                 break;
             case '1':
                 echo "<span class='alert alert-success'>Você já leu este livro.</span>";
@@ -124,10 +134,11 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
       
         echo "</td>";
         echo "<td style='text-align:center;vertical-align: middle;'>";
-        echo $linkEdita;
+//        echo $linkEdita;
+        echo '<button type="button"  data-toggle="modal" data-target="#edit_livro_modal" data-codLivro="'.$codlivro.'" data-tituloLivro="'.$value['TITULO'].'" class="btn btn-success btn-lg navbar-btn  "><i class="fa fa-edit"></i> &nbsp;Editar</button>'; 
             foreach ($botoes as $btn) {
-               
-                    echo "<a href='".base_url($btn['link']) . '/' . $slug ."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
+              
+                    //echo "<a href='".base_url($btn['link']) . '/' . $slug ."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";
                
             }
         echo "</td>";
@@ -138,3 +149,31 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
 echo "</table></div>";
  }
 ?>
+<div class="modal fade" id="edit_livro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edição de Livro</h4>
+      </div>
+      <div class="modal-body">
+          <input type="hidden" id="codLivro" name="codLivro"> 
+          <fieldset>
+              <legend>Leitura</legend>
+              <input type="radio" name="STATUS" id="nao_lido" value="0"><label for="nao_lido">Não Lido</label>
+              <input type="radio" name="STATUS" id="lido" value="1"><label for="lido">Lido</label>
+              <input type="radio" name="STATUS" id="lendo" value="2"><label for="lendo">Lendo</label>
+          </fieldset>
+          <fieldset>
+              <legend>Visualização</legend>
+               <input type="radio" name="ESCOPO" id="disponivel" value="1"><label for="disponivel">Disponível</label>
+              <input type="radio" name="ESCOPO" id="indisponivel" value="2"><label for="indisponivel">Indisponível</label>
+          </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>

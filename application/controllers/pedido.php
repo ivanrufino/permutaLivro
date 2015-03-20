@@ -502,7 +502,7 @@ class Pedido extends CI_Controller {
            $mensagens = $this->pedido->getMensagem($codPedido,$codigo);
             $ret="";
             if (!$mensagens){
-                echo "";
+                echo "0";
                 return;
             }
             foreach ($mensagens as $mensagem) {
@@ -518,7 +518,7 @@ class Pedido extends CI_Controller {
                 $chat=array('last_codigo_mensagem'=>$codigo);
                 $this->session->set_userdata($chat);
                 echo $ret;
-           }else{echo "";}
+           }else{echo "";return;}
         }
         //echo "outro $codPedido";
     }

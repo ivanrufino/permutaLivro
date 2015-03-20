@@ -83,7 +83,7 @@ class EstanteVirtual_Model extends CI_Model {
         }
         return $this->db->last_query();
     }
-    public function getUsuarioPerfilIgual($cod_usuario,$limit=5) {
+    public function getUsuarioPerfilIgual($cod_usuario,$limit=5) { //MESMA QUANTIDADE DE LIVROS
       //  $cod_usuario='1043';
         $query="SELECT *,  COUNT(COD_LIVRO) AS QUANTIDADE  FROM `v_estante` JOIN v_usuario on v_usuario.CODIGO = v_estante.COD_USUARIO WHERE `COD_USUARIO` <> $cod_usuario and `COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
                 GROUP BY COD_USUARIO  HAVING QUANTIDADE > 1 ORDER BY QUANTIDADE DESC, v_estante.NOME ASC LIMIT $limit";
@@ -93,6 +93,83 @@ class EstanteVirtual_Model extends CI_Model {
         }else{ 
             return FALSE;
         }
+    }
+    public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$limitTotal=10) {
+        $dados=array();
+        $total = 0;
+            foreach($generos as $num => $genero) {
+            $total += $genero[ 'QUANTIDADE' ];
+        }
+        foreach ($generos as $genero) {   
+            $limit = round($genero['QUANTIDADE']/$total*$limitTotal);
+            $this->db->select('COUNT(GE.CODIGO) AS QUANTIDADE,USU.CODIGO,USU.NOME,COUNT(GE.CODIGO) AS QUANTIDADE');
+            $this->db->from('estantevirtual as ES');
+            $this->db->join('usuario as USU','USU.CODIGO = ES.COD_USUARIO');
+            $this->db->join('livro as LI', 'LI.CODIGO = ES.COD_LIVRO');
+            $this->db->join('genero as GE', 'GE.CODIGO = LI.COD_GENERO');
+
+            $this->db->where('GE.CODIGO',$genero['CODIGO']); 
+            $this->db->where('USU.CODIGO <>',$cod_usuario);
+            $this->db->group_by("USU.CODIGO"); 
+            $this->db->order_by('QUANTIDADE','DESC');
+            $this->db->limit($limit);
+
+            $sql=$this->db->get();
+          
+        
+        //echo $this->db->last_query();die();
+            if($sql->num_rows > 0){
+                $dados= array_merge($dados, $sql->result_array());
+            }
+            $sql->free_result();
+        }
+      
+        
+        return $dados ;
+          /*SELECT USU.CODIGO,USU.NOME,COUNT(GE.CODIGO) AS QUANTIDADE
+from estantevirtual ES 
+JOIN usuario USU ON USU.CODIGO = ES.COD_USUARIO 
+JOIN livro LI ON LI.CODIGO = ES.COD_LIVRO
+JOIN genero GE ON GE.CODIGO = LI.COD_GENERO
+
+WHERE GE.CODIGO IN (10)
+and USU.CODIGO <>1048
+ GROUP BY USU.CODIGO
+ ORDER BY QUANTIDADE DESC
+LIMIT 2*/
+    }
+    public function getGenerosByUsuario($cod_usuario,$limit=10) { 
+        $this->db->select('USU.NOME,GE.CODIGO,COUNT(GE.CODIGO) AS QUANTIDADE');
+        $this->db->from('estantevirtual as ES');
+        $this->db->join('usuario as USU','USU.CODIGO = ES.COD_USUARIO');
+        $this->db->join('livro as LI', 'LI.CODIGO = ES.COD_LIVRO');
+        $this->db->join('genero as GE', 'GE.CODIGO = LI.COD_GENERO');
+        
+        $this->db->where('ES.COD_USUARIO',$cod_usuario);
+        $this->db->group_by("GE.CODIGO"); 
+        $this->db->order_by('QUANTIDADE','DESC');
+        $this->db->limit($limit);
+        
+        $sql=$this->db->get(); 
+        //echo $this->db->last_query();die();
+        if($sql->num_rows > 0){
+            return $sql->result_array();
+        }else{ 
+            return FALSE;
+        }
+        
+      
+        
+        
+        /*SELECT USU.NOME,GE.CODIGO, count(GE.CODIGO) AS QUANTIDADE from estantevirtual ES 
+JOIN usuario USU ON USU.CODIGO = ES.COD_USUARIO 
+JOIN livro LI ON LI.CODIGO = ES.COD_LIVRO
+JOIN genero GE ON GE.CODIGO = LI.COD_GENERO
+
+WHERE COD_USUARIO = 1048
+GROUP BY GE.CODIGO
+ORDER BY QUANTIDADE DESC
+LIMIT 2*/
     }
    
 }

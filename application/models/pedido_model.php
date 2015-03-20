@@ -112,7 +112,7 @@ class Pedido_Model extends CI_Model {
         
         $ret="result_array";
         $this->db->select('*');
-        $this->db->from('chat AS MEN'); 
+        $this->db->from('v_chat AS MEN'); 
         $this->db->where('MEN.COD_PEDIDO', $codPedido );  
        if(!is_null($codigo)){
             $this->db->where('MEN.CODIGO >', $codigo );  

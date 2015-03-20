@@ -64,6 +64,7 @@ class Usuario extends CI_Controller {
     public function recados() {
         $this->verificador->verificarLogado();         
         $data ['usuario']=  $this->usuarios->getUsuario($this->usuario);
+         $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);
         $data['minhasmensagens'] = $this->mensagem->getMensagem($this->usuario);
         

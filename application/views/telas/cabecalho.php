@@ -53,7 +53,7 @@
                 </ul>
                 <?php
                 $local=$this->router->fetch_class();
-//                echo $this->router->fetch_method();
+                $sublocal =  $this->router->fetch_method();
 //                echo $local;
                 switch ($local) {
                     case 'home':
@@ -66,6 +66,9 @@
                         break;
                     case 'usuario':
                          echo '<a href="{base_url}login/efetuarLogout" class="btn btn-danger  btn-lg navbar-btn navbar-right" ><i class="fa fa-power-off"></i> &nbsp;Sair</a>' ;
+                        if($sublocal=='recados'){
+                            echo '<a href="{base_url}minhaestante.html" class="btn btn-success btn-lg navbar-btn navbar-right" ><i class="fa fa-home fa-lg"></i>&nbsp;Minha estante</a> ';
+                        }
                          break;
                     default:
                          echo '<a href="{base_url}login/efetuarLogout" class="btn btn-danger btn-lg navbar-btn navbar-right" ><i class="fa fa-power-off"></i> &nbsp;Sair</a>' ;

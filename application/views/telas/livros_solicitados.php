@@ -116,7 +116,8 @@
                                         <td>
                                             <?php if ($value['STATUS']=='1'){?>
                                             <a class="btn btn-success" href="{base_url}pedido/aceitarPedido/<?= $value['CODIGO']?>">Aceitar</a> 
-                                            <a class="btn btn-danger" href="{base_url}pedido/recusarPedido/<?= $value['CODIGO']?>">Recusar</a>
+                                            <a class="btn btn-danger" href="{base_url}pedido/recusarPedido/<?= $value['CODIGO']?>">Recusar</a><br><br>
+                                            <a class="btn btn-default" href="{base_url}pedido/detalhes/detalhe_<?= $value['CODIGO']?>">Detalhes</a>
                                             <?php }else{
                                                     if( trim($value['COD_RASTREIO'])==""){ ?>
                                                <!--<a class="btn btn-success" href="{base_url}pedido/enviarCR/<?= $value['CODIGO']?>">Inserir Código de Rastreio</a>-->  
