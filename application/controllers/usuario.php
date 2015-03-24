@@ -31,11 +31,13 @@ class Usuario extends CI_Controller {
         $this->verificador->verificarLogado();  
         
        
-        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);       // print_r($data);die();
+        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);       
         $data['queroLivros']=  $this->ev->livrosDisponiveis($this->usuario); 
         $data['maisLidos']=FALSE;
         $data['ultimosLivros']=  $this->livro->getLastInserted($this->usuario);  
-        $data['usuarioLinkados'] = $this->ev->getUsuarioPerfilIgual($this->usuario);
+        $data['usuarioLinkados']    =$this->getUsuarioLinkados();
+      
+    //    $this->printArray($data['usuarioLinkados']) ;die();
         if (!$data['ultimosLivros']){
             $data['maisLidos']=  $this->livro->maisLidos(4);  
         }
@@ -60,7 +62,28 @@ class Usuario extends CI_Controller {
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/template_corpo.php', $tela, $data);
     }
+    public function getUsuarioLinkados() {
 
+            
+        $generos = $this->ev->getGenerosByUsuario($this->usuario);
+        // $data['usuarioLinkados'] = $this->ev->getUsuarioPerfilIgual($this->usuario);
+        $usuarioLinkados =  array_merge($this->ev->getUsuarioPerfilGeneroIgual($this->usuario,$generos,10),$this->ev->getUsuarioPerfilIgual($this->usuario));
+        $cod_unique=array();
+       $array_unique=array();
+        foreach ($usuarioLinkados as $chave => $usuarioLinkado) {
+                       
+            if (!in_array($usuarioLinkado['CODIGO'], $cod_unique) ){
+                 $cod_unique[]=$usuarioLinkado['CODIGO'];
+                  $array_unique[]=$usuarioLinkado;
+            }else{
+                $key = array_search($usuarioLinkado['CODIGO'], $cod_unique); // $key = 2;
+                $array_unique[$key]['QUANTIDADE']+=$usuarioLinkado['QUANTIDADE'];
+            }
+        }
+       
+       
+        return $array_unique;
+    }
     public function recados() {
         $this->verificador->verificarLogado();         
         $data ['usuario']=  $this->usuarios->getUsuario($this->usuario);

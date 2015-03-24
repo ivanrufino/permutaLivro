@@ -85,13 +85,13 @@ class EstanteVirtual_Model extends CI_Model {
     }
     public function getUsuarioPerfilIgual($cod_usuario,$limit=5) { //MESMA QUANTIDADE DE LIVROS
       //  $cod_usuario='1043';
-        $query="SELECT *,  COUNT(COD_LIVRO) AS QUANTIDADE  FROM `v_estante` JOIN v_usuario on v_usuario.CODIGO = v_estante.COD_USUARIO WHERE `COD_USUARIO` <> $cod_usuario and `COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
+        $query="SELECT  COUNT(COD_LIVRO) AS QUANTIDADE ,VU.CODIGO, VU.NOME,VU.EMAIL,VU.LINK_REDE,VU.NOME_REDE, VU.FOTO_REDE,VU.FOTO AS FOTO_USUARIO,TITULO_QUALIFICACAO AS QUALIFICACAO,VU.CIDADE,VU.ESTADO FROM `v_estante` JOIN v_usuario VU on VU.CODIGO = v_estante.COD_USUARIO WHERE `COD_USUARIO` <> $cod_usuario and `COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
                 GROUP BY COD_USUARIO  HAVING QUANTIDADE > 1 ORDER BY QUANTIDADE DESC, v_estante.NOME ASC LIMIT $limit";
         $sql=$this->db->query($query);
         if($sql->num_rows > 0){
             return $sql->result_array();
         }else{ 
-            return FALSE;
+            return array();
         }
     }
     public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$limitTotal=10) {
@@ -102,9 +102,9 @@ class EstanteVirtual_Model extends CI_Model {
         }
         foreach ($generos as $genero) {   
             $limit = round($genero['QUANTIDADE']/$total*$limitTotal);
-            $this->db->select('COUNT(GE.CODIGO) AS QUANTIDADE,USU.CODIGO,USU.NOME,COUNT(GE.CODIGO) AS QUANTIDADE');
+            $this->db->select('COUNT(GE.CODIGO) AS QUANTIDADE,USU.CODIGO,USU.NOME,USU.EMAIL,USU.LINK_REDE,USU.NOME_REDE, USU.FOTO_REDE,USU.FOTO AS FOTO_USUARIO,TITULO_QUALIFICACAO AS QUALIFICACAO,USU.CIDADE,USU.ESTADO');
             $this->db->from('estantevirtual as ES');
-            $this->db->join('usuario as USU','USU.CODIGO = ES.COD_USUARIO');
+            $this->db->join('v_usuario as USU','USU.CODIGO = ES.COD_USUARIO');
             $this->db->join('livro as LI', 'LI.CODIGO = ES.COD_LIVRO');
             $this->db->join('genero as GE', 'GE.CODIGO = LI.COD_GENERO');
 
@@ -119,12 +119,13 @@ class EstanteVirtual_Model extends CI_Model {
         
         //echo $this->db->last_query();die();
             if($sql->num_rows > 0){
+                
                 $dados= array_merge($dados, $sql->result_array());
             }
             $sql->free_result();
         }
       
-        
+       
         return $dados ;
           /*SELECT USU.CODIGO,USU.NOME,COUNT(GE.CODIGO) AS QUANTIDADE
 from estantevirtual ES 

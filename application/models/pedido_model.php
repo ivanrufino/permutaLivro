@@ -12,6 +12,7 @@ class Pedido_Model extends CI_Model {
             $this->db->where('COD_USUARIO_DE', NULL);  
         }
         $this->db->where('DATA_ENTREGA', NULL);  
+        $this->db->where('STATUS <>', 3);  
         
         $this->db->where('COD_USUARIO_PARA', $cod_usuario );  
         if(!is_null($cod_livro)){
@@ -27,17 +28,22 @@ class Pedido_Model extends CI_Model {
             return FALSE;
         }
     }
+    
     public function getPedidobyStatus($cod_usuario,$status=null) {
         $this->db->select('PED.*,LIV.TITULO,LIV.FOTO,LIV.AUTOR');
         $this->db->from('pedido AS PED');         
         $this->db->join('livro as LIV', 'LIV.CODIGO = PED.COD_LIVRO');       
          
-       
+        $this->db->select('UDE.NOME AS NOME_USUARIO_DE');
+            $this->db->join('usuario as UDE', 'UDE.CODIGO = PED.COD_USUARIO_DE','left'); 
         $this->db->where('COD_USUARIO_PARA', $cod_usuario );  
         if(!is_null($status)){
+            
             $this->db->where('COD_USUARIO_DE >', 0); 
-            $this->db->where('STATUS', $status );  
+        
+            $this->db->where('PED.STATUS', $status );  
         }
+         $this->db->where('COD_USUARIO_DE IS NOT NULL',  NULL,FALSE); 
         $this->db->where('DATA_ENTREGA', NULL); 
         $sql=$this->db->get(); 
         //colocar um if para verificar se foi entregue 

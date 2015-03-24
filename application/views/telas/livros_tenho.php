@@ -63,29 +63,7 @@
                   
                 );
                 montarGrid($queroLivros, "" , $titulo_legenda, $btn_link) ?>
-<!--                <fieldset>
-                    <legend>{titulo_legenda}</legend>
-                    <?php 
-                    foreach ($queroLivros as $key => $value) {  ?>
-                    
-                    <div class="col-md-4 mnblocos"   >
-                        <div class="<?= $value['class']; ?>">
-                        <img src="{local}imagens/capa/<?= $value['CAPA']; ?>" class="capa img-responsive">
-                        <?=  character_limiter($value['TITULO'], 40); ; ?><br>
-                        <strong> <?= $value['AUTOR']; ?></strong><br>
-                        
-                        <span class="option">
-                           <?php $slug = url_title($value['TITULO'], '_', TRUE)."_".$value['CODIGO'].".html";?>
-                            <a href="<?=  base_url('pedido/detalhes/').'/'.$slug?>" class="detalhe">Detalhe</a>
-                            <a href="" class="tenho">Tenho</a>
-                        </span>
-                        </div>
-                    </div>
-                        echo $value['id'];
-                    <?php }
-                    ?>
-                    mostrar capa, titulo e autor dos livros que colocaram a disposição
-                </fieldset>-->
+
                 </div>
             
             
@@ -103,7 +81,7 @@
 function montarGrid($livros,$classe,$legenda,$botoes){ 
      
     echo "<div class='table-responsive'>";
-    echo "<h1>$legenda</h1>";
+    echo "<h1 class='titulo_legenda'>$legenda</h1>";
 echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
 
     foreach ($livros as $key => $value) {

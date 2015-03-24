@@ -195,8 +195,7 @@ class Home extends CI_Controller {
     }
     
     public function teste() {
-        $gen=array('10','18');
-        $generos = $this->ev->getGenerosByUsuario('1048');
+       $generos = $this->ev->getGenerosByUsuario('1048');
         $amiguinhos =  $this->ev->getUsuarioPerfilGeneroIgual('1048',$generos,'10');
        $cod_unique=array();
        $array_unique=array();

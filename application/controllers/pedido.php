@@ -133,7 +133,12 @@ class Pedido extends CI_Controller {
         }else{
             switch ($status) {
                 case 'pendentes':
-                    $data['livrosDesejados'] = $this->pedido->getLivrosDesejados($this->usuario);
+                    $data['desejos_in'] = 'in';$data['pedidos_in'] = '';
+                    $desejados = $this->pedido->getLivrosDesejados($this->usuario);
+                    $recusados =$this->pedido->getPedidobyStatus($this->usuario,'0');
+                    $desejados = is_array($desejados)? $desejados:array();
+                    $recusados = is_array($recusados)? $recusados:array();
+                    $data['livrosDesejados'] =  array_merge($desejados,$recusados);
                     break;
                 case 'aguardando':
                     $data['livrosDesejados'] = $this->pedido->getPedidobyStatus($this->usuario,'1');
@@ -281,6 +286,17 @@ class Pedido extends CI_Controller {
          *        perguntar se quer incluir na estante ou fazer uma solicitação de pedido
          * 
          *          */
+    }
+    public function remover($url) {
+        $this->verificador->verificarLogado();
+        $codigo = end(explode("_", $url));
+       // echo $codigo;
+        $dados['STATUS']='3';
+         $this->pedido->updatePedido($codigo,$dados);
+        $data['desejo_in'] = 'in';
+        
+        redirect('lista_desejo');
+    
     }
     public function verificaSaldo() {
         $saldo = $this->saldo->getSaldo($this->usuario);

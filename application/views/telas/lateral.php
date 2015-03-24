@@ -41,7 +41,7 @@
 </style>
  
 
-        <div class="col-sm-3 col-md-3" style="background: transparent;border: 1px dashed #0099ff">
+        <div class="col-sm-3 col-md-3 col-xs-4" style="background: #FFFFFF;border: 0px dashed #0099ff;padding-top: 5px;border-radius: 5px">
           <div class="panel-group" id="accordion">
               <div id="box-img" style="text-align:center">
                   <?php if ($usuario['ID_REDE']){ ?>
@@ -66,8 +66,8 @@
               <div class="panel-heading">
                 <h4 class="panel-title"> 
                    
-                  <a data-toggle="modal" data-target="#config" href="#"><span class="glyphicon glyphicon-cog">
-                    </span>Configuração</a>
+                  <a data-toggle="modal" data-target="#config" href="#"><span class="glyphicon glyphicon-cog hidden-xs floatLeft">
+                      </span> Configuração</span></a>
                 </h4>
               </div>
               <div id="collapseOne" class="panel-collapse collapse ">
@@ -96,7 +96,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-book">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-book hidden-xs floatLeft">
                     </span>Livros</a>
                 </h4>
               </div>
@@ -125,19 +125,42 @@
                 </ul>
               </div>
             </div>
+                <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#lista_desejo"><span class="glyphicon glyphicon-file hidden-xs floatLeft">
+                    </span>Livros Desejados</a>
+                </h4>
+              </div>
+              <div id="lista_desejo" class="panel-collapse collapse <?= isset($desejos_in)? $desejos_in:"" ?>">
+               <ul class="list-group">
+                   <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}lista_desejo">Pendentes</a>
+                   <!-- <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meusPedidos/recebidos">Recebidos</a></li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-user text-sucess"></span><a href="{base_url}meusPedidos">Enviados</a>
+                        <ul class="list-group">
+                            <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/pendentes">Pendentes</a>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/aguardando">Aguardando</a>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/em_andamento">Em Andamento</a>
+                                    <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/recusado">Recusado</a>
+                        </ul>
+                    </li>-->
+
+                </ul>
+              </div>
+            </div>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#pedidos"><span class="glyphicon glyphicon-file">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#pedidos"><span class="glyphicon glyphicon-file hidden-xs floatLeft">
                     </span>Pedidos</a>
                 </h4>
               </div>
               <div id="pedidos" class="panel-collapse collapse <?= isset($pedidos_in)? $pedidos_in:"" ?>">
                <ul class="list-group">
-                    <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meusPedidos/recebidos">Pedidos Recebidos</a></li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-user text-sucess"></span><a href="{base_url}meusPedidos">Pedidos Enviados</a>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meusPedidos/recebidos">Recebidos</a></li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-user text-sucess"></span><a href="{base_url}meusPedidos">Enviados</a>
                         <ul class="list-group">
-                            <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/pendentes">Pendentes</a>
+                            <!--<li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/pendentes">Pendentes</a>-->
                             <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/aguardando">Aguardando</a>
                                 <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/em_andamento">Em Andamento</a>
                                     <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}meusPedidos/recusado">Recusado</a>

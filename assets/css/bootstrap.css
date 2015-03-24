@@ -5749,12 +5749,17 @@ padding-top: 10px;
 }
 
 .panel-heading {
-  padding: 10px 15px;
+  padding: 10px 10px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-
+.floatLeft{
+    float: left;
+}
+.floatRight{
+    float: right;
+}
 .panel-heading > .dropdown .dropdown-toggle {
   color: inherit;
 }

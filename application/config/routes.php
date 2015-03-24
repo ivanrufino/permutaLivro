@@ -47,6 +47,7 @@ $route['meus_livros/(:any)'] = "estantevirtual/meusLivros/$1";
 $route['meusPedidos'] = "pedido/meusPedidos";
 $route['meusPedidos/recebidos'] = "pedido/recebidos";
 $route['meusPedidos/(:any)'] = "pedido/meusPedidos/$1";
+$route['lista_desejo'] = "pedido/meusPedidos/pendentes";
 
 $route['meus_livros/buscar'] = "livro";
 $route['sair'] = "login/efetuarLogout";

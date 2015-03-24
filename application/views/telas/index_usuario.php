@@ -45,7 +45,7 @@
 <div class="container-alternate">
     <div class="container">
         {view_lateral}
-        <div class="col-sm-9 col-md-9" style="background: transparent">
+        <div class="col-sm-9 col-md-9 col-xs-8" style="background: transparent">
             
             <?php if(!is_null($meusrecados)){?>
             <div class="col-md-12 recados blocos">
@@ -57,7 +57,7 @@
             <?php }?>
             
             <?php if ($queroLivros) { 
-                $legenda="Livros que você deseja estão a disposição";
+                $legenda="Livros de sua lista de desejos estão a disposição";
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Listar Usuários"),
                   
@@ -118,9 +118,9 @@
 <?php 
  function montarGridUsuario($usuario,$classe,$legenda,$botoes){
      //print_r($usuario);
-    echo "<div class='table-responsive'>";
+    echo "<div class=''>";
     echo "<h1 class='titulo_legenda'>$legenda</h1>";
-echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
+echo "<table class='table table-bordered table-striped table-hover table-condensed '>";
 
     foreach ($usuario as $key => $value) {
         echo"<tr>";
@@ -157,9 +157,9 @@ echo "</table></div>";
 }
 function montarGrid($livros,$classe,$legenda,$botoes){ 
      
-    echo "<div class='table-responsive'>";
+    echo "<div class=''>";
     echo "<h1 class='titulo_legenda'>$legenda</h1>";
-echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";
+echo "<table class='table table-bordered table-striped table-hover table-condensed'>";
 
     foreach ($livros as $key => $value) {
       $codlivro = isset($value['COD_LIVRO'])?$value['COD_LIVRO']:$value['CODIGO'];
