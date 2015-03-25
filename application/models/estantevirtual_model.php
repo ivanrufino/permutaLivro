@@ -83,9 +83,18 @@ class EstanteVirtual_Model extends CI_Model {
         }
         return $this->db->last_query();
     }
-    public function getUsuarioPerfilIgual($cod_usuario,$limit=5) { //MESMA QUANTIDADE DE LIVROS
+    public function getUsuarioPerfilIgual($cod_usuario,$amigos,$limit=5) { //MESMA QUANTIDADE DE LIVROS
       //  $cod_usuario='1043';
-        $query="SELECT  COUNT(COD_LIVRO) AS QUANTIDADE ,VU.CODIGO, VU.NOME,VU.EMAIL,VU.LINK_REDE,VU.NOME_REDE, VU.FOTO_REDE,VU.FOTO AS FOTO_USUARIO,TITULO_QUALIFICACAO AS QUALIFICACAO,VU.CIDADE,VU.ESTADO FROM `v_estante` JOIN v_usuario VU on VU.CODIGO = v_estante.COD_USUARIO WHERE `COD_USUARIO` <> $cod_usuario and `COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
+       
+        $listAmigos = implode(',', $amigos);
+        $query="SELECT  COUNT(COD_LIVRO) AS QUANTIDADE ,VU.CODIGO, VU.NOME,VU.EMAIL,VU.LINK_REDE,VU.NOME_REDE, VU.FOTO_REDE,VU.FOTO AS FOTO_USUARIO,TITULO_QUALIFICACAO AS QUALIFICACAO,VU.CIDADE,VU.ESTADO "
+                . "FROM `v_estante` JOIN v_usuario VU on VU.CODIGO = v_estante.COD_USUARIO "
+                . "WHERE `COD_USUARIO` <> $cod_usuario AND ";
+        if(count($amigos)>0){
+                $query .= "`COD_USUARIO` NOT IN ($listAmigos) AND";
+        }
+                $query.= "`COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
+                    
                 GROUP BY COD_USUARIO  HAVING QUANTIDADE > 1 ORDER BY QUANTIDADE DESC, v_estante.NOME ASC LIMIT $limit";
         $sql=$this->db->query($query);
         if($sql->num_rows > 0){
@@ -94,7 +103,7 @@ class EstanteVirtual_Model extends CI_Model {
             return array();
         }
     }
-    public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$limitTotal=10) {
+    public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$amigos,$limitTotal=10) {
         $dados=array();
         $total = 0;
             foreach($generos as $num => $genero) {
@@ -107,8 +116,10 @@ class EstanteVirtual_Model extends CI_Model {
             $this->db->join('v_usuario as USU','USU.CODIGO = ES.COD_USUARIO');
             $this->db->join('livro as LI', 'LI.CODIGO = ES.COD_LIVRO');
             $this->db->join('genero as GE', 'GE.CODIGO = LI.COD_GENERO');
-
-            $this->db->where('GE.CODIGO',$genero['CODIGO']); 
+            $this->db->where('GE.CODIGO',$genero['CODIGO']);
+            if(count($amigos)>0){
+                $this->db->where_not_in('USU.CODIGO',$amigos);
+            }
             $this->db->where('USU.CODIGO <>',$cod_usuario);
             $this->db->group_by("USU.CODIGO"); 
             $this->db->order_by('QUANTIDADE','DESC');

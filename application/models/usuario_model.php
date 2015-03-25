@@ -148,6 +148,40 @@ class Usuario_Model extends CI_Model {
             return NULL;
         }
     }
+    public function getUsuarioMeSeguem($eu,$amigo=NULL) {
+        $this->db->select('*');
+        $this->db->from('segue');
+        if (!is_null($amigo)){
+            $this->db->where('COD_USUARIO_DE',$amigo);
+        }
+        $this->db->where('COD_USUARIO_PARA',$eu);
+        $this->db->where('INVERSE','0');
+        $dados=$this->db->get();
+       // echo $this->db->last_query();
+        if($dados->num_rows>0){
+            return $dados->result_array();
+        }else{
+            return NULL;
+        }
+    }
+    public function novoSegue($dados) {
+        if ($this->db->insert('segue', $dados)){
+            return true;            
+        }else{
+           return FALSE;
+        }
+    }
+
+    public function updateSegue($dados) {
+        $this->db->where('COD_USUARIO_DE', $dados['COD_USUARIO_DE']);
+        $this->db->where('COD_USUARIO_PARA', $dados['COD_USUARIO_PARA']);
+       if( $this->db->update('segue', $dados)){
+           return TRUE;
+       }else{
+           return FALSE;
+       }
+    }
+
     public function getAmigos($cod_usuario) {
         //SELECT * FROM segue WHERE COD_USUARIO_DE = id_usuario or  (COD_USUARIO_PARA = id_usuario and INVERSE = 1);
         

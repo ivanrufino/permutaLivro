@@ -63,11 +63,19 @@ class Usuario extends CI_Controller {
         $this->parser->mostrar('templates/template_corpo.php', $tela, $data);
     }
     public function getUsuarioLinkados() {
-
+        $amigos= $this->usuarios->getAmigos($this->usuario);
+        $naobusca=array();
+        foreach ($amigos as $amigo) {
+            $naobusca[] = $amigo['CODIGO'];
+        }
+        
+       //print_r($naobusca);die();
+        $limit = 10;//rand(1, 10);
             
         $generos = $this->ev->getGenerosByUsuario($this->usuario);
         // $data['usuarioLinkados'] = $this->ev->getUsuarioPerfilIgual($this->usuario);
-        $usuarioLinkados =  array_merge($this->ev->getUsuarioPerfilGeneroIgual($this->usuario,$generos,10),$this->ev->getUsuarioPerfilIgual($this->usuario));
+        $usuarioLinkados =  array_merge($this->ev->getUsuarioPerfilGeneroIgual($this->usuario,$generos,$naobusca,$limit),$this->ev->getUsuarioPerfilIgual($this->usuario,$naobusca,$limit));
+       // print_r($usuarioLinkados); die();
         $cod_unique=array();
        $array_unique=array();
         foreach ($usuarioLinkados as $chave => $usuarioLinkado) {
@@ -106,6 +114,25 @@ class Usuario extends CI_Controller {
         $dados['LIDO']='1';
         $this->mensagem->updateMensagem($codMensagem,$dados);
         //echo "alterar mensagem de codigo".$codMensagem;
+    }
+    public function seguir($usuarioAmigo) {
+        $usuarioMeSeguem= $this->usuarios->getUsuarioMeSeguem($this->usuario,$usuarioAmigo);
+      
+        if (is_null($usuarioMeSeguem)){
+            $dados['COD_USUARIO_DE']= $this->usuario;
+            $dados['COD_USUARIO_PARA']= $usuarioAmigo;
+            $this->usuarios->novoSegue($dados);
+        }else{
+            
+            $dados['COD_USUARIO_PARA']= $this->usuario;
+            $dados['COD_USUARIO_DE']= $usuarioAmigo;
+            $dados['INVERSE']= 1;
+            $this->usuarios->updateSegue($dados);
+            
+        }
+        
+        redirect('minhaestante');
+        
     }
     public function cadastro() {
         $data['mensageFaixa'] = "Cadastre-se e aproveite todas as vantagens dos serviços do Club do Livro";        

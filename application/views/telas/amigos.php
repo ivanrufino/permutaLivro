@@ -20,7 +20,7 @@
 </div>-->
 
 <?php foreach ($amigos as $key => $amigo) { ?>
-    <div class="col-md-3 text-center">
+    <div class="col-xs-4 col-md-3 col-lg-2 text-center">
          <?php if ($amigo['ID_REDE'] != "") { ?>
         <a target="_blank" href="<?= $amigo['LINK_REDE']?> "class="btn btn-<?= rede($amigo['NOME_REDE'])=='windows' ? 'microsoft':rede($amigo['NOME_REDE']); ?> "><i class=" fa fa-<?= rede($amigo['NOME_REDE'])?>"></i>
             <?=$amigo['NOME_REDE']?> </a> <br>  

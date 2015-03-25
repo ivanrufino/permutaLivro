@@ -70,6 +70,7 @@ switch ($_SERVER['SERVER_NAME']) {
         $database='u762709049_tcc';
         break;
       case 'www.clubdolivro.com.br':
+      case 'www.permutalivro.com.br':
        $hostname ='localhost';
         $username='root';
         $password='12345';

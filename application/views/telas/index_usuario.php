@@ -38,7 +38,11 @@
         }, function () {
             $(".option", this).slideUp();
         })
-
+        $('.close.me').click(function(){
+            $(this).parent().parent().slideUp();
+            
+        });
+        
     })
 
 </script>
@@ -76,7 +80,7 @@
                 //$legenda="Este(s) usuário(s) fora(m) selecionado por terem o mesmos livros que você e mais";
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Ver Livros"),
-                    array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Seguir Usuário"),
+                    array('link'=>'usuario/seguir/','class'=>'btn-success','titulo'=>"Seguir Usuário"),
                   
                 );
                 montarGridUsuario($usuarioLinkados, 'livrosBuscados', $legenda,$btn_link); } ?>
@@ -119,7 +123,8 @@
  function montarGridUsuario($usuario,$classe,$legenda,$botoes){
      //print_r($usuario);
     echo "<div class=''>";
-    echo "<h1 class='titulo_legenda'>$legenda</h1>";
+    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' style='floatRight'></span></h1>";
+    
 echo "<table class='table table-bordered table-striped table-hover table-condensed '>";
 
     foreach ($usuario as $key => $value) {
@@ -158,7 +163,7 @@ echo "</table></div>";
 function montarGrid($livros,$classe,$legenda,$botoes){ 
      
     echo "<div class=''>";
-    echo "<h1 class='titulo_legenda'>$legenda</h1>";
+    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' style='floatRight'></span></h1>";
 echo "<table class='table table-bordered table-striped table-hover table-condensed'>";
 
     foreach ($livros as $key => $value) {

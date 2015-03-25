@@ -41,8 +41,8 @@ switch ($_SERVER['SERVER_NAME']) {
     case '192.168.4.100':
         $base = 'http://192.168.4.100:8080/tcc/';
         break;
-     case 'www.siscore.hol.es':
-        $base = 'http://www.siscore.hol.es/';
+     case 'www.permutalivro.com.br':
+        $base = 'http://www.permutalivro.com.br/';
         break;
     default:
         break;
