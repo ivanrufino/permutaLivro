@@ -88,7 +88,7 @@ class Login extends CI_Controller {
         $this->parser->mostrar('templates/template_corpo.php',$tela,$data);
     }
     public function efetuarLogin(){
-            $dados['email']   =  $this->input->post('usuario');
+            $dados['email']   = trim($this->input->post('usuario'));
             $dados['senha']  =   $this->input->post('senha');
         
         /*    $dados['nome']   = $this->session->flashdata('nome_facebook'); 
