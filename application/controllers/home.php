@@ -215,6 +215,16 @@ class Home extends CI_Controller {
         print_r($array_unique);
         echo "</pre>";
     }
+     public function ce($linha=1,$coluna=1) { 
+         echo '<style>.bloco{width:50px;height:50px;border:1px solid black; display:inline-block}</style>';
+         for ($linha = 1; $linha <= 5; $linha++) {
+             for ($coluna = 1; $coluna <= 10; $coluna++) {
+                 echo "<div class='bloco'>($linha,$coluna) </div>";
+             }
+             echo "<br>";
+         }
+         
+     }
 }
 
 /* End of file home.php */
