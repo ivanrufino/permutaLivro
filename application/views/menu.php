@@ -29,10 +29,10 @@ and open the template in the editor.
             $(document).on('scroll', function () {
                  console.log(offset);
                 if (offset <= $(window).scrollTop()) {
-                    
-                    $meuMenu.addClass('navbar-fixed-top');
+//                    $meuMenu.addClass('navbar-fixed-top');
                 } else {
-                    $meuMenu.removeClass('navbar-fixed-top');
+  
+ //                   $meuMenu.removeClass('navbar-fixed-top');
                 }
             });
         });

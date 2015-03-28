@@ -256,7 +256,7 @@ class Livro extends CI_Controller {
         }
     }
     public function verificaLivroPedido($cod_livro) {
-        $pedido = $this->pedido->getLivrosDesejados($this->usuario,$cod_livro);
+        $pedido = $this->pedido->getLivrosDesejados($this->usuario,$cod_livro,true);
        // print_r($pedido);die();
         if($pedido){
             return "telas/pedidoLivro.php";

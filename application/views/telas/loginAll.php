@@ -143,7 +143,7 @@
 
         <div class="row ">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2">	
-                <form class="omb_loginForm" action="login/efetuarLogin" autocomplete="off" method="POST">
+                <form class="omb_loginForm" action="{base_url}login/efetuarLogin" autocomplete="off" method="POST">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <input type="text" class="form-control" name="usuario" placeholder="email address">
@@ -160,18 +160,14 @@
                 </form>
             </div>
         </div>
-        <div class="row ">
-            <div class="col-xs-12 col-sm-3">
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me">Remember Me
-                </label>
-            </div>
+<!--        <div class="row ">
+            
             <div class="col-xs-12 col-sm-3">
                 <p class="omb_forgotPwd">
-                    <a href="#">Forgot password?</a>
+                    <a href="#">Esqueci minha senha</a>
                 </p>
             </div>
-        </div>	    	
+        </div>	    	-->
     </div>
 
 

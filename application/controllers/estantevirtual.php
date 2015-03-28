@@ -74,7 +74,11 @@ class EstanteVirtual extends CI_Controller {
         if ($codPedido === false) {
             $msg = "<div class='alert alert-danger'>" . $this->mensagens->getMessage('falhaGravacao') . "</div>";
         }else {
-            $msg = "<div class='alert alert-success'>" . $this->mensagens->getMessage('estanteGravado') . "$codPedido</div>";
+            if ($codPedido=='existe'){
+                $msg = "<div class='alert alert-info'>" . $this->mensagens->getMessage('livroExistenteEstante') . "</div>";
+            }else{
+                $msg = "<div class='alert alert-success'>" . $this->mensagens->getMessage('estanteGravado') . "</div>";
+            }
         }
  
         $this->session->set_flashdata('msgPedido', $msg);

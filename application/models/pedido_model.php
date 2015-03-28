@@ -20,7 +20,8 @@ class Pedido_Model extends CI_Model {
         }
         
         $sql=$this->db->get(); 
-        
+       
+               
         //colocar um if para verificar se foi entregue 
         if($sql->num_rows > 0){
             return $sql->result_array();
@@ -28,7 +29,7 @@ class Pedido_Model extends CI_Model {
             return FALSE;
         }
     }
-    
+
     public function getPedidobyStatus($cod_usuario,$status=null) {
         $this->db->select('PED.*,LIV.TITULO,LIV.FOTO,LIV.AUTOR');
         $this->db->from('pedido AS PED');         

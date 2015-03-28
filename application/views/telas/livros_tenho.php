@@ -37,16 +37,7 @@
         },function(){
              $(".option",this).slideUp();
         });
-        $('#edit_livro_modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var titulo = button.data('titulolivro');
-            var codLivro = button.data('codlivro'); // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('Alterar configuração do livro: ' + titulo);
-            modal.find('.modal-body #codLivro').val(codLivro);
-        });
+       
         
     });
       
@@ -127,7 +118,7 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
 echo "</table></div>";
  }
 ?>
-<div class="modal fade" id="edit_livro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="edit_livro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -150,8 +141,8 @@ echo "</table></div>";
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</div>
+</div>-->

@@ -67,6 +67,10 @@ class EstanteVirtual_Model extends CI_Model {
         }
     }
     public function novoLivro($dados){
+        if ($this->getLivrosbyCodLivro($dados['COD_USUARIO'],$dados['COD_LIVRO'])){
+            return 'existe';
+        }
+        
         if ($this->db->insert('estantevirtual', $dados)){
                 return $this->db->insert_id();
             }else{
@@ -105,6 +109,8 @@ class EstanteVirtual_Model extends CI_Model {
     }
     public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$amigos,$limitTotal=10) {
         $dados=array();
+        
+        if($generos){
         $total = 0;
             foreach($generos as $num => $genero) {
             $total += $genero[ 'QUANTIDADE' ];
@@ -135,7 +141,7 @@ class EstanteVirtual_Model extends CI_Model {
             }
             $sql->free_result();
         }
-      
+        }
        
         return $dados ;
           /*SELECT USU.CODIGO,USU.NOME,COUNT(GE.CODIGO) AS QUANTIDADE

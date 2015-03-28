@@ -28,8 +28,10 @@
                 var $meuMenu = $('#barraMenu'); // guardar o elemento na memoria para melhorar performance
                 $(document).on('scroll', function () {
                     if (offset <= $(window).scrollTop()) {
+                        $('body').css('marginTop','90px')
                         $meuMenu.addClass('navbar-fixed-top');
                     } else {
+                        $('body').css('marginTop','0px')
                         $meuMenu.removeClass('navbar-fixed-top');
                     }
                 });
@@ -54,21 +56,22 @@
                     //modal.find('.modal-title').text('New message to ' + recipient);
                     // modal.find('#retornoEndereco').html("<img src='{local}imagens/loading.gif'> Carregando...");
                 });
-
+ $('#edit_livro_modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var titulo = button.data('titulolivro');
+            var codLivro = button.data('codlivro'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Alterar configuração do livro: ' + titulo);
+            modal.find('.modal-body #codLivro').val(codLivro);
+        });
             });
         </script>
     </head>
 
     <body >
-
-
-
         {view_cabecalho}
-
-
-
-
-
         <div id="top" class="container-alternate">
             <!--    <div class="container">
                     {view_topo}
@@ -218,6 +221,34 @@
                 </div>
                 <!-- /.modal-dialog --> 
             </div>
-<?php } ?> 
+<?php }  ?> 
+        <div class="modal fade" id="edit_livro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edição de Livro</h4>
+      </div>
+      <div class="modal-body">
+          <input type="hidden" id="codLivro" name="codLivro"> 
+          <fieldset>
+              <legend>Leitura</legend>
+              <input type="radio" name="STATUS" id="nao_lido" value="0"><label for="nao_lido">Não Lido</label>
+              <input type="radio" name="STATUS" id="lido" value="1"><label for="lido">Lido</label>
+              <input type="radio" name="STATUS" id="lendo" value="2"><label for="lendo">Lendo</label>
+          </fieldset>
+          <fieldset>
+              <legend>Visualização</legend>
+               <input type="radio" name="ESCOPO" id="disponivel" value="1"><label for="disponivel">Disponível</label>
+              <input type="radio" name="ESCOPO" id="indisponivel" value="2"><label for="indisponivel">Indisponível</label>
+          </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
     </body>
 </html>

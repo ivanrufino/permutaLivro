@@ -29,7 +29,8 @@
                 var offset = $('.navbar').offset().top;
             var $meuMenu = $('#barraMenu'); // guardar o elemento na memoria para melhorar performance
             $(document).on('scroll', function () {
-                if (offset <= $(window).scrollTop()) {                    
+                if (offset <= $(window).scrollTop()) {  
+                    
                     $meuMenu.addClass('navbar-fixed-top');
                 } else {
                     $meuMenu.removeClass('navbar-fixed-top');
@@ -50,7 +51,7 @@
     <style>
         .meu_tooltip{width: 200px;}
     </style>
-    <body>
+    
         <div class="banner" style="height:00px">mostrar um banner aqui</div>
         {view_cabecalho}  
         <?php echo $this->session->flashdata('mensagem') ?>

@@ -52,6 +52,8 @@ class Mensagens {
         $dados['saldoAtualizado']=$dados['atencao']."Seu saldo foi atualizado.";
         $dados['livroRemovido']=$dados['atencao']."O livro enviado foi removido de sua estante Estante Virtual.";
         $dados['confirmaEntrega']= "A confirmação da entrega já foi realizada!";
+        $dados['livroExistenteEstante']= "Este livro j&aacute; existe em sua biblioteca virtual.";
+        
          return $dados[$tipo];
     }
 }
