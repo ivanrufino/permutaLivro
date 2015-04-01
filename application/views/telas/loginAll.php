@@ -78,60 +78,55 @@
     <div class="omb_login">
         <h3 class="">Entre ou  <a href="#">Cadastre-se</a></h3>
         <div class="row omb_socialButtons ">
+            <?php if (isset($btn_rede['Facebook'])){?>
             <div class="col-xs-4 col-sm-3 ">
                 <a href="<?= $btn_rede['Facebook']['link'] ?>" class="btn btn-md btn-block btn-facebook">
                     <i class="fa fa-facebook  "></i>
                     <span class="hidden-xs">Facebook</span>
                 </a>
             </div>
+            <?php } ?>
+            <?php if (isset($btn_rede['Google'])){?>
             <div class="col-xs-4 col-sm-3">
                 <a href="<?= $btn_rede['Google']['link'] ?>" class="btn btn-md btn-block btn-google-plus">
                     <i class="fa fa-google-plus "></i>
                     <span class="hidden-xs">Google+</span>
                 </a>
             </div>
+            <?php } ?>
+            <?php if (isset($btn_rede['Instagram'])){?>
             <div class="col-xs-4 col-sm-3">
                 <a href="<?= $btn_rede['Instagram']['link'] ?>" class="btn btn-md btn-block btn-instagram">
                     <i class="fa fa-instagram "></i>
                     <span class="hidden-xs">Instagram</span>
                 </a>
             </div>
+            <?php } ?>
+            <?php if (isset($btn_rede['Linkedin'])){?>
             <div class="col-xs-4 col-sm-3">
                 <a href="<?= $btn_rede['Linkedin']['link'] ?>" class="btn btn-md btn-block btn-linkedin">
                     <i class="fa fa-linkedin "></i>
                     <span class="hidden-xs">Linkedin</span>
                 </a>
             </div>
+            <?php } ?>
+            <?php if (isset($btn_rede['Windowslive'])){?>
             <div class="col-xs-4 col-sm-3">
                 <a href="<?= $btn_rede['Windowslive']['link'] ?>" class="btn btn-md btn-block btn-microsoft">
                     <i class="fa fa-windows "></i>
                     <span class="hidden-xs">Windows</span>
                 </a>
             </div>
+            <?php } ?>
+            <?php if (isset($btn_rede['Github'])){?>
             <div class="col-xs-4 col-sm-3">
                 <a href="<?= $btn_rede['Github']['link'] ?>" class="btn btn-md btn-block btn-github">
                     <i class="fa fa-github "></i>
                     <span class="hidden-xs">GitHub</span>
                 </a>
             </div>
-            <!--    	    <div class="col-xs-4 col-sm-2">
-                                    <a href="<?= $login_url ?>" class="btn btn-lg btn-block omb_btn-facebook">
-                                            <i class="fa fa-facebook visible-xs"></i>
-                                            <span class="hidden-xs">Facebook</span>
-                                    </a>
-                            </div>
-                            <div class="col-xs-4 col-sm-2">
-                                    <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
-                                            <i class="fa fa-twitter visible-xs"></i>
-                                            <span class="hidden-xs">Twitter</span>
-                                    </a>
-                            </div>	
-                            <div class="col-xs-4 col-sm-2">
-                                    <a href="#" class="btn btn-lg btn-block omb_btn-google">
-                                            <i class="fa fa-google-plus visible-xs"></i>
-                                            <span class="hidden-xs">Google+</span>
-                                    </a>
-                            </div>	-->
+            <?php } ?>
+            
         </div>
 
         <div class="row  omb_loginOr">
@@ -146,13 +141,13 @@
                 <form class="omb_loginForm" action="{base_url}login/efetuarLogin" autocomplete="off" method="POST">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" class="form-control" name="usuario" placeholder="email address">
+                        <input type="text" class="form-control" name="usuario" placeholder="Digite seu email">
                     </div>
                     <span class="help-block"></span>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input  type="password" class="form-control" name="senha" placeholder="Password">
+                        <input  type="password" class="form-control" name="senha" placeholder="Digite sua senha">
                     </div>
 <!--<span class="help-block">Password error</span>-->
                     <br>

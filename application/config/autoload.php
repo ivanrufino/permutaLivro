@@ -53,7 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array();
-$autoload['libraries'] = array('database','session','table','form_validation','upload','parser','email','verificador',"mensagens","dadoslateral");
+$autoload['libraries'] = array('database','session','table','form_validation','upload','parser','email','verificador',"mensagens","dadoslateral","provider");
 $autoload['sparks'] = array('oauth2/0.4.0');
 
 

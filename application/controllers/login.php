@@ -10,13 +10,14 @@ class Login extends CI_Controller {
         $this->js=array('jquery-1.10.2','bootstrap');
                 //$this->load->helper();
         $this->load->model('usuario_model', 'usuarios'); 
+        $this->load->model('admin_model', 'admin'); 
         $this->load->library('twitteroauth');
 		
         }
         public function provider($provider) {
             $rede=$provider;
-            $provider = $this->oauth2->provider($provider, $this->getProviderArray($provider));
-
+            //$provider = $this->oauth2->provider($provider, $this->admin->getProviderArray($provider));
+             $provider = $this->oauth2->provider($provider, array_change_key_case($this->admin->getProviderArray($provider)[0],CASE_LOWER));
             if (!$this->input->get('code')) {
                 redirect();
             } else {
@@ -51,17 +52,24 @@ class Login extends CI_Controller {
             }
         }
         }
-        public function getProviderArray($rede,$all=false) {
-        $dados['Facebook'] = array('id' => '755823537846565', 'secret' => 'bb2ba923ee25e0ce2740803721a14e5f');
-        $dados['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => 'FP3aCzgfsNOp_YgJfP0bcLv4');
-        $dados['Instagram']=array('id' => 'b96dc8b4b4eb4964bb522ca88246a1d7','secret' => '4b522ebaad9d47d28d1cdca83185d890');
-        $dados['Windowslive'] = array('id' => '0000000048145D2E', 'secret' => 'tNg6gGXoeTNIkGc3JeUWhFhRppuCKVoB');
-        $dados['Linkedin'] = array('id' => '78nipe5g2bgn5u', 'secret' => 'NN6BqkpINlUHNnav');
-        $dados['Github'] = array('id' => 'ac3e705eb1a6fc9f017e', 'secret' => 'f23063916c478fa6f97374ac445204af993b880e');
+        public function getProviderArray5($rede,$all=false) {
+        $dados[0]['Facebook'] = array('id' => '755823537846565', 'secret' => 'bb2ba923ee25e0ce2740803721a14e5f');
+        $dados[0]['Google'] = array('id' => '1099466398618-v9otoh2rtol7rpbaddtpfsivfsisvuj5.apps.googleusercontent.com', 'secret' => 'FP3aCzgfsNOp_YgJfP0bcLv4');
+        $dados[0]['Instagram']=array('id' => 'b96dc8b4b4eb4964bb522ca88246a1d7','secret' => '4b522ebaad9d47d28d1cdca83185d890');
+        $dados[0]['Windowslive'] = array('id' => '0000000048145D2E', 'secret' => 'tNg6gGXoeTNIkGc3JeUWhFhRppuCKVoB');
+        $dados[0]['Linkedin'] = array('id' => '78nipe5g2bgn5u', 'secret' => 'NN6BqkpINlUHNnav');
+        $dados[0]['Github'] = array('id' => 'ac3e705eb1a6fc9f017e', 'secret' => 'f23063916c478fa6f97374ac445204af993b880e','scope'=>array('user'));
+        
+        $dados[2]['Facebook'] = array('id' => '755823537846565', 'secret' => 'bb2ba923ee25e0ce2740803721a14e5f');
+        $dados[2]['Google'] = array('id' => '1099466398618-49j6i6f1emp10pjjjkftqufhc9f6fe4g.apps.googleusercontent.com', 'secret' => 'H8tCITF_ELbSAdOsyS89cQNQ');
+        $dados[2]['Instagram']=array('id' => 'b96dc8b4b4eb4964bb522ca88246a1d7','secret' => '4b522ebaad9d47d28d1cdca83185d890');
+        $dados[2]['Windowslive'] = array('id' => '0000000048145D2E', 'secret' => 'tNg6gGXoeTNIkGc3JeUWhFhRppuCKVoB');
+        $dados[2]['Linkedin'] = array('id' => '756r2651ty0u1q', 'secret' => '7Vz2PPGBsLChwd4U');
+        $dados[2]['Github'] = array('id' => 'ac3e705eb1a6fc9f017e', 'secret' => 'f23063916c478fa6f97374ac445204af993b880e','scope'=>array('user'));
         if ($all){
-            return $dados;
+            return $dados[1];
         }
-        return $dados[ucfirst($rede)];
+        return $dados[1][ucfirst($rede)];
     }
     public function index()  {
          $this->session->set_flashdata('modal', true);
@@ -101,7 +109,7 @@ class Login extends CI_Controller {
      $validar = $this->validarDados($dados);
         
     }
-    public function loginface() {
+  /*  public function loginface() {
          $user = $this->facebook->getUser();       
         if ($user) {
             try {
@@ -122,8 +130,8 @@ class Login extends CI_Controller {
            // redirect();
         }        
        
-    }
-    public function loginGoogle() {
+    }*/
+  /* public function loginGoogle() {
         $this->load->library('googleplus');
         $dados['token']="";
         echo $this->input->post('code');
@@ -134,8 +142,7 @@ class Login extends CI_Controller {
       
             $this->session->userdata('token');
            
-           /* $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-            header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));*/
+          
         }
         if ($this->session->userdata('token')) {
             $this->googleplus->client->setAccessToken($this->session->userdata('token'));
@@ -163,7 +170,7 @@ class Login extends CI_Controller {
     public function loginTwiter() {
         //futuras implementações
     }
-    
+    */
     public function verificaLoginRede($dados,$rede) {
 //        echo $rede."<br>";
 //        print_r($dados['NOME_REDE']); die();
@@ -370,7 +377,7 @@ class Login extends CI_Controller {
 
     
     
-    /*apagar se nao der certo*/
+    /*apagar se nao der certo
     public function auth() {
         if ($this->session->userdata('access_token') && $this->session->userdata('access_token_secret')) {
             // User is already authenticated. Add your user notification code here.
@@ -392,11 +399,6 @@ class Login extends CI_Controller {
         }
     }
 
-    /**
-     * Callback function, landing page for twitter.
-     * @access	public
-     * @return	void
-     */
     public function callback() {
         if ($this->input->get('oauth_token') && $this->session->userdata('request_token') !== $this->input->get('oauth_token')) {
             $this->reset_session();
@@ -454,7 +456,7 @@ class Login extends CI_Controller {
             }
         }
     }
-
+*/
 }
 
 /* End of file home.php */
