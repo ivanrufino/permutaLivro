@@ -153,16 +153,26 @@
                                 echo "Aguardando resposta do usuário";
                                 break;
                             case 'Aceito':
-                                echo $pedido['NOME']." aceitou sua solicitação.<br>";
-                                if ($pedido['COD_RASTREIO']!=""){
-                                    echo "Código de rastreio: ".$pedido['COD_RASTREIO'];
-                                    echo "<br>Clique no botão \"Confirmar Entrega\" assim que receber seu pedido<br>";
-                                echo "<button type='button' class='btn btn-success btn-md' data-toggle='modal' data-target='#confirmarEntrega' data-whatever='$pedido[CODIGO]' data-nome='$pedido[NOME]'>Confirmar Entrega</button>&nbsp;";
-                                echo "<button type='button' class='btn btn-primary btn-md' data-toggle='modal' data-target='#rastrearPedido' data-whatever='$pedido[CODIGO]'>Rastrear Pedido</button>";
-                                }else{
-                                    echo "aguardando o envio do código de rastreio"; 
+                                echo $pedido['NOME']." aceitou sua solicitação.<br>"; 
+                                switch ($pedido['MODO_ENTREGA']) {
+                                    case 1:
+                                        if ($pedido['COD_RASTREIO']!="" ){
+                                            echo "Código de rastreio: ".$pedido['COD_RASTREIO'];
+                                            echo "<br>Clique no botão \"Confirmar Entrega\" assim que receber seu pedido<br>";
+                                        echo "<button type='button' class='btn btn-success btn-md' data-toggle='modal' data-target='#confirmarEntrega' data-whatever='$pedido[CODIGO]' data-nome='$pedido[NOME]'>Confirmar Entrega</button>&nbsp;";
+                                        echo "<button type='button' class='btn btn-primary btn-md' data-toggle='modal' data-target='#rastrearPedido' data-whatever='$pedido[CODIGO]'>Rastrear Pedido</button>";
+                                                }else{
+                                         echo "aguardando o envio do código de rastreio"; 
                                     
+                                        }
+                                        break;
+
+                                    default:
+                                        echo "<br><span class='alert alert-info'>Modo de entrega: a combinar</span><br><br>";
+                                            echo "<button type='button' class='btn btn-success btn-md' data-toggle='modal' data-target='#confirmarEntrega' data-whatever='$pedido[CODIGO]' data-nome='$pedido[NOME]'>Confirmar Entrega</button>&nbsp;";
+                                        break;
                                 }
+                                
                                 
                                 break;
                             case 'Removido':

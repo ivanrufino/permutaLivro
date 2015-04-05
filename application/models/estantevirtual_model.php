@@ -99,8 +99,9 @@ class EstanteVirtual_Model extends CI_Model {
         }
                 $query.= "`COD_LIVRO` IN (SELECT COD_LIVRO FROM v_estante WHERE COD_USUARIO = $cod_usuario)
                     
-                GROUP BY COD_USUARIO  HAVING QUANTIDADE > 1 ORDER BY QUANTIDADE DESC, v_estante.NOME ASC LIMIT $limit";
+                GROUP BY COD_USUARIO  HAVING QUANTIDADE > 0 ORDER BY QUANTIDADE DESC, v_estante.NOME ASC LIMIT $limit";
         $sql=$this->db->query($query);
+      //  echo $this->db->last_query();die();
         if($sql->num_rows > 0){
             return $sql->result_array();
         }else{ 

@@ -58,6 +58,7 @@
                     <?= $meusrecados; ?>
                 </fieldset>
             </div>
+            <div class="clearfix"></div>
             <?php }?>
             
             <?php if ($queroLivros) { 

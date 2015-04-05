@@ -129,12 +129,12 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion" href="#lista_desejo"><span class="glyphicon glyphicon-file hidden-xs floatLeft">
-                    </span>Livros Desejados</a>
+                    </span>Lista de desejos</a>
                 </h4>
               </div>
               <div id="lista_desejo" class="panel-collapse collapse <?= isset($desejos_in)? $desejos_in:"" ?>">
                <ul class="list-group">
-                   <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}lista_desejo">Pendentes</a>
+                   <li class="list-group-item"><span class="glyphicon glyphicon-userr text-sucess"></span><a href="{base_url}lista_desejo">Ver lista</a>
                    <!-- <li class="list-group-item"><span class="glyphicon glyphicon-plus text-success"></span><a href="{base_url}meusPedidos/recebidos">Recebidos</a></li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-user text-sucess"></span><a href="{base_url}meusPedidos">Enviados</a>
                         <ul class="list-group">

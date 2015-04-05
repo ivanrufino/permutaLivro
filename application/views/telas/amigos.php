@@ -20,7 +20,7 @@
 </div>-->
 
 <?php foreach ($amigos as $key => $amigo) { ?>
-    <div class="col-xs-4 col-md-3 col-lg-2 text-center">
+    <div class="col-xs-4 col-md-3  text-center">
          <?php if ($amigo['ID_REDE'] != "") { ?>
         <a target="_blank" href="<?= $amigo['LINK_REDE']?> "class="btn btn-<?= rede($amigo['NOME_REDE'])=='windows' ? 'microsoft':rede($amigo['NOME_REDE']); ?> "><i class=" fa fa-<?= rede($amigo['NOME_REDE'])?>"></i>
             <?=$amigo['NOME_REDE']?> </a> <br>  
@@ -31,7 +31,7 @@
              <img class="img-responsive img-thumbnail img-circle" style="width: 80px" src="<?= base_url() . "assets/imagens/foto/" . $amigo['FOTO']; ?> ">
          <?php }
          ?>
-        <a hre="" class="btn btn-info">Ver Livro</a>
+        <a hre="" class="btn btn-link"><?= $amigo['NOME'];?> <br>Ver Livro</a>
 
     </div>       
 <!--<i class="fa-google-plus fa-facebook fa-github fa-instagram btn-facebook btn-microsoft btn-github btn-instagram"></i>-->

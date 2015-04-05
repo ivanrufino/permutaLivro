@@ -242,10 +242,15 @@ class Home extends CI_Controller {
         echo "</pre>";
     }
      public function ce($linha=1,$coluna=1) { 
-         echo '<style>.bloco{width:50px;height:50px;border:1px solid black; display:inline-block}</style>';
-         for ($linha = 1; $linha <= 5; $linha++) {
-             for ($coluna = 1; $coluna <= 10; $coluna++) {
-                 echo "<div class='bloco'>($linha,$coluna) </div>";
+         echo '<style>.bloco{width:60px;height:60px;border:1px solid black; display:inline-block;text-aling:center} '
+         . '.bloco:nth-child(2n-2){background:black} '
+        . '.bloco:nth-child(2n-2) > .peca{background:black;border:1px dashed #fff} '
+         . '.peca{width:40px;height:40px; border-radius:100px;background:#fff;margin:0 auto;line-height:40px;  top: 10px;  position: relative}'
+        
+                 . '</style>';
+         for ($linha = 1; $linha <= 8; $linha++) {
+             for ($coluna = 1; $coluna <= 8; $coluna++) {
+                 echo "<div class='bloco'><div class='peca'></div> </div>";
              }
              echo "<br>";
          }

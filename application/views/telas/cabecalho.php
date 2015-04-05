@@ -41,14 +41,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo-nav" href="{base_url}#section1" style="font-family: 'arial', cursive;">Club do Livro</a>
+            <a class="navbar-brand logo-nav" href="{base_url}#section1" style="font-family: 'arial', cursive;">Permuta Livro</a>
 
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapsible">
            <div class="container">
                 <ul class="nav navbar-nav">
                     <li><a href="#section1" class="btn btn-default btn-lg scroll"  >Home</a></li>
-                  <li><a href="#section2" class="btn btn-default btn-lg scroll"  >Como Utilizar?</a></li>
+                  <!--<li><a href="#section2" class="btn btn-default btn-lg scroll"  >Como Utilizar?</a></li>-->
                     <!--                <li class="navbar-right"><a href="Como Funciona">Entrar</a></li>-->
                 </ul>
                 <?php

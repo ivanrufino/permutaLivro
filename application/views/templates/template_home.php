@@ -50,6 +50,7 @@
     </head>
     <style>
         .meu_tooltip{width: 200px;}
+        body{background: rgba(100,100,100,0.5)}
     </style>
     
         <div class="banner" style="height:00px">mostrar um banner aqui</div>
@@ -68,18 +69,17 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="row">
-                            <div class="col-sm-10 col-sm-offset-2 text-center"><h3>Facilidade</h3><p>Praticidade no seu dia-a-dia ao emitir uma receita  e essa emissão já vêm nos padrões estabelecidos pela OMS.</p><i class="fa fa-file-text-o fa-5x"></i></div>
+                            <div class="col-sm-10 col-sm-offset-2 text-center"><h3>Facilidade</h3><p>O permuta Livro permite a busca de livros com facilidade atavés de filtros. </p><i class="fa fa-file-text-o fa-5x"></i></div>
                         </div>
                     </div>
                     <div class="col-sm-4 text-center">
                         <div class="row">
-                            <div class="col-sm-10 col-sm-offset-1 text-center"><h3>Simpliciade</h3><p>Sua utilização é simples agilizando o processo de emissão de receitas, as receitas geradas para o paciente fica armazenada em um banco
-                                    de dados, permitindo em uma nova consulta o médico verificar quais medicamentos o paciente utiliza.</p><i class="fa fa-user fa-5x"></i>&nbsp;<i class="fa fa-user fa-user-md fa-5x"></i></div>
+                            <div class="col-sm-10 col-sm-offset-1 text-center"><h3>Simplicidade</h3><p>Por meio de inteligência artificial, o Permuta livro poderá oferecer livro e /ou usuário com base nas suas predileções.</p><i class="fa fa-user fa-5x"></i>&nbsp;<i class="fa fa-user fa-leanpub fa-5x"></i></div>
                         </div>
                     </div>
                     <div class="col-sm-4 text-center">
                         <div class="row">
-                            <div class="col-sm-10 text-center"><h3>Controle</h3><p>Médico é Paciente poderão visualizar todas as receitas geradas pelo SISCOREM.</p><i class="fa fa-desktop fa-5x"></i> &nbsp; <i class="fa fa-tablet fa-5x"></i>&nbsp;<i class="fa fa-mobile fa-5x"></i></div>
+                            <div class="col-sm-10 text-center"><h3>Controle</h3><p>Todos os livros da biblioteca virtual poderão ser disponibilizados ou não para outros usuários, bastando apenas a alteração de visilibilidade do livro.</p><i class="fa fa-desktop fa-5x"></i> &nbsp; <i class="fa fa-tablet fa-5x"></i>&nbsp;<i class="fa fa-mobile fa-5x"></i></div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
             </div><!--/container-->
         </section>
 
-        <section class="container-fluid" id="section2">
+        <section class="container-fluid hide" id="section2">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text-center">
                     <h1>Como Utilizar</h1>
