@@ -91,7 +91,7 @@
                
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-info','titulo'=>"Solicitar de um usuário"),
-                     array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Estante")
+                     array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Biblioteca virtual")
                 );
                 montarGrid($ultimosLivros, 'ultimosInseridos', $legenda,$btn_link); 
                
@@ -103,7 +103,7 @@
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-info','titulo'=>"Solicitar de um usuário"),
 //                    array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-info','titulo'=>"Detalhes2"),
-                     array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Estante")
+                     array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Biblioteca virtual")
                     
                 );
                 montarGrid($maisLidos, 'ultimosInseridos', $legenda,$btn_link); 

@@ -13,7 +13,7 @@ class Livro extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //$this->css = array('cadastroempresa','bootstrap', 'menu', 'small-business', 'painel_user', 'tabs','hover','../lighter/css/lighter');
-        $this->css = array('cadastroempresa', 'bootstrap', 'menu', 'small-business', 'painel_user', 'tabs', 'hover', '../lighter/css/lighter','star-rating.min');
+        $this->css = array('comuns' ,'cadastroempresa', 'bootstrap', 'menu', 'small-business', 'painel_user', 'tabs', 'hover', '../lighter/css/lighter','star-rating.min');
         $this->js = array('jquery-1.10.2', 'bootstrap', 'funcoesComuns', 'jquery.maskedinput.min', 'jquery.dataTables.min', 'jquery.form.min', 'bootstrap-filestyle.min','star-rating.min');
         //$this->load->helper();
         /*$this->load->model('empresa_model', 'empresa');
