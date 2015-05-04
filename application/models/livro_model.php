@@ -89,7 +89,7 @@ class Livro_Model extends CI_Model {
         }
     }
     
-    public function getLastInserted($cod_usuario,$quantidade=5,$dias=5) {
+    public function getLastInserted($cod_usuario,$quantidade=5,$dias=105) {
         $where ="SELECT COD_LIVRO FROM estantevirtual WHERE COD_USUARIO = $cod_usuario UNION SELECT COD_LIVRO FROM pedido WHERE COD_USUARIO_PARA = $cod_usuario";
         $where_and ="`DATA_CADASTRO` > DATE_ADD(NOW(), INTERVAL -$dias DAY)";
         $this->db->select('LIV.*');

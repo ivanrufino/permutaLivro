@@ -43,7 +43,7 @@
                     <ul><strong>Dicas importantes:</strong>
                         <li>Preste sempre atenção na ortografia</li>
                         <li>Verifique corretamente o nome do autor e editora</li>
-                        <li>Busque pela capa dos livros nos buscadores (google, bing, etc)</li>
+                        <li>Busque pela capa dos livros nos buscadores (Google, Bing, etc)</li>
                     </ul>
                     
                 </span>

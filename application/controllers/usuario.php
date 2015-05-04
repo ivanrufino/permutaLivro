@@ -39,9 +39,9 @@ class Usuario extends CI_Controller {
         $data['livroRecomendados']    =$this->getLivrosLinkados();
      
     //    $this->printArray($data['usuarioLinkados']) ;die();
-        if (!$data['ultimosLivros']){
+        //if (!$data['ultimosLivros']){
             $data['maisLidos']=  $this->livro->maisLidos(4);  
-        }
+       // }
         /*Preenche os dados da lateral */
        
         $data += $this->dadoslateral->quantidadesLivros($this->usuario);

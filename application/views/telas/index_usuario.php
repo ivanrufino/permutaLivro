@@ -27,6 +27,7 @@
     .option a.tenho{
         float: right;
     }
+    #links a{display: none}
 </style>
 <script>
     $(document).ready(function () {
@@ -40,9 +41,16 @@
         })
         $('.close.me').click(function(){
             $(this).parent().parent().slideUp();
-            
+            var link= $(this).data('linkinvisivel');
+        //    alert(link)
+            $("."+link).show();
         });
-        
+     $("#links a").click(function(){
+         var div = "#"+$(this).attr('href');
+         $(div).slideDown();
+         $(this).hide();
+         return false;
+     })  
     })
 
 </script>
@@ -50,6 +58,7 @@
     <div class="container">
         {view_lateral}
         <div class="col-sm-9 col-md-9 col-xs-8" style="background: transparent">
+           
             
             <?php if(!is_null($meusrecados)){?>
             <div class="col-md-12 recados blocos">
@@ -60,24 +69,34 @@
             </div>
             <div class="clearfix"></div>
             <?php }?>
-            
+            <div id="links">
+                
+                <?php if ($queroLivros) { echo "<a href='livrosDesejados' class='btn btn-default livrosDesejados'>Livros Desejados</a>";} ?>
+                <?php if ($livroRecomendados) { echo "<a href='livrosRecomendados' class='btn btn-default livrosRecomendados'>Livros Recomendados</a>";} ?>
+                <?php if ($usuarioLinkados) { echo "<a href='usuarioLinkados' class='btn btn-default usuarioLinkados'>Usuários Recomendados</a>";} ?>
+                <?php if ($ultimosLivros) { echo "<a href='ultimosLivros' class='btn btn-default ultimosLivros'>Últimos Livros </a>";} ?>
+                <?php if ($maisLidos) { echo "<a href='livrosMaisLidos' class='btn btn-default livrosMaisLidos'>Livros mais lidos</a>";} ?>
+            </div>
             <?php if ($queroLivros) { 
+               
                 $legenda="Livros de sua lista de desejos estão a disposição";
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Listar Usuários"),
                   
                 );
-                montarGrid($queroLivros, 'livrosBuscados', $legenda,$btn_link); } ?>
+                montarGrid($queroLivros, 'livrosBuscados', $legenda,$btn_link,'livrosDesejados'); } ?>
             
              <?php if ($livroRecomendados) { 
+                 
                 $legenda="Livros recomendados para você.";
                 $btn_link=array(
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Listar Usuários"),
                   
                 );
-                montarGrid($livroRecomendados, 'livrosBuscados', $legenda,$btn_link); } ?>
+                montarGrid($livroRecomendados, 'livrosBuscados', $legenda,$btn_link,'livrosRecomendados'); } ?>
             
               <?php if ($usuarioLinkados) { 
+                  
                 switch ($usuarioLinkados) {
                     case 1:
                        $legenda="Usuario que você gostaria de conhecer";
@@ -92,7 +111,7 @@
                     array('link'=>'usuario/seguir/','class'=>'btn-success','titulo'=>"Seguir Usuário"),
                   
                 );
-                montarGridUsuario($usuarioLinkados, 'livrosBuscados', $legenda,$btn_link); } ?>
+                montarGridUsuario($usuarioLinkados, 'livrosBuscados', $legenda,$btn_link,'usuarioLinkados'); } ?>
             
             <?php if ($ultimosLivros) { 
                 $legenda="Últimos livros inseridos no sistema";
@@ -101,7 +120,7 @@
                     array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-info','titulo'=>"Solicitar de um usuário"),
                      array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Biblioteca virtual")
                 );
-                montarGrid($ultimosLivros, 'ultimosInseridos', $legenda,$btn_link); 
+                montarGrid($ultimosLivros, 'ultimosInseridos', $legenda,$btn_link,'ultimosLivros'); 
                
                  } ?>
             
@@ -114,7 +133,7 @@
                      array('link'=>'estantevirtual/adcionarLivro/','class'=>'btn-success','titulo'=>"Adcionar na Biblioteca virtual")
                     
                 );
-                montarGrid($maisLidos, 'ultimosInseridos', $legenda,$btn_link); 
+                montarGrid($maisLidos, 'ultimosInseridos', $legenda,$btn_link,'livrosMaisLidos'); 
                
                  } ?>
 
@@ -129,10 +148,10 @@
     </footer>
 </div>
 <?php 
- function montarGridUsuario($usuario,$classe,$legenda,$botoes){
+ function montarGridUsuario($usuario,$classe,$legenda,$botoes,$linkInvisivel){
      //print_r($usuario);
-    echo "<div class=''>";
-    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' style='floatRight'></span></h1>";
+    echo "<div id='$linkInvisivel'>";
+    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' data-linkinvisivel='$linkInvisivel' style='floatRight'></span></h1>";
     
 echo "<table class='table table-bordered table-striped table-hover table-condensed '>";
 
@@ -169,10 +188,10 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
     }
 echo "</table></div>";
 }
-function montarGrid($livros,$classe,$legenda,$botoes){ 
+function montarGrid($livros,$classe,$legenda,$botoes,$linkInvisivel){ 
      
-    echo "<div class=''>";
-    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' style='floatRight'></span></h1>";
+    echo "<div id='$linkInvisivel'>";
+    echo "<h1 class='titulo_legenda'>$legenda <span class='fa fa-times floatRight close me' data-linkinvisivel='$linkInvisivel' style='floatRight'></span></h1>";
 echo "<table class='table table-bordered table-striped table-hover table-condensed'>";
 
     foreach ($livros as $key => $value) {
