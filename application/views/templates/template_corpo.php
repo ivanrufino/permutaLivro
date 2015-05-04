@@ -59,13 +59,53 @@
  $('#edit_livro_modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
             var titulo = button.data('titulolivro');
-            var codLivro = button.data('codlivro'); // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var codLivro = button.data('codlivro'); 
+            var status = button.data('status'); 
+            var escopo = button.data('escopo'); 
+            
             var modal = $(this)
             modal.find('.modal-title').text('Alterar configuração do livro: ' + titulo);
             modal.find('.modal-body #codLivro').val(codLivro);
+            switch(status) {
+                case 0:
+                     modal.find('.modal-body #nao_lido').prop( "checked", true );
+                    break;
+                case 1:
+                    modal.find('.modal-body #lido').prop( "checked", true );
+                    break;
+                case 2:
+                    modal.find('.modal-body #lendo').prop( "checked", true );
+                    break;
+                
+            }
+            switch(escopo) {
+                case 1:
+                    modal.find('.modal-body #disponivel').prop( "checked", true );
+                    break;
+                case 2:
+                    modal.find('.modal-body #indisponivel').prop( "checked", true );
+                    break;
+                
+            }
         });
+       $('#edit_livro_modal').on('hide.bs.modal', function (event) {
+                    var modal = $(this);
+                    modal.find('.modal-body #retornoLivro').html('');
+                    //modal.find('.modal-title').text('New message to ' + recipient);
+                    // modal.find('#retornoEndereco').html("<img src='{local}imagens/loading.gif'> Carregando...");
+                }); 
+        $(".salvarLivro").click(function () {
+                    var options = {
+                        target: '#retornoLivro', // target element(s) to be updated with server response 
+                        resetForm: false,
+                        beforeSubmit: function () {
+                            $('#retornoLivro').html("<img src='{local}imagens/loading.gif'> Enviando...")
+                        }, // pre-submit callback 
+                        success: refreshPage, // post-submit callback 
+
+                    };
+                    $("#formLivro").ajaxSubmit(options);
+                });
             });
         </script>
     </head>
@@ -224,6 +264,7 @@
 <?php }  ?> 
         <div class="modal fade" id="edit_livro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
+      <form action="<?=  base_url().'estantevirtual/editaLivro'?>" method="post" id="formLivro">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -233,7 +274,7 @@
           <input type="hidden" id="codLivro" name="codLivro"> 
           <fieldset>
               <legend>Leitura</legend>
-              <input type="radio" name="STATUS" id="nao_lido" value="0"><label for="nao_lido">Não Lido</label>
+              <label for="nao_lido"><input type="radio" name="STATUS" id="nao_lido" value="0" class="">Não Lido</label>
               <input type="radio" name="STATUS" id="lido" value="1"><label for="lido">Lido</label>
               <input type="radio" name="STATUS" id="lendo" value="2"><label for="lendo">Lendo</label>
           </fieldset>
@@ -242,12 +283,15 @@
                <input type="radio" name="ESCOPO" id="disponivel" value="1"><label for="disponivel">Disponível</label>
               <input type="radio" name="ESCOPO" id="indisponivel" value="2"><label for="indisponivel">Indisponível</label>
           </fieldset>
+          <div id="retornoLivro"></div>
+          <div class="small alert alert-info">Necessário atualizar a página para visualizar as alterações na grid.</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        <button type="button" class="btn btn-primary salvarLivro">Salvar alterações</button>
       </div>
     </div>
+  </form>
   </div>
 </div>
     </body>

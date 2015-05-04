@@ -36,7 +36,8 @@ class Usuario extends CI_Controller {
         $data['maisLidos']=FALSE;
         $data['ultimosLivros']=  $this->livro->getLastInserted($this->usuario);  
         $data['usuarioLinkados']    =$this->getUsuarioLinkados();
-      
+        $data['livroRecomendados']    =$this->getLivrosLinkados();
+     
     //    $this->printArray($data['usuarioLinkados']) ;die();
         if (!$data['ultimosLivros']){
             $data['maisLidos']=  $this->livro->maisLidos(4);  
@@ -61,6 +62,14 @@ class Usuario extends CI_Controller {
         $this->parser->adc_css($this->css);
         $this->parser->adc_js($this->js);
         $this->parser->mostrar('templates/template_corpo.php', $tela, $data);
+    }
+    public function getLivrosLinkados($limit=5) {
+        $generos = $this->ev->getGenerosByUsuario($this->usuario);
+         if ($generos){
+            $livros = $this->ev->getLivrosbyGenero($this->usuario,$generos,$limit);
+            return $livros;
+         }
+         return array();
     }
     public function getUsuarioLinkados() {
         $amigos= $this->usuarios->getAmigos($this->usuario);

@@ -81,11 +81,12 @@ class EstanteVirtual_Model extends CI_Model {
         $this->db->where('COD_USUARIO', $cod_usuario);
         $this->db->where('COD_LIVRO', $dados['COD_LIVRO']);
         if ($this->db->update('estantevirtual', $dados)) {
-            //return true;
+            // echo $this->db->last_query();die();
+            return true;
         } else {
-            //return false;
+            return false;
         }
-        return $this->db->last_query();
+       
     }
     public function getUsuarioPerfilIgual($cod_usuario,$amigos,$limit=5) { //MESMA QUANTIDADE DE LIVROS
       //  $cod_usuario='1043';
@@ -107,6 +108,26 @@ class EstanteVirtual_Model extends CI_Model {
         }else{ 
             return array();
         }
+    }
+    public function getLivrosbyGenero($cod_usuario,$generos,$limit) {
+        $dados=array();
+        $sql_generos=array();
+        foreach ($generos as $value) {
+            $sql_generos[]=$value['CODIGO'];
+        }
+        //die(print_r($sql_generos));
+         $this->db->select('*,EVI.CAPA AS FOTO');
+        $this->db->from('v_estante AS EVI');                         
+        $this->db->where_in('COD_GENERO', $sql_generos );
+        $this->db->where('COD_USUARIO <>', $cod_usuario ); 
+        $this->db->limit($limit);
+        $sql=$this->db->get();
+         if($sql->num_rows > 0){
+            return $sql->result_array();
+        }else{ 
+            return false;
+        }
+        
     }
     public function getUsuarioPerfilGeneroIgual($cod_usuario,$generos,$amigos,$limitTotal=10) {
         $dados=array();

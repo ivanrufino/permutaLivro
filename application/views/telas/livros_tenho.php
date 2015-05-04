@@ -84,7 +84,7 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
         echo "<td style='vertical-align: middle;'>".$value['TITULO']."<br>". $value['AUTOR'];
         if (isset($value['QUANTIDADE'])){echo "<br><strong class=' alert-info'>".$value['QUANTIDADE']." usuários leram ou estão lendo este livro</strong>";}
         echo "</td>";
-        echo "<td  style='text-align:center;vertical-align: middle;'>";
+        echo "<td nowrap style='text-align:center;vertical-align: middle;'>";
         $linkEdita="";
         switch ($value['STATUS']) {
             case '0':
@@ -104,7 +104,7 @@ echo "<table class='table table-bordered table-striped table-hover table-condens
         echo "</td>";
         echo "<td style='text-align:center;vertical-align: middle;'>";
 //        echo $linkEdita;
-        echo '<button type="button"  data-toggle="modal" data-target="#edit_livro_modal" data-codLivro="'.$codlivro.'" data-tituloLivro="'.$value['TITULO'].'" class="btn btn-success btn-lg navbar-btn  "><i class="fa fa-edit"></i> &nbsp;Editar</button>'; 
+        echo '<button type="button"  data-toggle="modal" data-target="#edit_livro_modal" data-codLivro="'.$codlivro.'" data-status="'.$value['STATUS'].'" data-escopo="'.$value['ESCOPO'].'" data-tituloLivro="'.$value['TITULO'].'" class="btn btn-success btn-lg navbar-btn  "><i class="fa fa-edit"></i> &nbsp;Editar</button>'; 
             foreach ($botoes as $btn) {
               
                     //echo "<a href='".base_url($btn['link']) . '/' . $slug ."' class='detalhe btn ".$btn['class']."'>".$btn['titulo']." </a>";

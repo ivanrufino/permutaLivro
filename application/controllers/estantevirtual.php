@@ -84,6 +84,18 @@ class EstanteVirtual extends CI_Controller {
         $this->session->set_flashdata('msgPedido', $msg);
         redirect('meus_livros');
     }
+    public function editaLivro() {
+        $dados['COD_LIVRO'] = $this->input->post('codLivro');
+        $dados['STATUS'] = $this->input->post('STATUS');
+        $dados['ESCOPO'] = $this->input->post('ESCOPO');
+       // echo $cod_livro;
+        //print_r ($dados);
+        if($this->ev->alterarEstante($this->usuario, $dados)){
+            echo "<div class='alert alert-success'> Dados salvos com sucesso.</div>";
+        }else{
+            echo "<div class='alert alert-danger'>Houve um erro na gravação dos dados.</div>";
+        }
+    }
     
   
 

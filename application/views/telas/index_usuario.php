@@ -69,6 +69,14 @@
                 );
                 montarGrid($queroLivros, 'livrosBuscados', $legenda,$btn_link); } ?>
             
+             <?php if ($livroRecomendados) { 
+                $legenda="Livros recomendados para você.";
+                $btn_link=array(
+                    array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Listar Usuários"),
+                  
+                );
+                montarGrid($livroRecomendados, 'livrosBuscados', $legenda,$btn_link); } ?>
+            
               <?php if ($usuarioLinkados) { 
                 switch ($usuarioLinkados) {
                     case 1:
