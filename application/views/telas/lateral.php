@@ -210,15 +210,30 @@
       </div>
       <div class="modal-body">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
-            <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
+            <?php 
+             $active='active';
+            if(!$usuario['ID_REDE']) { 
+                $active='';
+                ?>
+                    <li role="presentation" class="active" ><a href="#dadosPessoais" class="lnkTab" data-view="dadosPessoais" aria-controls="home" role="tab" data-toggle="tab">Dados Pessoais</a></li>
+            <?php }?>
             <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="cadastroEndereco" aria-controls="home" role="tab" data-toggle="tab">Endereço</a></li>
+            <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
+            <li role="presentation" class="<?=$active; ?>" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
+            
           </ul>
       </div>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="amigos">Mostrar lista de usuario que ele segue e usuário que seguem ele</div>
-            <div role="tabpanel" class="tab-pane " id="qualificacao">mostrar a qualificação e a porcentagem de cada estrela</div>
-            <div role="tabpanel" class="tab-pane " id="endereco">cadastrar ou alterar o endereço </div>
+            <?php  $active='active';
+            if(!$usuario['ID_REDE']) { 
+                 $active='';
+                         ?>
+                <div role="tabpanel" class="tab-pane active" id="dadosPessoais">Dados Pessoais</div>
+            <?php }?>
+            <div role="tabpanel" class="tab-pane " id="amigos">Lista de Amigos</div>
+            <div role="tabpanel" class="tab-pane " id="qualificacao">Qualificação</div>
+            <div role="tabpanel" class="tab-pane " id="endereco">Endereço</div>
+            
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

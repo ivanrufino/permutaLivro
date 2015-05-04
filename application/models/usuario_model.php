@@ -35,7 +35,7 @@ class Usuario_Model extends CI_Model {
         }
     }
     public function getUsuario2($CODIGO) {
-        $this->db->select('CODIGO,NOME,EMAIL,DATA_CADASTRO,ENDERECO,FOTO');
+        $this->db->select('CODIGO,NOME,EMAIL,DATA_CADASTRO,FOTO');
         $this->db->from('usuario AS usu');
          
         $this->db->where('CODIGO', $CODIGO );  

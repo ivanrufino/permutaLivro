@@ -629,8 +629,10 @@ class Usuario extends CI_Controller {
                break;
            case 'amigos':
                $dados['amigos'] = $this->usuarios->getAmigos($this->usuario);
-              // print_r($amigos);die();
-               break;
+              break;
+          case 'dadosPessoais':
+               $dados['info'] = $this->usuarios->getUsuario2($this->usuario);
+              break;
             default:
                 $dados=NULL;
                 break;
@@ -677,6 +679,29 @@ class Usuario extends CI_Controller {
                 
                 //print_r($codigo);die();
                 $id=$this->usuarios->alterarEndereco($codigo,$dados);
+                if (!is_null($id)){
+                    echo "Endereço salvo com sucesso";
+                }else{
+                    echo "Não foi possivel registrar seu endereço, por favor tente mais tarde.";
+                }
+                //$this->load->view('formsuccess');
+            }
+    }
+    public function cadastroDadosPessoais() {
+        die('Dados salvo com sucesso.');
+        $this->form_validation->set_rules('ENDERECO', 'Endereço', 'required');
+        $this->form_validation->set_rules('NUMERO', 'Número', 'required|numeric');        
+        $this->form_validation->set_rules('CEP', 'Cep', 'required|exact_length[8]|numeric');
+        $this->form_validation->set_rules('CIDADE', 'Cidade', 'required');
+        $this->form_validation->set_rules('ESTADO', 'Estado', 'required|exact_length[2]');
+        $this->form_validation->set_rules('BAIRRO', 'Bairro', 'required');
+        if ($this->form_validation->run() == FALSE){
+                echo validation_errors();
+            }else{
+                $dados = $this->input->post();
+                $dados['COD_USUARIO'] = $this->usuario;
+              //  print_r($dados);die();
+                $id=$this->usuarios->salvarEndereco($dados);
                 if (!is_null($id)){
                     echo "Endereço salvo com sucesso";
                 }else{
