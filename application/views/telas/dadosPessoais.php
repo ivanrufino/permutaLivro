@@ -24,12 +24,14 @@
     <div class="col-xs-4"> 
         <img src="<?= base_url(); ?>assets/imagens/foto/<?=$info['FOTO']?>" class="img-responsive" style="min-width: 100px">        
         <input type="file" id="foto" class="form-control"  name="foto">
+        <input type="text" class="form-control "  name="nomeFoto" value="<?= isset($info['FOTO'])?$info['FOTO']:""; ?>">
     </div>
 
     
     <div class="col-xs-8"> 
         <label for="" style="float: left">Nome</label>
         <input type="text" class="form-control "  name="NOME" value="<?= isset($info['NOME'])?$info['NOME']:""; ?>">
+        
     </div>
 <!--
 

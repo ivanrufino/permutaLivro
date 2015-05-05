@@ -504,12 +504,12 @@ class Usuario extends CI_Controller {
        redirect('admin/configuracao');
     }
     public function uploadImagem($id,$nomeFoto){
-        $novoNomeFoto="imagem_".$id.".jpg";
-        if ($nomeFoto=="administrador.jpg"){
+        $novoNomeFoto="foto_usuario_".$id.".jpg";
+        if ($nomeFoto=="usuario.png"){
             $dados['FOTO']=$novoNomeFoto;
-            $this->empresa->updateAdmin($id,$dados);
+//            $this->empresa->updateAdmin($id,$dados);
         }
-            $local='assets/fotos/administrador/';
+            $local='assets/imagens/foto/';
                 $config['upload_path'] = $local;
                 
 		$config['allowed_types'] = 'png|jpg';
@@ -526,13 +526,15 @@ class Usuario extends CI_Controller {
                     echo $this->upload->display_errors('<div class="alert alert-danger">', '</div>');
 			
 		}else{
+                    if(isset($dados['FOTO'])){
+                    $this->usuarios->updatePessoa($dados,$id);}
                    $data =  $this->upload->data();
                   // echo "<img src='".$data['full_path']."'>";
                   $ret = "<div class='alert alert-success'>";
                     //$ret.= "<img class='img_temp' src='" .base_url().$local . $data['orig_name'] . "'>";
 
-                    $ret.="<span>Arquivo Gravado com Sucesso</span>";
-                    $ret.="<br><strong>necessário atualizar a página para visualizar a nova imagem.</strong>";
+                    $ret.="<span>Foto de exibição alterada com Sucesso</span>";
+                   
                     $ret.="<div>";
                          echo $ret;
                   // print_r($data);
@@ -697,24 +699,29 @@ class Usuario extends CI_Controller {
             }
     }
     public function cadastroDadosPessoais() {
-        die('Dados salvo com sucesso.');
-        $this->form_validation->set_rules('ENDERECO', 'Endereço', 'required');
-        $this->form_validation->set_rules('NUMERO', 'Número', 'required|numeric');        
-        $this->form_validation->set_rules('CEP', 'Cep', 'required|exact_length[8]|numeric');
-        $this->form_validation->set_rules('CIDADE', 'Cidade', 'required');
-        $this->form_validation->set_rules('ESTADO', 'Estado', 'required|exact_length[2]');
-        $this->form_validation->set_rules('BAIRRO', 'Bairro', 'required');
+        //die('Dados salvo com sucesso.');
+        $this->form_validation->set_rules('NOME', 'Nome', 'required');
+//        $this->form_validation->set_rules('NUMERO', 'Número', 'required|numeric');        
+//        $this->form_validation->set_rules('CEP', 'Cep', 'required|exact_length[8]|numeric');
+//        $this->form_validation->set_rules('CIDADE', 'Cidade', 'required');
+//        $this->form_validation->set_rules('ESTADO', 'Estado', 'required|exact_length[2]');
+//        $this->form_validation->set_rules('BAIRRO', 'Bairro', 'required');
         if ($this->form_validation->run() == FALSE){
                 echo validation_errors();
             }else{
-                $dados = $this->input->post();
-                $dados['COD_USUARIO'] = $this->usuario;
-              //  print_r($dados);die();
-                $id=$this->usuarios->salvarEndereco($dados);
-                if (!is_null($id)){
-                    echo "Endereço salvo com sucesso";
+                $nomeFoto= $this->input->post('nomeFoto');
+                $msg = $this->uploadImagem($this->usuario,$nomeFoto);
+                $dados['NOME']=    $this->input->post('NOME');
+                $up= $this->usuarios->updatePessoa($dados,$this->usuario);
+                
+                if ($up){
+                     $ret=  "Dados salvo com sucesso";
+                    $ret.="<br><strong>necessário atualizar a página para visualizar a nova imagem.</strong>";
+                    echo $ret;
                 }else{
-                    echo "Não foi possivel registrar seu endereço, por favor tente mais tarde.";
+                    
+                    echo  "Não foi possivel alterar nome de Exibição, por favor tente mais tarde.";
+                     
                 }
                 //$this->load->view('formsuccess');
             }

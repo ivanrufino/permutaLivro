@@ -82,9 +82,9 @@ class Usuario_Model extends CI_Model {
     }
     public function updatePessoa($dados,$id){
         $this->db->set($dados);
-        $this->db->where('sha1(tcc_pessoa.CODIGO)',  $id);
+        $this->db->where('usuario.CODIGO',  $id);
         //$this->db->where('table2.poll_id',$row);
-       if( $this->db->update('tcc_pessoa')){
+       if( $this->db->update('usuario')){
             // echo $this->db->last_query();
             
            return TRUE;
