@@ -513,7 +513,7 @@ class Usuario extends CI_Controller {
                 $config['upload_path'] = $local;
                 
 		$config['allowed_types'] = 'png|jpg';
-		$config['max_size']	= '250';
+		$config['max_size']	= '450';
 		$config['max_width']  = '500';
 		$config['max_height']  = '500';
                 $config['overwrite']  = true;
