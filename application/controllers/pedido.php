@@ -36,7 +36,7 @@ class Pedido extends CI_Controller {
     }
 
     public function novoPedido($cod_livro,$cod_usuario_de=null,$modo_entrega = '1') {
-       
+      //  die($modo_entrega);
             $this->verificaSaldo();
             $msg="";
             if (!is_null($cod_usuario_de)){
@@ -44,6 +44,8 @@ class Pedido extends CI_Controller {
                 $dados['COD_USUARIO_PARA']= $this->usuario;
                 $dados['COD_LIVRO']= $cod_livro;
                 $dados['STATUS']= '1';
+                $dados['MODO_ENTREGA']= $modo_entrega;
+                
                 $codPedido=$this->pedido->novoPedido($dados);
                 if ($codPedido===false){
                     $msg="<div class='alert alert-danger'>".$this->mensagens->getMessage('falhaGravacao')."</div>";
@@ -65,6 +67,7 @@ class Pedido extends CI_Controller {
                 
             }else{
                 $livrosEstante=  $this->ev->getLivrosTodos($cod_livro,  $this->usuario);
+               // die(print_r($livrosEstante));
                 if($livrosEstante){
                     $this->livrosUsuario($livrosEstante,$cod_livro);
                     //echo "Mostrar tela de todos os usuarios";
@@ -396,7 +399,7 @@ class Pedido extends CI_Controller {
         
         $erro=0;
         $codigo = $this->input->post('codigo_pedido');
-        $data['DATA_ENTREGA']= NULL;// date('Y-m-d H:i:s'); //2015-01-19 00:00:00
+        $data['DATA_ENTREGA']=  date('Y-m-d H:i:s'); //2015-01-19 00:00:00
         $data['QUALIFICACAO'] = $this->input->post('avaliacao');
         $data['OBS'] = $this->input->post('obs');
         //$data['SITUACAO_RASTREIO'] = 'entregue';
@@ -419,7 +422,7 @@ class Pedido extends CI_Controller {
                 $dados_livro['ESCOPO'] = '1'; 
                 $dados_livro['STATUS'] = '0'; 
                 $dados_livro['COD_USUARIO'] = $this->usuario; 
-                print_r($dados_livro);
+               // print_r($dados_livro);
                 $this->ev->alterarEstante($detalhe['COD_USUARIO_DE'],$dados_livro); // mudar o livro de estante
                 $this->alterarSaldo('1',$detalhe['COD_USUARIO_DE']);// somar 1 saldo no USUARIO_DE
                 $this->alterarQualificacao($data['QUALIFICACAO'],$detalhe['COD_USUARIO_DE']);  // altera a avaliacao do usuario;
@@ -481,9 +484,35 @@ class Pedido extends CI_Controller {
 
     }
     public function chat($codPedido) {
-        $dados['codPedido']=$codPedido;
-        $this->load->view('telas/chat',$dados,false);
-        //echo $codPedido;
+        $data['codPedido']=$codPedido;
+        $valida = $this->pedido->verificaUsuarioPedido($this->usuario,$codPedido);
+        if(!$valida){
+            header('Content-Type: text/html; charset=utf-8');
+            die('Você não tem permissão para acessar esta área');
+        }
+        
+//        $this->load->view('telas/chat',$dados,false);
+            
+        $this->verificador->verificarLogado();  
+        
+       
+        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);       
+           
+        /*Preenche os dados da lateral */
+       
+        $data += $this->dadoslateral->quantidadesLivros($this->usuario);
+        $data += $this->dadoslateral->verificaRecados($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+
+        $data['mensageFaixa'] = "";
+        $tela = array('cabecalho' => 'telas/cabecalho.php',
+            'topo' => 'telas/vazio.php', //mostrar o topo somente quando não for a tela de login
+            'faixa_horizontal' => 'telas/faixa_horizontal.php',
+            'lateral' => 'telas/lateral.php',
+            'conteudo' => 'telas/chat.php');
+        $this->parser->adc_css($this->css);
+        $this->parser->adc_js($this->js);
+        $this->parser->mostrar('templates/template_corpo.php', $tela, $data);
     }
     public function ajaxAtualizaChat($codPedido) {
         

@@ -36,7 +36,7 @@ class EstanteVirtual_Model extends CI_Model {
     }
     public function getLivrosTodos($codLivro,$exceto_eu=false) {
         /*Busca um determinado livro de todos os usuario*/
-        $this->db->select('EVI.*,USU.CODIGO AS COD_USUARIO, USU.NOME,USU.FOTO,USU.ID_REDE,USU.LINK_REDE,USU.FOTO_REDE,END.*');
+        $this->db->select('EVI.*,EVI.COD_USUARIO AS COD_USUARIO, USU.NOME,USU.FOTO,USU.ID_REDE,USU.LINK_REDE,USU.FOTO_REDE,END.ENDERECO,END.CIDADE,END.ESTADO');
         $this->db->from('estantevirtual AS EVI');                         
         $this->db->where('ESCOPO', '1' ); 
         $this->db->where('COD_LIVRO', $codLivro ); 
@@ -48,6 +48,7 @@ class EstanteVirtual_Model extends CI_Model {
         $sql=$this->db->get(); 
         //echo $this->db->last_query();die();
         if($sql->num_rows > 0){
+           // echo "<pre>";print_r($sql->result_array());echo "</pre>";
             return $sql->result_array();
         }else{ 
             return FALSE;

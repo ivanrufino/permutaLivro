@@ -30,8 +30,9 @@
 <script>
     $(document).ready(function(){
         $(".iniciar_chat").click(function(){
-            $("#chat_aqui").load("<?=  base_url()?>pedido/chat/<?=$pedido['CODIGO']?>");
-            return false;
+            window.location.href = "<?=  base_url()?>chat/<?=$pedido['CODIGO']?>";
+          //  $("#chat_aqui").load("<?=  base_url()?>pedido/chat/<?=$pedido['CODIGO']?>");
+           // return false;
         })
         $("#avaliacao").rating({
     	starCaptions: {1: "Péssimo", 2: "Ruim", 3: "Regular", 4: "Bom", 5: "Ótimo"},

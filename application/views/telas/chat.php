@@ -7,7 +7,7 @@
         var obj = $('#chat');
         if (obj.length) {
             obj.scrollTop(obj.get(0).scrollHeight);
-           
+
         }
     }
     function inicializaChat() {
@@ -37,8 +37,8 @@
                                     },
                                     type: 'post',
                                     success: function (data) {
-                                        if(data!="    0"){
-                                            console.log('dados'+data)
+                                        if (data != "    0") {
+                                            console.log('dados' + data)
                                             $("#chat").append(data);
                                             setFocus();
                                         }
@@ -52,54 +52,70 @@
 //                                    $("#txtNome").focus();
 //                                }
 //                                else {
-                                    $.ajax({
-                                        url: "<?= base_url() ?>pedido/ajaxEnviaMensagem/<?= $codPedido ?>",//'ajaxEnviaMensagem.php',
-                                        data: {
-                                            msg: $("#txtMensagem").val(),
-                                            //usu: nomeUsuario
-                                        },
-                                        type: 'post',
-                                        success: function (data) {
-                                            $("#txtMensagem").val("");
-                                            atualizaChat();
-                                        }
-                                    });
+                                $.ajax({
+                                    url: "<?= base_url() ?>pedido/ajaxEnviaMensagem/<?= $codPedido ?>", //'ajaxEnviaMensagem.php',
+                                                data: {
+                                                    msg: $("#txtMensagem").val(),
+                                                    //usu: nomeUsuario
+                                                },
+                                                type: 'post',
+                                                success: function (data) {
+                                                    $("#txtMensagem").val("");
+                                                    atualizaChat();
+                                                }
+                                            });
 //                                }
-                            }
+                                        }
 
 </script>
 <style>
     #chat{
-        
+
         height: 300px;
         border: 1px solid blue;
         padding: 6px;
         overflow-y: auto;
         width: 100%
     }
-.de, .para{width: 50.5%; border-bottom: 1px dashed grey;font-size: 150% }
-.de{color: red; float: left}
-.para{color:blue;float: right;text-align: right };
+    .de, .para{width: 50.5%; border-bottom: 1px dashed grey;font-size: 150% }
+    .de{color: red; float: left}
+    .para{color:blue;float: right;text-align: right };
 
-.clearfix{clear: both}
+    .clearfix{clear: both}
 </style>
-<input type="text" name="txtMensagem" id="txtMensagem" value="" class="input-msg" onkeypress="if (event.keyCode == 13)
-            enviaMensagem();" />
-&nbsp;<input name="btEnvia" type="button" value="Enviar" class="input-button" onclick="enviaMensagem()" />
+
 <!--<div id="chat">
     
 </div>-->
-<div id="chat" >    
-    <div class="de"> To precisando </div><br class="clearfix">
-    <div class="de"> beleza </div><br class="clearfix">
-    <div class="para"> sim </div><br class="clearfix">
-    <div class="de"> algo a dizer </div><br class="clearfix">
-    <div class="para"> nao </div><br class="clearfix">
-    <div class="para"> e voce </div><br class="clearfix">
-    <div class="de"> sei la </div><br class="clearfix">
-    <div class="para"> pode mandar este livro pra mim </div><br class="clearfix">
-    <div class="de"> nao </div><br class="clearfix">
-    <div class="de"> correria mano </div><br class="clearfix">
-    <div class="para"> demais, o que fazer nestas horas </div><br class="clearfix">
-    <div class="para"> :) </div><br class="clearfix">
+<div class="container-alternate">
+    <div class="container">
+        {view_lateral}
+        <div class="col-sm-9 col-md-9 col-xs-8" style="background: transparent">
+            <input type="text" name="txtMensagem" id="txtMensagem" value="" class="input-msg" onkeypress="if (event.keyCode == 13)
+            enviaMensagem();" />
+&nbsp;<input name="btEnvia" type="button" value="Enviar" class="input-button" onclick="enviaMensagem()" />
+<input type="date" name="data_Entrega" disabled="">Defina a data para entrega
+            <div id="chat" >    
+                <div class="de"> To precisando </div><br class="clearfix">
+                <div class="de"> beleza </div><br class="clearfix">
+                <div class="para"> sim </div><br class="clearfix">
+                <div class="de"> algo a dizer </div><br class="clearfix">
+                <div class="para"> nao </div><br class="clearfix">
+                <div class="para"> e voce </div><br class="clearfix">
+                <div class="de"> sei la </div><br class="clearfix">
+                <div class="para"> pode mandar este livro pra mim </div><br class="clearfix">
+                <div class="de"> nao </div><br class="clearfix">
+                <div class="de"> correria mano </div><br class="clearfix">
+                <div class="para"> demais, o que fazer nestas horas </div><br class="clearfix">
+                <div class="para"> :) </div><br class="clearfix">
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<div class="col-md-12">
+    <footer>
+        Direitos reservados
+    </footer>
 </div>

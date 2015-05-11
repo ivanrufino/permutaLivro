@@ -44,8 +44,9 @@ class Pedido_Model extends CI_Model {
         
             $this->db->where('PED.STATUS', $status );  
         }
+        $this->db->where('PED.STATUS', $status ); 
          $this->db->where('COD_USUARIO_DE IS NOT NULL',  NULL,FALSE); 
-        $this->db->where('DATA_ENTREGA', NULL); 
+        $this->db->where('DATA_ENTREGA IS NULL', NULL); 
         $sql=$this->db->get(); 
         //colocar um if para verificar se foi entregue 
         if($sql->num_rows > 0){
@@ -134,6 +135,19 @@ class Pedido_Model extends CI_Model {
         //colocar um if para verificar se foi entregue 
         if($query->num_rows > 0){
             return $query->$ret();
+        }else{ 
+            return FALSE;
+        }
+    }
+    public function verificaUsuarioPedido($cod_usuario,$codPedido) {
+        $this->db->select();
+        $this->db->from('pedido');
+        $this->db->where('CODIGO',$codPedido);
+        $this->db->where("(COD_USUARIO_DE = $cod_usuario",NULL);
+        $this->db->or_where("COD_USUARIO_PARA = $cod_usuario)",NULL);
+        $query = $this->db->get();
+        if($query->num_rows > 0){
+            return true;
         }else{ 
             return FALSE;
         }

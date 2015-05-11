@@ -36,6 +36,8 @@
             var href = $(this).attr('href');
             href += '/'+$("input[name=modo_entrega]:checked").val();
             $(this).attr('href',href);
+            //alert(href)
+           // return false;
             
         })
         $(".livrosBuscados .mnblocos").on('click', function () {
@@ -47,6 +49,7 @@
             $(".option", this).slideUp();
         });
         
+ 
 
     })
 
@@ -58,10 +61,10 @@
             <?php 
             $legenda="Usuário que possuem o livro:";
             if(!is_null($codPedido)){
-                $btn_link=array(array('link'=>'pedido/gravarUsuarioPedido/','class'=>'btn-success','titulo'=>"Solicitar Livro"));
+                $btn_link=array(array('link'=>'pedido/gravarUsuarioPedido/','class'=>'btn-success ','titulo'=>"Solicitar Livro"));
                 $codigo=$codPedido;
             }else{
-                $btn_link=array(array('link'=>'pedido/novoPedido/','class'=>'btn-success','titulo'=>"Solicitar Livro"));
+                $btn_link=array(array('link'=>'pedido/novoPedido/','class'=>'btn-success solicitar','titulo'=>"Solicitar Livro"));
                 $codigo=$livro['CODIGO'];
             }
             montarGrid($infoLivros, $codigo, $legenda, $btn_link) /*?>
@@ -106,8 +109,8 @@ function montarGrid($usuario,$codigo,$legenda,$botoes){ //$codigo pode ser codig
     //print_r($usuario);
    // echo "<div class='table-responsive'>";
     echo "<div class='titulo_legenda'><span style='float:left'> $legenda</span><span style='float:right'>"
-            . "<input type='radio' name='modo_entrega' value='1' id='correio' checked><label for='correio'>Correio</label> &nbsp"
-            . "<input type='radio' name='modo_entrega' value='2' id='combinar'><label for='combinar'>A combinar</label>"
+            . "<input type='radio' name='modo_entrega' class='modo_entrega' value='1' id='correio' checked><label for='correio'>Correio</label> &nbsp"
+            . "<input type='radio' name='modo_entrega' class='modo_entrega' value='2' id='combinar'><label for='combinar'>A combinar</label>"
             . "</span> <br style='clear:both'></div>";
     
 echo "<table class='table table-bordered table-striped table-hover table-condensed table-responsive'>";

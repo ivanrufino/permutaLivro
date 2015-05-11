@@ -114,17 +114,21 @@
                                         <td><?= $value['NOME_USUARIO']; ?></td>
                                         
                                         <td>
-                                            <?php if ($value['STATUS']=='1'){?>
+                                            <?php if ($value['STATUS']=='1'){ ?>
                                             <a class="btn btn-success" href="{base_url}pedido/aceitarPedido/<?= $value['CODIGO']?>">Aceitar</a> 
                                             <a class="btn btn-danger" href="{base_url}pedido/recusarPedido/<?= $value['CODIGO']?>">Recusar</a><br><br>
-                                            <a class="btn btn-default" href="{base_url}pedido/detalhes/detalhe_<?= $value['CODIGO']?>">Detalhes</a>
+                                            <!--<a class="btn btn-default" href="{base_url}pedido/detalhes/detalhe_<?= $value['CODIGO']?>">Detalhes</a>-->
                                             <?php }else{
+                                                if($value['MODO_ENTREGA']=='1'){
                                                     if( trim($value['COD_RASTREIO'])==""){ ?>
                                                <!--<a class="btn btn-success" href="{base_url}pedido/enviarCR/<?= $value['CODIGO']?>">Inserir Código de Rastreio</a>-->  
                                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#inserirCodigo" data-whatever="<?= $value['CODIGO']?>">Inserir Código de Rastreio</button>
                                             <?php }else{ ?>
                                                <button type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#rastrearPedido" data-whatever="<?= $value['CODIGO']?>">Rastrear Pedido</button>
-                                            <?php } }?>
+                                            <?php } }
+                                            else{
+                                               echo "<span class='alert'>Usuário escolheu modo de entrega a combinar<br> <a href='{base_url}chat/{$value['CODIGO']}'>entre em contato</a> </span>";
+                                            }}?>
                                         </td>
                                     </tr>       
                    <?php }?>
