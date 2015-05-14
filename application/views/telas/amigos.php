@@ -18,7 +18,7 @@
 ?>
     </table>
 </div>-->
-
+    <?php //print_r($amigos)?>
 <?php foreach ($amigos as $key => $amigo) { ?>
     <div class="col-xs-4 col-md-3  text-center">
          <?php if ($amigo['ID_REDE'] != "") { ?>
@@ -31,7 +31,7 @@
              <img class="img-responsive img-thumbnail img-circle" style="width: 80px" src="<?= base_url() . "assets/imagens/foto/" . $amigo['FOTO']; ?> ">
          <?php }
          ?>
-        <a hre="" class="btn btn-link"><?= $amigo['NOME'];?> <br>Ver Livro</a>
+             <a href="<?= base_url() ;?>bibliotecaVirtual/<?= $amigo['CODIGO'];?>" class="btn btn-link"><?= $amigo['NOME'];?> <br>Ver Livro</a>
 
     </div>       
 <!--<i class="fa-google-plus fa-facebook fa-github fa-instagram btn-facebook btn-microsoft btn-github btn-instagram"></i>-->

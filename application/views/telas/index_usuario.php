@@ -107,7 +107,7 @@
                 }
                 //$legenda="Este(s) usuário(s) fora(m) selecionado por terem o mesmos livros que você e mais";
                 $btn_link=array(
-                    array('link'=>'pedido/selecionarUsuarioPedido/','class'=>'btn-success','titulo'=>"Ver Livros"),
+                    array('link'=>'bibliotecaVirtual','class'=>'btn-success','titulo'=>"Ver Livros"),
                     array('link'=>'usuario/seguir/','class'=>'btn-success','titulo'=>"Seguir Usuário"),
                   
                 );

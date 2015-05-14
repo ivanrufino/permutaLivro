@@ -96,7 +96,45 @@ class EstanteVirtual extends CI_Controller {
             echo "<div class='alert alert-danger'>Houve um erro na gravação dos dados.</div>";
         }
     }
-    
+    public function listarLivro($idUsuario){
+        $this->verificador->verificarLogado();
+        
+        $data ['usuario'] = $this->usuarios->getUsuario($this->usuario);
+        $data['usuario']['porcentagem']= $this->dadoslateral->calculaPontuacao($data['usuario']['TITULO_QUALIFICACAO']);
+        $data += $this->dadoslateral->quantidadesLivros($this->usuario);
+        $data['livro_in'] = 'in';
+        $data['idUsuario'] = $idUsuario;
+       $livros= $this->ev->getLivros($this->usuario);
+       $livro=array();
+       foreach ($livros as $value) {
+           $livro[]=$value['COD_LIVRO'];
+       }
+     // die(print_r($livro));
+       
+        $data['livros_usuario'] = $this->ev->getLivros($idUsuario,null,1);
+      //  die(print_r($data['livros_usuario']));
+        foreach ( $data['livros_usuario'] as $key => $value) {
+            if(in_array($data['livros_usuario'][$key]['COD_LIVRO'],$livro)){
+                $data['livros_usuario'][$key]['tenho']= '1';
+            }else{
+                $data['livros_usuario'][$key]['tenho']= '0';
+            }
+            
+            
+        }
+        
+        $data['titulo_legenda'] = 'Livro do usuário';
+       // die(print_r($data['queroLivros']));
+        $data['mensageFaixa'] = $this->session->flashdata('msgPedido');
+        $tela = array('cabecalho' => 'telas/cabecalho.php',
+            'topo' => 'telas/vazio.php', //mostrar o topo somente quando não for a tela de login
+            'faixa_horizontal' => 'telas/faixa_horizontal.php',
+            'lateral' => 'telas/lateral.php',
+            'conteudo' => 'telas/livros_usuario.php');
+        $this->parser->adc_css($this->css);
+        $this->parser->adc_js($this->js);
+        $this->parser->mostrar('templates/template_corpo.php', $tela, $data);
+    }
   
 
 }

@@ -53,6 +53,7 @@ $route['meus_livros/buscar'] = "livro";
 $route['sair'] = "login/efetuarLogout";
 $route['lista/autores'] = "livro/getAutores";
 $route['lista/editoras'] = "livro/getEditoras";
+$route['bibliotecaVirtual/(:num)']='estantevirtual/listarLivro/$1';
 $route['chat/(:any)'] = "pedido/chat/$1";
 
 
