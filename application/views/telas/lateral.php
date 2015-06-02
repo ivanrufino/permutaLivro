@@ -220,6 +220,7 @@
             <li role="presentation" class="" ><a href="#endereco" class="lnkTab"  data-view="cadastroEndereco" aria-controls="home" role="tab" data-toggle="tab">Endereço</a></li>
             <li role="presentation" class="" ><a href="#qualificacao" class="lnkTab"  data-view="qualificacao" aria-controls="home" role="tab" data-toggle="tab">Qualificação</a></li>
             <li role="presentation" class="<?=$active; ?>" ><a href="#amigos" class="lnkTab" data-view="amigos" aria-controls="home" role="tab" data-toggle="tab">Amigos</a></li>
+              <li role="presentation" class="" ><a href="#preferencias" class="lnkTab"  data-view="preferencias" aria-controls="home" role="tab" data-toggle="tab">Preferências</a></li>
             
           </ul>
       </div>
@@ -233,6 +234,7 @@
             <div role="tabpanel" class="tab-pane " id="amigos">Lista de Amigos</div>
             <div role="tabpanel" class="tab-pane " id="qualificacao">Qualificação</div>
             <div role="tabpanel" class="tab-pane " id="endereco">Endereço</div>
+            <div role="tabpanel" class="tab-pane " id="preferencias">Preferências</div>
             
         </div>
       <div class="modal-footer">

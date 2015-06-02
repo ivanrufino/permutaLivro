@@ -47,6 +47,37 @@ class Usuario_Model extends CI_Model {
             return FALSE;
         }
     }
+    public function getPreferencias($codigo) {
+         $this->db->select('*');
+        $this->db->from('v_preferencias AS p');
+         
+        $this->db->where('cod_usuario', $codigo );  
+        $sql=$this->db->get(); 
+       // echo $this->db->last_query();die();
+        if($sql->num_rows > 0){
+            return $sql->row_array();
+        }else{ 
+            return NULL;
+        }
+    }
+    public function getUsuarioGrafo($campo='*',$codigo=null) {
+        
+         $this->db->select($campo);
+         $this->db->distinct();
+        $this->db->from('v_quantidadeGeneroPorUsuario AS p');
+        if(!is_null($codigo)){ 
+            $this->db->where('cod_usuario', $codigo );
+            
+        }
+        $this->db->order_by('COD_GENERO');
+        $sql=$this->db->get(); 
+      
+        if($sql->num_rows > 0){
+            return $sql->result_array();
+        }else{ 
+            return NULL;
+        }
+    }
     
     /*public function logarAdmin($dados){
         $this->db->select('*');

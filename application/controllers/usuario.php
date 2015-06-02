@@ -630,7 +630,7 @@ class Usuario extends CI_Controller {
 
     
     public function carregaViewTab($view) {
-        
+       
         switch ($view) {
             case 'cadastroEndereco':
                 $dados['endereco'] =  $this->usuarios->getEndereco($this->usuario);
@@ -644,13 +644,16 @@ class Usuario extends CI_Controller {
           case 'dadosPessoais':
                $dados['info'] = $this->usuarios->getUsuario2($this->usuario);
               break;
+            case 'preferencias':
+                $dados['preferencias'] = $this->usuarios->getPreferencias($this->usuario);
+                break;
             default:
-                $dados=NULL;
+               // $dados=NULL;
                 break;
         }
         
         echo $this->load->view("telas/$view",$dados,false);
-        //echo "você esta vendo a view $view";
+       // echo "você esta vendo a view $view";
     }
     public function cadastroEndereco() {
         
@@ -751,7 +754,68 @@ class Usuario extends CI_Controller {
         echo "</pre>";
         echo serialize($historico);
     }
+    public function criarGrafo() {
+        $usuarios= $this->usuarios->getUsuarioGrafo(array('COD_USUARIO','NOME'));
+        $grafos=array();
+        
+        
+//         echo "<pre>";print_r($grafos);echo "</pre>";
+//         die();
+        foreach ($usuarios as $usuario) {
+            $generos = $this->usuarios->getUsuarioGrafo(array('COD_GENERO','QUANT'),$usuario['COD_USUARIO']);
+            foreach ($generos as $genero) {
+                $grafos[$usuario['COD_USUARIO']][$genero['COD_GENERO']]=$genero['QUANT'];
+            }
+           // $grafos[$usuario['COD_USUARIO']][]
+//             echo "<pre>";print_r($grafos);echo "</pre>"; die();
+//            echo "<pre>";
+//            print_r($generos);
+//            echo "</pre>";
+//            die();
+        }
+        ksort($grafos);
+        $grafos2=$grafos;
+        //echo "<pre>";print_r($grafos);echo "</pre>"; die();
+        $grafoDot="graph { <br>";
+        foreach ($grafos as $usuario => $genero) {
+             foreach ($grafos2 as $usuario2 => $genero2) {
+                 if($usuario < $usuario2){
+                    
+                    $produto= $this->calculaProdutoEscalar($genero,$genero2,10);
+                    if($produto){
+                     $grafoDot.="$usuario -- $usuario2 [label=\"$produto\",weight=\"$produto\"];<br>";
+                    }
+                 }
+             }
 
+        }
+        $grafoDot.=" } ";
+        echo $grafoDot;
+       
+      
+        
+    }
+    public function calculaProdutoEscalar($genero,$genero2,$limit=30) {
+        $g=  array_intersect_key($genero, $genero2);
+        $res=0;
+        foreach ($g as $key => $vet) {
+             $res += $genero[$key]*$genero2[$key];
+        }
+        if($res > $limit){
+            return false;
+        }
+        return $res;
+        
+    }
+public function key_compare_func($key1, $key2)
+{
+    if ($key1 == $key2)
+        return 0;
+    else if ($key1 > $key2)
+        return 1;
+    else
+        return -1;
+}
     /*
      * public function login() {
         $mensagemTemp=$this->session->flashdata('mensagem');
