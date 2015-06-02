@@ -781,7 +781,7 @@ class Usuario extends CI_Controller {
              foreach ($grafos2 as $usuario2 => $genero2) {
                  if($usuario < $usuario2){
                     
-                    $produto= $this->calculaProdutoEscalar($genero,$genero2,10);
+                    $produto= $this->calculaProdutoEscalar($genero,$genero2,4,4);
                     if($produto){
                      $grafoDot.="$usuario -- $usuario2 [label=\"$produto\",weight=\"$produto\"];<br>";
                     }
@@ -795,13 +795,13 @@ class Usuario extends CI_Controller {
       
         
     }
-    public function calculaProdutoEscalar($genero,$genero2,$limit=30) {
+    public function calculaProdutoEscalar($genero,$genero2,$limit=30, $min=0) {
         $g=  array_intersect_key($genero, $genero2);
         $res=0;
         foreach ($g as $key => $vet) {
              $res += $genero[$key]*$genero2[$key];
         }
-        if($res > $limit){
+        if($res > $limit || $res < $min){
             return false;
         }
         return $res;
