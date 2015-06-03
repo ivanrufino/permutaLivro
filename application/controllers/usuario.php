@@ -755,43 +755,45 @@ class Usuario extends CI_Controller {
         echo serialize($historico);
     }
     public function criarGrafo() {
+        // executar sempre que houver uma ação na estantevirutal(pedido enviado, pedido recebido, inserção de livros)
+        
         $usuarios= $this->usuarios->getUsuarioGrafo(array('COD_USUARIO','NOME'));
         $grafos=array();
-        
-        
-//         echo "<pre>";print_r($grafos);echo "</pre>";
-//         die();
+
         foreach ($usuarios as $usuario) {
             $generos = $this->usuarios->getUsuarioGrafo(array('COD_GENERO','QUANT'),$usuario['COD_USUARIO']);
             foreach ($generos as $genero) {
                 $grafos[$usuario['COD_USUARIO']][$genero['COD_GENERO']]=$genero['QUANT'];
             }
-           // $grafos[$usuario['COD_USUARIO']][]
-//             echo "<pre>";print_r($grafos);echo "</pre>"; die();
-//            echo "<pre>";
-//            print_r($generos);
-//            echo "</pre>";
-//            die();
         }
         ksort($grafos);
         $grafos2=$grafos;
         //echo "<pre>";print_r($grafos);echo "</pre>"; die();
         $grafoDot="graph { <br>";
+        $dados=array();
         foreach ($grafos as $usuario => $genero) {
              foreach ($grafos2 as $usuario2 => $genero2) {
                  if($usuario < $usuario2){
                     
                     $produto= $this->calculaProdutoEscalar($genero,$genero2,4,4);
+                    $dados[]=array(
+                        'COD_USUARIO1'=>$usuario,
+                        'COD_USUARIO2'=>$usuario2,
+                        'PRODUTO'=>$produto
+                    );
                     if($produto){
                      $grafoDot.="$usuario -- $usuario2 [label=\"$produto\",weight=\"$produto\"];<br>";
                     }
                  }
              }
-
         }
-        $grafoDot.=" } ";
-        echo $grafoDot;
-       
+        $grafoDot.=" } "; //$N=array('COD_USUARIO1'=>10,'COD_USUARIO2'=>11,'PRODUTO'=>26);//$N[]=array('COD_USUARIO1'=>10,'COD_USUARIO2'=>12,'PRODUTO'=>450);
+       // $this->db->replace('grafo',$N);
+       if($this->db->insert_batch('grafo', $dados)){
+           echo "Gravado com sucesso";
+       } else{
+           echo "Não Gravado";
+       }
       
         
     }
@@ -801,14 +803,13 @@ class Usuario extends CI_Controller {
         foreach ($g as $key => $vet) {
              $res += $genero[$key]*$genero2[$key];
         }
-        if($res > $limit || $res < $min){
-            return false;
-        }
+//        if($res > $limit || $res < $min){
+//            return false;
+//        }
         return $res;
         
     }
-public function key_compare_func($key1, $key2)
-{
+    public function key_compare_func($key1, $key2){
     if ($key1 == $key2)
         return 0;
     else if ($key1 > $key2)
@@ -816,6 +817,52 @@ public function key_compare_func($key1, $key2)
     else
         return -1;
 }
+    public function gerarGrafo() {
+         $id=25;$limit=5; $limitProd=25;
+        $user=  $this->getGrafo($id,$limit, $limitProd,1);
+       
+            $grafo = "graph {<br>";
+            $grafo.=$user;
+//            foreach ($user as $nodos) {
+//                $grafo.="{$nodos['COD_USUARIO1']} -- {$nodos['COD_USUARIO2']} [label=\"{$nodos['PRODUTO']}\",weight=\"{$nodos['PRODUTO']}\"];<br>";
+//                
+//            }
+           
+            echo $grafo."}";
+            echo "</pre>";
+    }
+    public function getGrafo( $id,$limit, $limitProd,$fim=0) {
+       // if($fim ==1)return NULL;
+        $this->db->select();
+         $this->db->distinct();
+        $this->db->from('v_grafo AS p');
+        
+        $this->db->where('COD_USUARIO1', $id );
+        $this->db->or_where('COD_USUARIO2', $id );   
+        if($limitProd>0){
+            $this->db->where('PRODUTO > ', $limitProd );
+        }
+        $this->db->limit($limit);
+       // $this->db->order_by('COD_GENERO');
+        $sql=$this->db->get(); 
+      //echo $this->db->last_query();
+        
+        if($sql->num_rows > 0){
+            $grafo="";
+            foreach ($sql->result_array() as $nodos) {
+                $grafo.="{$nodos['COD_USUARIO1']} -- {$nodos['COD_USUARIO2']} [label=\"{$nodos['PRODUTO']}\",weight=\"{$nodos['PRODUTO']}\"];<br>";
+                
+                if($fim < 2){
+                    ++$fim;
+                    //echo $fim;
+                    $grafo.= $this->getGrafo($nodos['COD_USUARIO1'],5,25,$fim);
+                }
+            }
+           return $grafo;
+        }else{ 
+            return NULL;
+        }
+    }
     /*
      * public function login() {
         $mensagemTemp=$this->session->flashdata('mensagem');
