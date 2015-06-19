@@ -229,7 +229,7 @@
             if(!$usuario['ID_REDE']) { 
                  $active='';
                          ?>
-                <div role="tabpanel" class="tab-pane active" id="dadosPessoais">Dados Pessoais</div>
+                <div role="tabpanel" class="tab-pane active " id="dadosPessoais">Dados Pessoais</div>
             <?php }?>
             <div role="tabpanel" class="tab-pane " id="amigos">Lista de Amigos</div>
             <div role="tabpanel" class="tab-pane " id="qualificacao">Qualificação</div>

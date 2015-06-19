@@ -69,6 +69,9 @@ class Usuario_Model extends CI_Model {
             $this->db->where('cod_usuario', $codigo );
             
         }
+       
+        //$this->db->where_in('COD_GENERO', array('13','17','10'));
+        
         $this->db->order_by('COD_GENERO');
         $sql=$this->db->get(); 
       
@@ -261,3 +264,14 @@ class Usuario_Model extends CI_Model {
    
 }
 
+/**
+ <titulo>Distancia Euclidiana</titulo>
+ As medidas de distância de uma maneira geral podem ser definidas como medidas de similaridade, e dissimilaridade; na qual a primeira é para definir o grau de semelhança entre as instâncias e realizam o agrupamento de acordo com a sua coesão, e a segunda de acordo com as diferenças dos atributos das instâncias.
+A quantidade livros por generos que cada usuario possui em sua biblioteca virtual 
+pode ser convertido em um ponto no plano cartesiano, para cada genero que o usuário possui
+ um ponto é gerado ( x,y,z,...).
+ A fim de agrupar usuarios com mesma similaridade, seguindo a metrica de generos em comum, foi aplicada a formula de distancia euclidiana
+ 
+ 
+ *
+ *  */

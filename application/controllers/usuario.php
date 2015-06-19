@@ -754,6 +754,34 @@ class Usuario extends CI_Controller {
         echo "</pre>";
         echo serialize($historico);
     }
+    public function getGrupo($codUsuario,$quant = 10) {
+        $inicio=true;
+        $ids[]=$codUsuario;
+       for($x=0;$x<$quant;$x++){
+             $this->db->select();
+            $this->db->from('grafo AS p');
+            $this->db->where_in('COD_USUARIO1', $ids);  
+            if($inicio){
+                $this->db->or_where_in('COD_USUARIO2', $ids);  
+            }else{
+                $this->db->where_not_in('COD_USUARIO2', $ids);  
+            }
+            $this->db->limit(1);
+            $this->db->order_by('DISTANCIA_EUCLIDIANA ASC , COD_USUARIO2 asc');
+            $sql=$this->db->get(); 
+           // echo $this->db->last_query(); die();
+            if($sql->num_rows > 0){
+                $resultado=$sql->row_array();
+                $ids[]=$resultado['COD_USUARIO2'];
+                print_r($resultado);
+                $inicio=false;
+                echo "<br><br>";
+            }else{ 
+                echo  NULL;
+            }
+            
+        }
+    }
     public function criarGrafo() {
         // executar sempre que houver uma ação na estantevirutal(pedido enviado, pedido recebido, inserção de livros)
         
@@ -774,21 +802,27 @@ class Usuario extends CI_Controller {
         foreach ($grafos as $usuario => $genero) {
              foreach ($grafos2 as $usuario2 => $genero2) {
                  if($usuario < $usuario2){
-                    
+                    echo $usuario."-".$usuario2."<br>";
                     $produto= $this->calculaProdutoEscalar($genero,$genero2,4,4);
+                    $DI= $this->calculaDistanciaEuclidiana($genero,$genero2,4,4);
+                    if($produto > 0){
                     $dados[]=array(
                         'COD_USUARIO1'=>$usuario,
                         'COD_USUARIO2'=>$usuario2,
-                        'PRODUTO'=>$produto
+                        'PRODUTO'=>$produto,
+                        'DISTANCIA_EUCLIDIANA'=>$DI
+                            
                     );
-                    if($produto){
+                    //if($produto){
                      $grafoDot.="$usuario -- $usuario2 [label=\"$produto\",weight=\"$produto\"];<br>";
                     }
                  }
              }
+            // die();
         }
         $grafoDot.=" } "; //$N=array('COD_USUARIO1'=>10,'COD_USUARIO2'=>11,'PRODUTO'=>26);//$N[]=array('COD_USUARIO1'=>10,'COD_USUARIO2'=>12,'PRODUTO'=>450);
        // $this->db->replace('grafo',$N);
+        
        if($this->db->insert_batch('grafo', $dados)){
            echo "Gravado com sucesso";
        } else{
@@ -800,13 +834,29 @@ class Usuario extends CI_Controller {
     public function calculaProdutoEscalar($genero,$genero2,$limit=30, $min=0) {
         $g=  array_intersect_key($genero, $genero2);
         $res=0;
+       
         foreach ($g as $key => $vet) {
              $res += $genero[$key]*$genero2[$key];
+             echo "Prod ($genero[$key] *  $genero2[$key] = ". $genero[$key] *  $genero2[$key].")<br>";
+            
         }
-//        if($res > $limit || $res < $min){
-//            return false;
-//        }
+        echo $res."<br><br>";
         return $res;
+        
+    }
+        public function calculaDistanciaEuclidiana($genero,$genero2,$limit=30, $min=0) {
+        $g=  array_intersect_key($genero, $genero2);
+        $res=0;
+        $n=0;
+         /*√((x1 – x2)² + (y1 – y2)²)*/
+        foreach ($g as $key => $vet) {
+            $n++;
+              $res += ($genero[$key]-$genero2[$key])*($genero[$key]-$genero2[$key]);
+              echo "Deuc (($genero[$key] -  $genero2[$key])² = ". ($genero[$key]-$genero2[$key])*($genero[$key]-$genero2[$key]) .")<br>";
+        }
+        echo sqrt($res) ."<br><br>";
+        
+        return sqrt($res);
         
     }
     public function key_compare_func($key1, $key2){
@@ -850,12 +900,12 @@ class Usuario extends CI_Controller {
         if($sql->num_rows > 0){
             $grafo="";
             foreach ($sql->result_array() as $nodos) {
-                $grafo.="{$nodos['COD_USUARIO1']} -- {$nodos['COD_USUARIO2']} [label=\"{$nodos['PRODUTO']}\",weight=\"{$nodos['PRODUTO']}\"];<br>";
+                $grafo.="{$nodos['USUARIO1']} -- {$nodos['USUARIO2']} [label=\"{$nodos['PRODUTO']}\",weight=\"{$nodos['PRODUTO']}\"];<br>";
                 
-                if($fim < 2){
+                if($fim < 6){
                     ++$fim;
                     //echo $fim;
-                    $grafo.= $this->getGrafo($nodos['COD_USUARIO1'],5,25,$fim);
+                    $grafo.= $this->getGrafo($nodos['COD_USUARIO1'],3,25,$fim);
                 }
             }
            return $grafo;
@@ -878,7 +928,7 @@ class Usuario extends CI_Controller {
         $data['labelLogin']="Acesso Usuário";
         $tela = array(
             'cabecalho' => 'telas/cabecalho.php',
-            'topo' => 'telas/vazio.php', //mostrar o topo somente quando n�o for a tela de login
+            'topo' => 'telas/vazio.php', //mostrar o topo somente quando não for a tela de login
             'faixa_horizontal' => 'telas/faixa_horizontal.php',
             'conteudo' => 'telas/login_admin.php',
         );
